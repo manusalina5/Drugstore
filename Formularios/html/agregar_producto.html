@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Producto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
-    <div>
-        <form action="/enviar.php" method="post">
-            <h2>Agregar Producto</h2>
+<body> 
+    <div class="formulario">
+        <form action="" method="post">
+            <h1>AGREGAR PRODUCTO</h1>
             <div class="campos">
             <label for="idproducto">ID Producto <br>
-                <input type="text" name="idproducto" id="id_producto"><br>
+                <input type="text" name="idproducto" id="id_producto" class="input-chico"><br>
             </label><br>
             
 
             <label for="nombre">Nombre <br>
-                <input type="text" name="nombre" id="id_nombre"><br>
+                <input type="text" name="nombre" id="nombre"><br>
             </label><br>
             
 
             <label for="marca">Marca <br>
-                <select name="marca" id="id_marca">
+                <select name="marca" id="id_marca" class="input-grande">
                     <option value="Coca-Cola">Coca-Cola</option>
                     <option value="Pepsi">Pepsi</option>
                     <option value="Johnson&Johnson">Johnson&Johnson</option>
@@ -32,7 +32,7 @@
             
 
             <label for="proveedor">Proveedor <br>
-                <select name="proveedor" id="id_proveedor">
+                <select name="proveedor" id="id_proveedor" class="input-grande">
                     <option value="Coca-Cola">Coca-Cola</option>
                     <option value="Pepsi">Pepsi</option>
                     <option value="Johnson&Johnson">Johnson&Johnson</option>
@@ -41,21 +41,21 @@
             
 
             <label for="precio_costo">Precio de Costo <br>
-                <input type="text" name="precio_costo" id="id_precio_costo"><br>
+                <input type="text" name="precio_costo" id="id_precio_costo" class="input-chico"><br>
             </label><br>
             
 
             <label for="precio_venta">Precio de Venta <br>
-                <input type="text" name="precio_venta" id="id_precio_venta"><br>
+                <input type="text" name="precio_venta" id="id_precio_venta" class="input-chico"><br>
             </label><br>
             
 
             <label for="cantidad">Cantidad <br>
-                <input type="text" name="cantidad" id="id_cantidad"><br>
+                <input type="text" name="cantidad" id="id_cantidad" class="input-chico"><br>
             </label><br>
             
             </div>
-            <input type="submit" value="Agregar">
+            <button type="submit" class="agregar"><strong>AGREGAR</strong></button>
         </form>
     </div>
 </body>

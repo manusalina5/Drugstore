@@ -1,27 +1,58 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    width: 100%;  /*100% de altura*/
+    height: 100vh; /*100% del ancho de la venta*/
+    margin: 0;
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+}
+
 form {
     background-color: #1D252D;
     color: #ffffff;
-    margin: auto;
+    margin: 0 auto;
     border-radius: 10px;
     padding: 15px;
-    width: 647px;
-    height: 742px;
-    font-size: 1.5rem;
+    width: 60vw;
+    max-width: 500px;
+    min-width: 300px;
 }
 
-h2 {
+h1 {
     text-align: center;
 }
 
-body{
-    background-color: #D9D9D9;
-    
-}
+
 
 .campos{
     margin: 10px 30px;
 }
 
-.campos input, select {
-    width: 80%;
+
+form .agregar{
+    font-size: 14px;
+    display: block; /* La clase "agregar" se mostrará como un bloque. Los elementos de bloque ocupan todo el ancho disponible y generalmente comienzan en una nueva línea.*/
+    margin: 0 auto; /*El valor "auto" para los márgenes izquierdo y derecho automáticamente centra el elemento horizontalmente dentro de su contenedor.*/
+    background-color: #1D9428;
+    color: #d1d1d1;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: #1D9428;
+}
+
+.input-chico{
+    width: 20%;
+    min-width: 100px;
+}
+
+div #nombre{
+    width: 90%;
+}
+
+div .input-grande{
+    width: 92%;
 }
