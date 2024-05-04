@@ -1,18 +1,12 @@
-body{
+body{  display: flex;
+    justify-content: center;
     background-color: #D9D9D9;
+    align-items: center;
     width: 100%;  /*100% de altura*/
     height: 100vh; /*100% del ancho de la venta*/
     margin: 0;
     font-family: 'Barlow', sans-serif;
     font-size: 16px;
-}
-
-.formulario{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: center;
-    margin: 100px auto;
 }
 
 form {

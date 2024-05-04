@@ -1,0 +1,49 @@
+[33mcommit 85c2b5d81f1c2b8edd70eccb71be17ec9dbffb34[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Manusalina5 <salinasjuanmanuel98@gmail.com>
+Date:   Sat May 4 19:15:23 2024 -0300
+
+    listado de productos + agregar nav
+    
+    - Se agrega vista de listado de productos
+    - Se agrega el nav en las otras vistas
+    - Se modifica algunos estilos de todas las vistas
+
+[33mcommit 43538f0c533d20fd6e5a80432282612bb6dd21dd[m
+Author: Manusalina5 <salinasjuanmanuel98@gmail.com>
+Date:   Sat May 4 01:47:25 2024 -0300
+
+    mejora del formulario
+    
+    - Se centra el formulario
+    - Se agrega el color del buttom
+    - Se cambia la fuente
+    - Tamaños de input
+
+[33mcommit 3780c6f2c617ec8bd03e808158991a92bdf2309f[m
+Merge: 9694dcd 2d89360
+Author: nicolasmastori <nicolasmastori@gmail.com>
+Date:   Fri May 3 21:54:41 2024 -0300
+
+    Merge branch 'master' of https://github.com/manusalina5/Drugstore
+
+[33mcommit 9694dcded833b65e6777c7fc023c6d24b356fa31[m
+Author: nicolasmastori <nicolasmastori@gmail.com>
+Date:   Fri May 3 21:53:51 2024 -0300
+
+    formulario agregar producto
+    
+    holis
+
+[33mcommit 2d89360e05b18480852b6571c730306e949b6e87[m
+Author: Manusalina5 <salinasjuanmanuel98@gmail.com>
+Date:   Fri May 3 21:52:44 2024 -0300
+
+    Avance
+    
+    Segundo avance html, css y nav
+
+[33mcommit a29ac3b58ab351e92ee44133732e2265590b55de[m
+Author: Manusalina5 <salinasjuanmanuel98@gmail.com>
+Date:   Fri May 3 19:59:33 2024 -0300
+
+    Mi primer commit
