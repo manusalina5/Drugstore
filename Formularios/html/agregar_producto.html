@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div>
+        <form action="/enviar.php" method="post">
+            <h2>Agregar Producto</h2>
+            <div class="campos">
+            <label for="idproducto">ID Producto <br>
+                <input type="text" name="idproducto" id="id_producto"><br>
+            </label><br>
+            
+
+            <label for="nombre">Nombre <br>
+                <input type="text" name="nombre" id="id_nombre"><br>
+            </label><br>
+            
+
+            <label for="marca">Marca <br>
+                <select name="marca" id="id_marca">
+                    <option value="Coca-Cola">Coca-Cola</option>
+                    <option value="Pepsi">Pepsi</option>
+                    <option value="Johnson&Johnson">Johnson&Johnson</option>
+                </select><br>
+            </label><br>
+            
+
+            <label for="proveedor">Proveedor <br>
+                <select name="proveedor" id="id_proveedor">
+                    <option value="Coca-Cola">Coca-Cola</option>
+                    <option value="Pepsi">Pepsi</option>
+                    <option value="Johnson&Johnson">Johnson&Johnson</option>
+                </select><br>
+            </label><br>
+            
+
+            <label for="precio_costo">Precio de Costo <br>
+                <input type="text" name="precio_costo" id="id_precio_costo"><br>
+            </label><br>
+            
+
+            <label for="precio_venta">Precio de Venta <br>
+                <input type="text" name="precio_venta" id="id_precio_venta"><br>
+            </label><br>
+            
+
+            <label for="cantidad">Cantidad <br>
+                <input type="text" name="cantidad" id="id_cantidad"><br>
+            </label><br>
+            
+            </div>
+            <input type="submit" value="Agregar">
+        </form>
+    </div>
+</body>
+</html>
