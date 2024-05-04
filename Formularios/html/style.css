@@ -1,13 +1,18 @@
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #D9D9D9;
     width: 100%;  /*100% de altura*/
     height: 100vh; /*100% del ancho de la venta*/
     margin: 0;
     font-family: 'Barlow', sans-serif;
     font-size: 16px;
+}
+
+.formulario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+    margin: 100px auto;
 }
 
 form {
@@ -47,12 +52,28 @@ form .agregar{
 .input-chico{
     width: 20%;
     min-width: 100px;
+    border-radius: 7px;
+    border: none;
+    padding: 2px;
+    margin: 1px 0 0 0;
 }
 
 div #nombre{
     width: 90%;
+    border-radius: 7px;
+    border: none;
+    padding: 3px;
+    margin: 1px 0 0 0;
 }
 
 div .input-grande{
     width: 92%;
+    border-radius: 7px;
+    border: none;
+    padding: 3px;
+    margin: 2px 0 0 0;
+}
+
+.nav{
+    display: block;
 }

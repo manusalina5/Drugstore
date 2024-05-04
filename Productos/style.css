@@ -1,0 +1,74 @@
+body {
+    height: 100%;
+    width: 100vw;
+    margin: 0;
+    background-color: #d1d1d1;
+    font-family: "Barlow", sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.agregar-producto {
+    text-decoration: none;
+    color: black;
+    background-color: #eeaa29;
+    padding: 7px 10px;
+    border-radius: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 50%);
+    /*Agregar sombras */
+    display: block;
+    margin: 0 auto;
+    width: 8vw;
+    min-width: 150px;
+    min-height: 25px;
+    text-align: center;
+}
+
+.agregar-producto:hover{
+    background-color: #1D9428;
+    color: white;
+}
+
+table {
+    margin: 30px auto;
+    padding: 15px;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 5px 15px;
+    text-align: center;
+
+}
+
+/* Estilos para la tabla */
+table {
+    width: 60vw;
+    border-collapse: collapse;
+}
+
+/* Estilos para las filas impares */
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+    /* Color de fondo para filas impares */
+}
+
+/* Estilos para las filas pares */
+tbody tr:nth-child(even) {
+    background-color: #D1D1D1;
+    /* Color de fondo para filas pares */
+}
+
+/* Estilos para los encabezados de columna */
+.encabezado th {
+    background-color: #d1d1d1;
+    /* Color de fondo para encabezados */
+}
+
+tbody tr:hover {
+    background-color: lightskyblue;
+}
+
