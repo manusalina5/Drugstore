@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #d1d1d1;
+    margin: 0;
+    font-size: 16px;
+    border: none;
+}
+
+.nav-lateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #1d252d;
+    font-family: "Barlow", sans-serif;
+    height: 100vh;
+    width: 20rem;
+    padding: 3rem 0 3rem 0;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+}
+
+.nav-lateral ul {
+    padding: 0;
+    margin: 0;
+}
+
+.nav-lateral ul,
+li, i {
+    list-style: none;
+    padding: 10px 0px 10px 20px;
+}
+
+.nav-lateral i, a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-lateral i{
+    margin-right: 25px;
+}
+
