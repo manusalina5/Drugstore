@@ -1,25 +1,49 @@
 <?php
 
 class Conexion{
-    private $host = "localhost";
-    private $dbname = "drugstore";
-    private $username = "root";
-    private $password = "";
-    public $conn;
+    private $host;
+    private $dbname;
+    private $username;
+    private $pass;
+    private $conn;
 
-    public function getConexion(){
-        $this->conn = null;
-        try {
-            $this->conn = new PDO("mysql:host=".$this->host . ";dbname=". $this->dbname,$this->username,$this->password);
-            $this->conn->exec("set names utf8");
-        } catch(PDOException $exception){
-            echo "Conexion error: " . $exception->getMessage();
-        }
-        return $this->conn;
+    public function __construct(){
+        $this->host = "localhost";
+        $this->dbname = "usuariosprueba";
+        $this->username = "root";
+        $this->pass = "admin";
     }
 
+    public function conectar(){
+        $this->conn = new mysqli($this->host, $this->username,$this->pass, $this->dbname);
+    }
+
+    public function desconectar() {
+        $this->conn->close();
+}
+
+    public function consultar($query){
+        $this->conectar();
+        $resultado = $this->conn->query($query);
+        $this->desconectar();
+        return $resultado;
+    }
+
+    public function insertar($query){
+        $this->conectar();
+        $this->conn->query($query);
+        $id = $this->conn->insert_id;
+    }
+
+    public function actualizar($query){
+        $this->conectar();
+        $resultado = $this->conn->query($query);
+        $this->desconectar();
+        return $resultado;
 
 
 }
 
-?>
+
+}
+
