@@ -1,6 +1,7 @@
 <?php
 
-require_once('config/conexion.php');
+include_once 'config/conexion.php';
+
 
 class Usuario
 {
@@ -8,6 +9,7 @@ class Usuario
     private $userName;
     private $email;
     private $pass;
+    private $hashedpass;
 
     public function __construct($id = '', $userName = '', $email = '', $pass = '')
     {
@@ -45,6 +47,30 @@ class Usuario
         return $conexion->consultar($query);
     }
 
+    public function obtenerHash(){
+        $conexion = new Conexion();
+        $username = $this->userName;
+        $query = "SELECT pass FROM usuarios WHERE username = '$username'";
+        $resultado = $conexion->consultar($query);
+        $fila = $resultado->fetch_assoc();
+        $hash = $fila['pass'];
+        return $hash;
+    }
+
+    // Funcion para listar los usuarios 
+
+    public function obtenerUsuarios(){
+        $conexion = new Conexion();
+        $query = "SELECT id, nombre, email FROM usuarios";
+        $resultado = $conexion->consultar($query);
+        $usuarios = [];
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()){
+                $usuarios[] = $row;
+            }
+        }
+        return $usuarios;
+    }
 
     public function getId()
     {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -30,16 +30,24 @@
                         <a class="nav-link active" aria-current="page" href="?page=login">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=listado_usuarios">Registrar Usuarios</a>
+                        <a class="nav-link" href="?page=registro">Registrar Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=salida">Listar Usuarios</a>
+                        <a class="nav-link" href="?page=listado_usuarios">Listar Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=salida">Cerra Sesion</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
+    <?php
+    if (isset($_GET['mensaje'])) {
+        $mensaje = $_GET['mensaje'];
+        echo '<div class="alert alert-danger text-center" role="alert">' . $_GET['mensaje'] . '</div>';
+    }
+    ?>
     <div class="container">
         <?php
         if (isset($_GET['page'])) {
@@ -47,6 +55,7 @@
                 $_GET['page'] == 'login'
                 || $_GET['page'] == 'listado_usuarios'
                 || $_GET['page'] == 'salida'
+                || $_GET['page'] == 'registro'
             ) {
                 include('View/Paginas/' . $_GET['page'] . '.php');
             }else{

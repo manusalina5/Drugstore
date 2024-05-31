@@ -1,4 +1,4 @@
-<h1 class="text-center">Tabla de Ejemplo</h1>
+<h1 class="text-center">Lista de usuarios</h1>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

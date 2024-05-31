@@ -11,7 +11,7 @@ class Conexion{
         $this->host = "localhost";
         $this->dbname = "usuariosprueba";
         $this->username = "root";
-        $this->pass = "admin";
+        $this->pass = "Todounpalo98";
     }
 
     public function conectar(){
