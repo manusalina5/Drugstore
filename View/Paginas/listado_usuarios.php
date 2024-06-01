@@ -2,29 +2,28 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        <?php
+            include_once('Model/usuarios.php');
+            $usuarioObj = new Usuario();
+            $usuarios = $usuarioObj->obtenerUsuarios();
+            if(!empty($usuarios)){
+                foreach($usuarios as $usuario){
+                    echo "<tr>";
+                    echo "<td scope='row'>{$usuario['id']}</td>";
+                    echo "<td scope='row'>{$usuario['username']}</td>";
+                    echo "<td scope='row'>{$usuario['email']}</td>";
+                    echo "</tr>";
+                }
+            }else{
+                echo "<tr><td colspan='3' class='text-center'>No hay usuarios registrados</td></tr>";
+            }
+
+        ?>
     </tbody>
 </table>
