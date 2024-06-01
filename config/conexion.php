@@ -9,7 +9,7 @@ class Conexion{
 
     public function __construct(){
         $this->host = "localhost";
-        $this->dbname = "usuariosprueba";
+        $this->dbname = "mydb";
         $this->username = "root";
         $this->pass = "Todounpalo98";
     }
