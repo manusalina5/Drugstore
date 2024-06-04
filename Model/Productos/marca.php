@@ -39,7 +39,7 @@ class Marca
     public function eliminar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE marca SET estado = 0 WHERE id = '$this->id'";
+        $query = "UPDATE marca SET estado = 0 WHERE idMarca = '$this->id'";
         return $conexion->actualizar($query);
     }
 
@@ -64,12 +64,6 @@ class Marca
         return $resultado->fetch_assoc();
     }
 
-    public function eliminarMarca() {
-        $conexion = new Conexion();
-        $query = "UPDATE marca SET estado = 0 WHERE idmarca = '$this->id'";
-        $resultado = $conexion->actualizar($query);
-        return $resultado->fetch_assoc();
-    }
 
     public function getId()
     {
