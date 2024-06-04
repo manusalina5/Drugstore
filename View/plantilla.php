@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    <link rel="stylesheet" href="Assets/css/style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -27,16 +29,47 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="?page=login">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=registro">Registrar Usuarios</a>
+                        <a class="nav-link" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=listado_usuarios">Listar Usuarios</a>
+                        <a class="nav-link" href="?page=listado_usuarios&modulo=usuarios">Listar Usuarios</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Marcas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?page=alta_marca&modulo=productos">Agregar</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_marca&modulo=productos">Listo de Marcas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Rubros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?page=alta_rubro&modulo=productos">Agregar</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Listado de rubros</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="?page=salida">Cerra Sesion</a>
+                        <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
                     </li>
                 </ul>
             </div>
@@ -50,20 +83,24 @@
     ?>
     <div class="container">
         <?php
-        if (isset($_GET['page'])) {
-            if (
-                $_GET['page'] == 'login'
-                || $_GET['page'] == 'listado_usuarios'
-                || $_GET['page'] == 'salida'
-                || $_GET['page'] == 'registro'
-            ) {
-                include('View/Paginas/' . $_GET['page'] . '.php');
-            }else{
-                include('View/Paginas/404.php');
-            }
-        }else{
-            include('View/Paginas/login.php');
+        if (!empty($_GET['modulo']) && $_GET['page']) {
+            // ucfirst convierte la primer letra del string en Mayuscula
+            $page = $_GET['page'];
+            $modulo = ucfirst($_GET['modulo']);
+        } else {
+            $page = "";
+            $modulo = "";
         }
+
+        $pagesValidas = ['login', 'listado_usuarios', 'salida', 'registro', 'alta_marca', 'alta_rubro', 'editar_marca', 'editarRubro', 'listado_marca', 'listado_rubro'];
+        $modulosValidos = ['Usuarios', 'Productos'];
+
+        if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos)) {
+            include('View/Paginas/' . $modulo . '/' . $page . '.php');
+        } else {
+            include('View/Paginas/404.php');
+        }
+
         ?>
     </div>
 </body>

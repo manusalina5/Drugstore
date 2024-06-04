@@ -61,7 +61,7 @@ class Usuario
 
     public function obtenerUsuarios(){
         $conexion = new Conexion();
-        $query = "SELECT id, username, email FROM usuarios";
+        $query = "SELECT idusuario, username, password, fechaalta FROM usuarios";
         $resultado = $conexion->consultar($query);
         $usuarios = [];
         if($resultado->num_rows > 0){

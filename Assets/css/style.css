@@ -1,0 +1,22 @@
+/* En tu hoja de estilos */
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+
+.edit-icon,.fi-rr-edit{
+    color: black;
+    background-color: #EEAA29;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,50%);
+}
+
+/* .fi-rr-trash{
+    color: white;
+    background-color: #EB4046;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,50%);
+} */
