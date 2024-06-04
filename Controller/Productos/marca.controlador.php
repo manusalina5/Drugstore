@@ -9,6 +9,8 @@ if (isset($_POST['action'])){
         $marcaControlador->registrarMarca();
     }else if($_POST['action'] == 'modificar'){
         $marcaControlador->modificarMarca();
+    }else if($_POST['action'] == 'eliminar'){
+        $marcaControlador->eliminarMarca();
     }
 }
 
@@ -40,6 +42,10 @@ class MarcaControlador
     }
 
     public function eliminarMarca() {
-        
+        if (!empty($_POST['id'])){
+            $marca = new Marca($_POST['id'], null);
+            $marca->eliminar();
+            header('Location: ../../index.php?page=listado_marca&modulo=productos');
+        }
     }
 }
