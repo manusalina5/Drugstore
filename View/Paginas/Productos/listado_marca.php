@@ -37,7 +37,7 @@
             echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='3' class='text-center'>No hay marcas registradas</td></tr>";
+            echo "<div colspan='3' class='text-center'>No hay marcas registradas</div>";
         }
 
         ?>
