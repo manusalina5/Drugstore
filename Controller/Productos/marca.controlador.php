@@ -46,6 +46,8 @@ class MarcaControlador
             $marca = new Marca($_POST['id'], null);
             $marca->eliminar();
             header('Location: ../../index.php?page=listado_marca&modulo=productos');
+        }else{
+            echo "<div>Error: formulario con campos vacios</>";
         }
     }
 }
