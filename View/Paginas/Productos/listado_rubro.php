@@ -28,7 +28,7 @@
                     </button>
                 </form>
                 
-                <form action='../../../Controller/Productos/rubro.controlador.php' method='POST' style='display:inline-block;'>
+                <form action='Controller/Productos/rubro.controlador.php' method='POST' style='display:inline-block;'>
                             <input type='hidden' name='action' value='eliminar'>
                             <input type='hidden' name='id' value='{$rubro['idRubros']}'>
                             <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(\"¿Estás seguro de que deseas eliminar esta marca?\");'>

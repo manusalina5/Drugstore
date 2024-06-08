@@ -9,54 +9,60 @@ if (file_exists($rutaAbsoluta)) {
     echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsoluta;
 }
 
-class Rubro{
+class Rubro
+{
     private $id;
     private $nombre;
 
-public function __construct($id='', $nombre=''){
+    public function __construct($id = '', $nombre = '')
+    {
         $this->id = $id;
         $this->nombre = $nombre;
     }
 
 
-public function guardar(){
-    $conexion = new Conexion();
-    $query = "INSERT INTO Rubro(nombre) VALUES ('$this->nombre')";
-    return $conexion->insertar($query);
-}
-
-public function actualizar(){
-    $conexion = new Conexion();
-    $query = "UPDATE Rubro SET nombre = '$this->nombre' WHERE idRubros = '$this->id'";
-    return $conexion->actualizar($query);
-}
-
-public function obtenerRubros()
-{
-    $conexion = new Conexion();
-    $query = "SELECT idRubros, nombre FROM rubro WHERE estado = 1";
-    $resultado = $conexion->consultar($query);
-    $rubros = array();
-    if ($resultado->num_rows > 0) {
-        while ($row = $resultado->fetch_assoc()) {
-            $rubros[] = $row;
-        }
+    public function guardar()
+    {
+        $conexion = new Conexion();
+        $query = "INSERT INTO Rubro(nombre) VALUES ('$this->nombre')";
+        return $conexion->insertar($query);
     }
-    return $rubros;
-}
 
-public function obtenerRubrosPorId(){
-    $conexion = new Conexion();
-    $query = "SELECT idRubros, nombre FROM rubro WHERE idRubros = '$this->id'";
-    $resultado = $conexion->consultar($query);
-   return $resultado->fetch_assoc();
-}
+    public function actualizar()
+    {
+        $conexion = new Conexion();
+        $query = "UPDATE Rubro SET nombre = '$this->nombre' WHERE idRubros = '$this->id'";
+        return $conexion->actualizar($query);
+    }
 
-public function eliminar(){
-    $conexion = new Conexion();
-    $query = "UPDATE Rubro SET estado = 0 WHERE id = '$this->id'";
-    return $conexion->actualizar($query);
-}
+    public function obtenerRubros()
+    {
+        $conexion = new Conexion();
+        $query = "SELECT idRubros, nombre FROM rubro WHERE estado = 1";
+        $resultado = $conexion->consultar($query);
+        $rubros = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $rubros[] = $row;
+            }
+        }
+        return $rubros;
+    }
+
+    public function obtenerRubrosPorId()
+    {
+        $conexion = new Conexion();
+        $query = "SELECT idRubros, nombre FROM rubro WHERE idRubros = '$this->id'";
+        $resultado = $conexion->consultar($query);
+        return $resultado->fetch_assoc();
+    }
+
+    public function eliminar()
+    {
+        $conexion = new Conexion();
+        $query = "UPDATE Rubro SET estado = 0 WHERE idRubros = '$this->id'";
+        return $conexion->actualizar($query);
+    }
 
 
     public function getId()
