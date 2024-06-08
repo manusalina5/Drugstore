@@ -41,12 +41,12 @@ class TipoDocumento
 
     public function obtenerTipoDocumentos(){
         $conexion = new Conexion();
-        $query = "SELECT idtipodocumentos, nombre FROM tipodocumentos WHERE estado = 1";
+        $query = "SELECT idtipoDocumentos, valor FROM tipodocumentos WHERE estado = 1";
         $resultado = $conexion->consultar($query);
         $tipodocumentos = array();
-        if ($resultado->num_row>0) {
+        if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()){
-                $tipodocumentos = $row;
+                $tipodocumentos[] = $row;
             }
         }
         return $tipodocumentos;

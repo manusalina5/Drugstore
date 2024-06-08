@@ -68,6 +68,20 @@
                             <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Listado de rubros</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Personas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?page=alta_tipodocumento&modulo=personas&submodulo=documento">Agregar Tipo Documentos</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_tipodocumento&modulo=personas&submodulo=documento">Ver Tipo Documentos</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="?">Agregar Tipo Documentos</a></li>
+                            <li><a class="dropdown-item" href="#">Ver Tipo Documentos</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
                     </li>
@@ -83,23 +97,42 @@
     ?>
     <div class="container">
         <?php
+
+        $pagesValidas = [
+            'login', 'listado_usuarios', 'salida', 'registro',
+            'alta_marca', 'alta_rubro', 'editar_marca', 'editar_Rubro', 'listado_marca', 'listado_rubro',
+            'listado_tipodocumento', 'alta_tipodocumento', 'editar_tipodocumento'
+        ];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas'];
+        $submodulosValidos = ['Documento'];
+
+
+
         if (!empty($_GET['modulo']) && $_GET['page']) {
-            // ucfirst convierte la primer letra del string en Mayuscula
             $page = $_GET['page'];
             $modulo = ucfirst($_GET['modulo']);
+            // ucfirst convierte la primer letra del string en Mayuscula
+            if (!empty(($_GET['submodulo']))) {
+
+                $submodulo = ucfirst(($_GET['submodulo']));
+                if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos) && in_array($submodulo, $submodulosValidos)) {
+                    include('View/Paginas/' . $modulo . '/' . $submodulo . '/' . $page . '.php');
+                } else {
+                    include('View/Paginas/404.php');
+                }
+            } else {
+                if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos)) {
+                    include('View/Paginas/' . $modulo . '/' . $page . '.php');
+                } else {
+                    include('View/Paginas/404.php');
+                }
+            }
         } else {
             $page = "";
             $modulo = "";
         }
 
-        $pagesValidas = ['login', 'listado_usuarios', 'salida', 'registro', 'alta_marca', 'alta_rubro', 'editar_marca', 'editarRubro', 'listado_marca', 'listado_rubro'];
-        $modulosValidos = ['Usuarios', 'Productos'];
 
-        if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos)) {
-            include('View/Paginas/' . $modulo . '/' . $page . '.php');
-        } else {
-            include('View/Paginas/404.php');
-        }
 
         ?>
     </div>
