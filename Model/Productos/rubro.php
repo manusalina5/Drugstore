@@ -27,7 +27,7 @@ public function guardar(){
 
 public function actualizar(){
     $conexion = new Conexion();
-    $query = "UPDATE Rubro SET nombre = '$this->nombre' WHERE id = '$this->id'";
+    $query = "UPDATE Rubro SET nombre = '$this->nombre' WHERE idRubros = '$this->id'";
     return $conexion->actualizar($query);
 }
 
@@ -45,6 +45,12 @@ public function obtenerRubros()
     return $rubros;
 }
 
+public function obtenerRubrosPorId(){
+    $conexion = new Conexion();
+    $query = "SELECT idRubros, nombre FROM rubro WHERE idRubros = '$this->id'";
+    $resultado = $conexion->consultar($query);
+   return $resultado->fetch_assoc();
+}
 
 public function eliminar(){
     $conexion = new Conexion();

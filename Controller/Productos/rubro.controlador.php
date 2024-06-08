@@ -7,8 +7,11 @@ if(isset($_POST['action'])) {
     $rubro_controller = new RubroControlador();
     if ($_POST['action'] == 'registro'){
         $rubro_controller->registrarRubro();
-    } # agregar modificar (else)
-}
+    }else if($_POST['action'] == 'modificar'){
+        $rubro_controller->modificarRubro();
+    }
+    }
+
 
 class RubroControlador{
 
@@ -24,12 +27,12 @@ class RubroControlador{
     }
 
     public function modificarRubro(){
-        if (empty($_POST['nombre']) || empty($_POST['id'])) {
+        if (empty($_POST['nombrerubro']) || empty($_POST['id'])) {
             header('Location: ../index.php?page=modificar&id='.$_POST['id'].'message=Por favor, completa todos los campos');
         } else{
-            $rubro = new Rubro($_POST['id'], $_POST['nombre']);
+            $rubro = new Rubro($_POST['id'], $_POST['nombrerubro']);
             $rubro->actualizar();
-            header('Location: ../../index.php?page=listado_rubro');
+            header('Location: ../../index.php?page=listado_rubro&modulo=productos');
         }
     }
     
