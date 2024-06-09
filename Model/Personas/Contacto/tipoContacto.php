@@ -1,6 +1,6 @@
 <?php
 
-$rutaAbsoluta = $_SERVER['DOCUMENT ROOT'] . '/Drgustores/config.conexion.php';
+$rutaAbsoluta = $_SERVER['DOCUMENT ROOT'] . '/Drugstore/config/conexion.php';
 
 if (file_exists($rutaAbsoluta)) {
     include_once $rutaAbsoluta;
@@ -9,7 +9,7 @@ if (file_exists($rutaAbsoluta)) {
 }
 
 class TipoContacto
-    {
+{
     private $id;
     private $valor;
 
@@ -26,36 +26,64 @@ class TipoContacto
         return $conexion->insertar($query);
     }
 
-    public function actualizar(){
+    public function actualizar()
+    {
         $conexion = new Conexion();
         $query = "UPDATE tipocontacto SET valor = '$this->valor' WHERE idtipoContacto = '$this->id'";
         return $conexion->actualizar($query);
     }
 
-    public function eliminar(){
+    public function eliminar()
+    {
         $conexion = new Conexion();
         $query = "UPDATE tipocontacto SET estado = 0 WHERE idtipoContacto = '$this->id'";
         return $conexion->actualizar($query);
     }
 
-    public function obtenerTipoContacto(){
+    public function obtenerTipoContacto()
+    {
         $conexion = new Conexion();
         $query = "SELECT idtipoContacto, valor FROM tipocontacto WHERE estado = 1";
         $resultado = $conexion->consultar($query);
         $tipocontacto = array();
-        if ($resultado->num_row>0) {
-            while ($row = $resultado->fetch_assoc()){
+        if ($resultado->num_row > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $tipocontacto = $row;
             }
         }
         return $tipocontacto;
     }
-    
 
-    public function obtenerTipoContactoPorId(){
+
+    public function obtenerTipoContactoPorId()
+    {
         $conexion = new Conexion();
         $query = "SELECT idtipoContacto, valor FROM tipocontacto WHERE idtipoContacto = '$this->id'";
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getValor()
+    {
+        return $this->valor;
+    }
+ 
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+
+        return $this;
     }
 }
