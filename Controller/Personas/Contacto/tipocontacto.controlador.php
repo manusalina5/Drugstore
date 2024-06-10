@@ -22,7 +22,7 @@ class TipoContactoControlador
         }
 
         if (!empty($_POST['valortipocontacto'])) {
-            $tipodocumento = new TipoContacto(null, $_POST['valortipodecontacto']);
+            $tipodocumento = new TipoContacto(null, $_POST['valortipocontacto']);
             $tipodocumento->guardar();
             header('Location: ../../../index.php?page=listado_tipocontacto&modulo=personas&submodulo=contacto');
         } else {

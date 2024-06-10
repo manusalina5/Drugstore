@@ -1,4 +1,4 @@
-<h1 class="text-center">Lista de Tipo de Documentos</h1>
+<h2 class="text-center">Lista de Tipo de Documentos</h2>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -38,7 +38,7 @@
             echo "</tr>";
             }
         } else {
-            echo "<div colspan='3' class='text-center'>No hay tipos de documentos registrados</div>";
+            echo "<div colspan='3' class='text-center alert alert-warning'>No hay tipos de documentos registrados</div>";
         }
 
         ?>

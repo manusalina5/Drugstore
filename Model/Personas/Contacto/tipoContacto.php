@@ -1,12 +1,13 @@
 <?php
 
-$rutaAbsoluta = $_SERVER['DOCUMENT ROOT'] . '/Drugstore/config/conexion.php';
+$rutaAbsoluta = $_SERVER['DOCUMENT_ROOT'] . '/Drugstore/config/conexion.php';
 
 if (file_exists($rutaAbsoluta)) {
     include_once $rutaAbsoluta;
 } else {
-    echo 'Error: archivo de configuración no encontrado en' . $rutaAbsoluta;
+    echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsoluta;
 }
+
 
 class TipoContacto
 {
@@ -46,9 +47,9 @@ class TipoContacto
         $query = "SELECT idtipoContacto, valor FROM tipocontacto WHERE estado = 1";
         $resultado = $conexion->consultar($query);
         $tipocontacto = array();
-        if ($resultado->num_row > 0) {
+        if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()) {
-                $tipocontacto = $row;
+                $tipocontacto[] = $row;
             }
         }
         return $tipocontacto;

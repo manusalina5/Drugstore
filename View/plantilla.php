@@ -29,57 +29,58 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
+                        <a class="nav-link" href="index.php">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=listado_usuarios&modulo=usuarios">Listar Usuarios</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuarios
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
+                            </li>
+                            <hr class="dropdown-divider">
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
+                            </li>
+                            <hr class="dropdown-divider">
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="?page=listado_usuarios&modulo=usuarios">Listar Usuarios</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Productos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="?page=alta_producto&modulo=productos">Agregar Productos</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_producto&modulo=productos">Ver Productos</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="?page=alta_marca&modulo=productos">Agregar marca</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_marca&modulo=productos">Ver de Marcas</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="?page=alta_rubro&modulo=productos">Agregar rubro</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Ver de rubros</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Marcas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?page=alta_marca&modulo=productos">Agregar</a></li>
-                            <li><a class="dropdown-item" href="?page=listado_marca&modulo=productos">Listo de Marcas</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Rubros
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?page=alta_rubro&modulo=productos">Agregar</a></li>
-                            <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Listado de rubros</a></li>
-                        </ul>
-                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Personas
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="?page=alta_tipodocumento&modulo=personas&submodulo=documento">Agregar Tipo Documentos</a></li>
+                            <li><a class="dropdown-item" href="?page=alta_persona&modulo=personas">Agregar Persona</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_persona&modulo=personas">Ver Personas</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="?page=alta_tipodocumento&modulo=personas&submodulo=documento">Agregar Tipo Documento</a></li>
                             <li><a class="dropdown-item" href="?page=listado_tipodocumento&modulo=personas&submodulo=documento">Ver Tipo Documentos</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="?">Agregar Tipo Documentos</a></li>
-                            <li><a class="dropdown-item" href="#">Ver Tipo Documentos</a></li>
+                            <li><a class="dropdown-item" href="?page=alta_tipocontacto&modulo=personas&submodulo=contacto">Agregar Tipo Contacto</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_tipocontacto&modulo=personas&submodulo=contacto">Ver Tipo Contactos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -101,10 +102,13 @@
         $pagesValidas = [
             'login', 'listado_usuarios', 'salida', 'registro',
             'alta_marca', 'alta_rubro', 'editar_marca', 'editar_Rubro', 'listado_marca', 'listado_rubro',
-            'listado_tipodocumento', 'alta_tipodocumento', 'editar_tipodocumento'
+            'listado_tipodocumento', 'alta_tipodocumento', 'editar_tipodocumento',
+            'listado_persona', 'alta_persona', 'editar_persona',
+            'listado_tipocontacto', 'alta_tipocontacto', 'editar_tipocontacto',
+            'listado_producto', 'alta_producto', 'editar_producto',
         ];
         $modulosValidos = ['Usuarios', 'Productos', 'Personas'];
-        $submodulosValidos = ['Documento'];
+        $submodulosValidos = ['Documento', 'Contacto'];
 
 
 
@@ -128,8 +132,7 @@
                 }
             }
         } else {
-            $page = "";
-            $modulo = "";
+            include('View/dashboard.php');
         }
 
 

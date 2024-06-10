@@ -25,7 +25,7 @@ class TipoDocumentoControlador
     public function registrarTipoDocumento()
     {
         if (empty($_POST['valortipodedocumento'])) {
-            header('Localation: ../../index.php?page=registro&=Por favor, completa todos los campos');
+            header('Location: ../../index.php?page=registro&=Por favor, completa todos los campos');
         }
 
         if (!empty($_POST['valortipodedocumento'])) {

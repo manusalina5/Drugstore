@@ -19,7 +19,7 @@ class MarcaControlador
 {
     public function registrarMarca(){
         if(empty($_POST['nombremarca'])){
-            header('Localation: ../../index.php?page=registro&=Por favor, completa todos los campos');
+            header('Location: ../../index.php?page=registro&=Por favor, completa todos los campos');
         }
 
         if(!empty($_POST['nombremarca'])){            
