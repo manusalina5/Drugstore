@@ -30,7 +30,7 @@
                 <input type="number" class="form-control" id="precioVenta" name="precioVenta" required>
             </div>
             <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" required name="marcaId">
+                <select class="form-select" aria-label="Select Marcas" required name="marcaId">
                     <option selected>Elegir la marca</option>
                     <?php
                     include_once('Model/Productos/marca.php');
@@ -45,7 +45,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" required name="rubroId">
+                <select class="form-select" aria-label="Select Rubros" required name="rubroId">
                     <option selected>Elegir el rubro</option>
                     <?php
                     include_once('Model/Productos/rubro.php');
