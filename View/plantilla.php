@@ -106,6 +106,7 @@
             'listado_persona', 'alta_persona', 'editar_persona','ver_persona',
             'listado_tipocontacto', 'alta_tipocontacto', 'editar_tipocontacto',
             'listado_producto', 'alta_producto', 'editar_producto',
+            'listado_direccion', 'alta_direccion', 'editar_direccion'
         ];
         $modulosValidos = ['Usuarios', 'Productos', 'Personas'];
         $submodulosValidos = ['Documento', 'Contacto'];

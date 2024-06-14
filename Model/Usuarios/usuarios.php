@@ -7,29 +7,38 @@ class Usuario
 {
     private $id;
     private $userName;
-    private $email;
     private $pass;
-    private $hashedpass;
+    private $fechaAlta;
+    private $idEmpleado;
+    private $idPerfiles;
 
-    public function __construct($id = '', $userName = '', $email = '', $pass = '')
+    public function __construct($id = '', $userName = '', $pass = '',$fechaAlta = '', $idEmpleado = '', $iPerfiles = '')
     {
         $this->id = $id;
         $this->userName = $userName;
-        $this->email = $email;
         $this->pass = $pass;
+        $this->idPerfiles = $iPerfiles;
+        $this->fechaAlta = $fechaAlta;
     }
 
     public function guardar()
     {
         $conexion = new Conexion();
-        $query = "INSERT INTO usuarios(userName, email, pass) VALUES ('$this->userName', '$this->email', '$this->pass')";
+        $query = "INSERT INTO `usuarios`
+                (`username`,
+                `password`,
+                `fechaAlta`,
+                `Empleado_idEmpleado`,
+                `perfiles_idperfiles`)
+                VALUES
+                ('$this->userName','$this->pass','$this->fechaAlta','$this->idEmpleado','$this->idPerfiles')";
         return $conexion->insertar($query);
     }
 
     public function actualizar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE usuarios SET userName = '$this->userName', email = '$this->email', pass = '$this->pass'";
+        $query = "UPDATE usuarios SET username = '$this->userName', password =  '$this->fechaAlta',Empleado_idEmpleado = '$this->idEmpleado',perfiles_idperfiles ='$this->idPerfiles'";
         return $conexion->actualizar($query);
     }
 
@@ -47,7 +56,8 @@ class Usuario
         return $conexion->consultar($query);
     }
 
-    public function obtenerHash(){
+    public function obtenerHash()
+    {
         $conexion = new Conexion();
         $username = $this->userName;
         $query = "SELECT pass FROM usuarios WHERE username = '$username'";
@@ -59,13 +69,14 @@ class Usuario
 
     // Funcion para listar los usuarios 
 
-    public function obtenerUsuarios(){
+    public function obtenerUsuarios()
+    {
         $conexion = new Conexion();
         $query = "SELECT idusuario, username, password, fechaalta FROM usuarios";
         $resultado = $conexion->consultar($query);
         $usuarios = [];
-        if($resultado->num_rows > 0){
-            while($row = $resultado->fetch_assoc()){
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $usuarios[] = $row;
             }
         }
