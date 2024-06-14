@@ -1,13 +1,6 @@
 <?php
 
-$rutaAbsoluta = $_SERVER['DOCUMENT_ROOT'] . '/Drugstore/config/conexion.php';
-
-if (file_exists($rutaAbsoluta)) {
-    include_once $rutaAbsoluta;
-} else {
-    // Manejar error de archivo no encontrado
-    echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsoluta;
-}
+include_once('conexion.php');
 
 class Persona
 {
@@ -107,3 +100,6 @@ class Persona
     }
 }
 
+$persona = new Persona(null, 'Juan Manuel', 'Salinas');
+$idPersona = $persona->guardar();
+echo $idPersona;

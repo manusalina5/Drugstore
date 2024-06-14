@@ -103,7 +103,7 @@
             'login', 'listado_usuarios', 'salida', 'registro',
             'alta_marca', 'alta_rubro', 'editar_marca', 'editar_Rubro', 'listado_marca', 'listado_rubro',
             'listado_tipodocumento', 'alta_tipodocumento', 'editar_tipodocumento',
-            'listado_persona', 'alta_persona', 'editar_persona',
+            'listado_persona', 'alta_persona', 'editar_persona','ver_persona',
             'listado_tipocontacto', 'alta_tipocontacto', 'editar_tipocontacto',
             'listado_producto', 'alta_producto', 'editar_producto',
         ];

@@ -14,12 +14,6 @@ if(isset($_POST['action'])){
     }
 }
 
-
-
-
-
-
-
 class TipoDocumentoControlador
 {
     public function registrarTipoDocumento()

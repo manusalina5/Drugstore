@@ -26,6 +26,10 @@ class ProductoControlador
 
     public function registrarProducto()
     {
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+        exit();
         if (
             empty($_POST['nombre']) ||
             empty($_POST['codBarras']) ||
