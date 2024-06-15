@@ -1,4 +1,2 @@
 <h1>
-    SALIMO' MUCHACHO'
-</h1>
-<h2>USTED ESTA EN SALIDA.PHP </h2>
+    Cerrar Sesión</h1>
