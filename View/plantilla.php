@@ -83,6 +83,16 @@
                             <li><a class="dropdown-item" href="?page=listado_tipocontacto&modulo=personas&submodulo=contacto">Ver Tipo Contactos</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tipo Egreso
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?page=alta_tipoegreso&modulo=caja&submodulo=egreso">Agregar Tipo Egreso</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_tipoegreso&modulo=caja&submodulo=egreso">Ver Tipo Egreso</a></li>
+                            <li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
                     </li>
@@ -106,10 +116,11 @@
             'listado_persona', 'alta_persona', 'editar_persona','ver_persona',
             'listado_tipocontacto', 'alta_tipocontacto', 'editar_tipocontacto',
             'listado_producto', 'alta_producto', 'editar_producto',
-            'listado_direccion', 'alta_direccion', 'editar_direccion'
+            'listado_direccion', 'alta_direccion', 'editar_direccion',
+            'listado_tipoegreso', 'alta_tipoegreso', 'editar_tipoegreso'
         ];
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas'];
-        $submodulosValidos = ['Documento', 'Contacto'];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas','Caja'];
+        $submodulosValidos = ['Documento', 'Contacto','Egreso'];
 
 
 

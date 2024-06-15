@@ -1,0 +1,1 @@
+<h1>Editar Tipo Egreso</h1>
