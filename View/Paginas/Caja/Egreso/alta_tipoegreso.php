@@ -1,0 +1,1 @@
+<h1>Alta Tipo Egreso</h1>

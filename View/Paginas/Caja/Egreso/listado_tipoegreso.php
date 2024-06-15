@@ -1,0 +1,1 @@
+<h1>Listado Tipo Egreso</h1>
