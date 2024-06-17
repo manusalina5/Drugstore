@@ -9,6 +9,11 @@ require_once('Controller/plantilla.controlador.php');
 
 
 
+
 $plantilla = new PlantillaControlador();
 
 $plantilla->traerPlantilla();
+
+if (isset($_GET['error'])) {
+    echo '<div class="alert alert-danger">' . htmlspecialchars($_GET['error']) . '</div>';
+}

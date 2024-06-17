@@ -1,0 +1,121 @@
+<?php
+
+include_once '../../../Model/Personas/Proveedor/proveedor.php';
+include_once '../../../Model/Personas/persona.php';
+include_once '../../../Model/Personas/Documento/tipoDocumento.php';
+include_once '../../../Model/Personas/Documento/documento.php';
+include_once '../../../Model/Personas/Contacto/tipoContacto.php';
+include_once '../../../Model/Personas/Contacto/contacto.php';
+include_once '../../../Model/Personas/Direccion/direccion.php';
+include_once '../../../config/conexion.php';
+
+// print_r($_POST);
+// exit();
+
+if (isset($_POST['action'])) {
+    $proveedor = new ProveedorControlador();
+    if ($_POST['action'] == 'registro') {
+        $proveedor->registrarProveedor();
+    } else if ($_POST['action'] == 'modificar') {
+        $proveedor->modificarProveedor();
+    } elseif ($_POST['action'] == 'eliminar') {
+        $proveedor->eliminarProveedor();
+    } else {
+        echo "ERROR: Contactarse con el administrador";
+    }
+}
+
+
+class ProveedorControlador{
+    public function registrarProveedor() { 
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion']) ||
+            empty($_POST['razonSocial'])
+        ) {
+            header('Location: ../../../index.php?error=missing_fields');
+            exit();
+        } else {
+            $proveedor = new Proveedor(null,$_POST['razonSocial'],null,$_POST['nombre'],$_POST['apellido']);
+            $proveedor->guardar();
+            $idPersona = $proveedor->getIdPersona();
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+                header('Location: ../../../?page=listado_proveedor&modulo=personas&submodulo=proveedor&status=success');
+            } else {
+                header('Location: ../../../index.php?error=insert_failed');
+            }
+        }
+    }
+
+    public function modificarProveedor()
+    {
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idProveedor']) ||
+            empty($_POST['idPersona']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion']) ||
+            empty($_POST['razonSocial'])
+        ) {
+            header('Location: ../../index.php?error=missing_fields');
+            exit();
+        } else {
+            $idProveedor = $_POST['idProveedor'];
+            $idPersona = $_POST['idPersona'];
+
+            $proveedor = new Proveedor($idProveedor,$_POST['razonSocial'],$idPersona,$_POST['nombre'],$_POST['apellido']);
+            $proveedor->actualizar();
+            
+            $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+            if ($documento->existeDocumento()) {
+                $documento->actualizar();
+            } else {
+                $documento->guardar();
+            }
+
+            $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+            if ($contacto->existeContacto()) {
+                $contacto->actualizar();
+            } else {
+                $contacto->guardar();
+            }
+
+            $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+            if ($direccion->existeDireccion()) {
+                $direccion->actualizar();
+            } else {
+                $direccion->guardar();
+            }
+
+            header('Location: ../../../?page=listado_proveedor&modulo=personas&submodulo=proveedor&status=success');
+        }
+    }
+
+
+    public function eliminarProveedor()
+    {
+        if (!empty($_POST['idProveedor'])  && !empty($_POST['idPersona'])) {
+            $proveedor = new Proveedor($_POST['idProveedor'], null, $_POST['idPersona'], null, null);
+            $proveedor->eliminar();
+            header('Location: ../../../?page=listado_proveedor&modulo=personas&submodulo=proveedor&status=deleted');
+        } else {
+            header('Location: ../../index.php?error=missing_id');
+        }
+    }
+
+}

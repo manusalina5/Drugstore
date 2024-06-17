@@ -36,7 +36,7 @@ class Contacto
     {
         $conexion = new Conexion;
         $query = "UPDATE contacto 
-        SET valor = '$this->valor' WHERE idcontacto = '$this->id'";
+        SET valor = '$this->valor' WHERE Persona_idPersona = '$this->Persona_idPersona'";
         return $conexion->actualizar($query);
     }
 

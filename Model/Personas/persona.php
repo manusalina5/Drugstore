@@ -11,13 +11,13 @@ if (file_exists($rutaAbsoluta)) {
 
 class Persona
 {
-    private $id;
+    private $idPersona;
     private $nombre;
     private $apellido;
 
-    public function __construct($id="", $nombre="", $apellido="")
+    public function __construct($idPersona="", $nombre="", $apellido="")
     {
-        $this->id = $id;
+        $this->idPersona = $idPersona;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
     }
@@ -32,14 +32,14 @@ class Persona
     public function actualizar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE persona SET nombre = '$this->nombre', apellido = '$this->apellido' WHERE idPersona = '$this->id'";
+        $query = "UPDATE persona SET nombre = '$this->nombre', apellido = '$this->apellido' WHERE idPersona = '$this->idPersona'";
         return $conexion->actualizar($query);
     }
 
     public function eliminar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE persona SET estado = 0 WHERE idPersona = '$this->id'";
+        $query = "UPDATE persona SET estado = 0 WHERE idPersona = '$this->idPersona'";
         return $conexion->actualizar($query);
     }
 
@@ -60,7 +60,7 @@ class Persona
     public function obtenerPersonasPorId()
     {
         $conexion = new Conexion();
-        $query = "SELECT idPersona, nombre, apellido FROM persona WHERE idPersona = '$this->id'";
+        $query = "SELECT idPersona, nombre, apellido FROM persona WHERE idPersona = '$this->idPersona'";
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
     }
@@ -68,13 +68,13 @@ class Persona
 
     public function getId()
     {
-        return $this->id;
+        return $this->idPersona;
     }
 
 
-    public function setId($id)
+    public function setId($idPersona)
     {
-        $this->id = $id;
+        $this->idPersona = $idPersona;
 
         return $this;
     }

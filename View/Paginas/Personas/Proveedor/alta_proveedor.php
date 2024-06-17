@@ -1,13 +1,12 @@
-<div class="row ">
+<div class="row">
+    <div class="col"></div>
     <div class="col">
-    </div>
-    <div class="col">
-        <h1 class="text-center">Registrar Persona</h1>
-        <form class="" action="Controller/Personas/persona.controlador.php" method="POST">
+        <h1 class="text-center">Registrar Proveedor</h1>
+        <form action="Controller/Personas/Proveedor/proveedor.controlador.php" method="POST">
             <h3>Datos Personales</h3>
+            <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->
-            <input type="hidden" name="action" value="registro">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombres</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Ingrese sus nombres">
@@ -16,8 +15,15 @@
             <!-- Apellido -->
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellidos</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required placeholder="Ingrese sus apellidos">
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese sus apellidos">
             </div>
+
+            <!-- Razón Social -->
+            <div class="mb-3">
+                <label for="razonSocial" class="form-label">Razón Social</label>
+                <input type="text" class="form-control" id="razonSocial" name="razonSocial" required placeholder="Ingrese la Razón Social">
+            </div>
+
 
             <!-- Tipo Documento -->
             <div class="mb-3">
@@ -36,6 +42,7 @@
                     ?>
                 </select>
             </div>
+
             <!-- Documento -->
             <div class="mb-3">
                 <input type="text" class="form-control" placeholder="Ingrese su documento" aria-label="documento" name="documento">
@@ -55,7 +62,6 @@
                             echo "<option value='{$tipoContacto['idtipoContacto']}'>{$tipoContacto['valor']}</option>";
                         }
                     }
-
                     ?>
                 </select>
             </div>
@@ -70,6 +76,7 @@
                 <label for="direccion" class="form-label">Dirección</label>
                 <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion"></textarea>
             </div>
+
             <button type="submit" class="btn btn-primary">Agregar</button>
         </form>
     </div>

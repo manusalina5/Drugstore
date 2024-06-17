@@ -32,9 +32,8 @@ class Documento
     public function actualizar(){
         $conexion = new Conexion();
         $query = "UPDATE documento SET valor = '$this->valor', 
-                tipoDocumentos_idtipoDocumentos = '$this->tipoDocumentosId', 
-                Persona_idPersona = '$this->personaId'
-                WHERE idDocumento = '$this->idDocumento'";
+                tipoDocumentos_idtipoDocumentos = '$this->tipoDocumentosId'
+                WHERE Persona_idPersona = '$this->personaId'";
         return $conexion->actualizar($query);
     }
 

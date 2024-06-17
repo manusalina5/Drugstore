@@ -30,7 +30,7 @@ class Direccion{
     public function actualizar(){
         $conexion = new Conexion;
         $query = "UPDATE Direccion SET descripcion = '$this->descripcion' 
-        WHERE idDireccion = '$this->id' AND estado = 1";
+        WHERE Persona_idPersona = '$this->Persona_idPersona'";
         return $conexion->actualizar($query);
     }
 
@@ -55,10 +55,20 @@ class Direccion{
 
     public function obtenerDireccionPorId(){
         $conexion = new Conexion;
-        $query = "SELECT idDireccion, descripcion FROM Direccion 
-        WHERE estado = 1 AND idDireccion = '$this->id'";
+        $query = "SELECT d.descripcion as descripcion
+                    FROM persona p
+                    RIGHT JOIN direccion d ON d.Persona_idPersona = p.idPersona
+                    WHERE p.estado = 1 and p.idPersona = '$this->Persona_idPersona'";
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
+    }
+
+    public function existeDireccion(){
+        $conexion = new Conexion;
+        $query = "SELECT * FROM direccion WHERE Persona_idPersona  = '$this->Persona_idPersona'";
+        $resultado = $conexion->consultar($query);
+        $num_rows = $resultado->num_rows;
+        return $num_rows > 0;
     }
 
 

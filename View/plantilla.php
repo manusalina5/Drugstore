@@ -74,6 +74,13 @@
                             <li><a class="dropdown-item" href="?page=listado_persona&modulo=personas">Ver Personas</a></li>
                             <li>
                                 <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="?page=alta_empleado&modulo=personas&submodulo=empleado">Agregar Empleado</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_empleado&modulo=personas&submodulo=empleado">Ver Empleado</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="?page=alta_proveedor&modulo=personas&submodulo=proveedor">Agregar Proveedores</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_proveedor&modulo=personas&submodulo=proveedor">Ver Proveedores</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
                             <li><a class="dropdown-item" href="?page=alta_tipodocumento&modulo=personas&submodulo=documento">Agregar Tipo Documento</a></li>
                             <li><a class="dropdown-item" href="?page=listado_tipodocumento&modulo=personas&submodulo=documento">Ver Tipo Documentos</a></li>
                             <li>
@@ -109,20 +116,16 @@
     <div class="container">
         <?php
 
-        $pagesValidas = [
-            'login', 'listado_usuarios', 'salida', 'registro',
-            'alta_marca', 'alta_rubro', 'editar_marca', 'editar_Rubro', 'listado_marca', 'listado_rubro',
-            'listado_tipodocumento', 'alta_tipodocumento', 'editar_tipodocumento',
-            'listado_persona', 'alta_persona', 'editar_persona','ver_persona',
-            'listado_tipocontacto', 'alta_tipocontacto', 'editar_tipocontacto',
-            'listado_producto', 'alta_producto', 'editar_producto',
-            'listado_direccion', 'alta_direccion', 'editar_direccion',
-            'listado_tipoegreso', 'alta_tipoegreso', 'editar_tipoegreso'
-        ];
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas','Caja'];
-        $submodulosValidos = ['Documento', 'Contacto','Egreso'];
+        $pagesValidas = array('login', 'listado_usuarios', 'salida', 'registro');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor','tipoegreso','metodopago');
+        foreach ($pages as $page) {
+            $pagesValidas[] = 'listado_' . $page;
+            $pagesValidas[] = 'alta_' . $page;
+            $pagesValidas[] = 'editar_' . $page;
+        }
 
-
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];
