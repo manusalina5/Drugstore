@@ -23,7 +23,7 @@ if (isset($_GET['idtipoEgresos'])) {
             <input type="hidden" name="idtipoEgresos" value="<?php echo $tipoegresoData['idtipoEgresos']; ?>">
             <div class="mb-3">
                 <label for="descripciontipoegreso" class="form-label">Descripción</label>
-                <input type="text" class="form-control" id="descripciontipoegreso" name="descripciontipoegreso" value="<?php echo $tipoegresoData['descripciontipoegreso']; ?>" required>
+                <input type="text" class="form-control" id="descripciontipoegreso" name="descripciontipoegreso" value="<?php echo $tipoegresoData['descripcion']; ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Modificar</button>
         </form>

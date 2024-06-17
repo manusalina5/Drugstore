@@ -22,14 +22,14 @@
                     <input type='hidden' name='page' value='editar_tipoegreso'>
                     <input type='hidden' name='modulo' value='caja'>
                     <input type='hidden' name='submodulo' value='egreso'>
-                    <input type='hidden' name='idtipoegresos' value='{$tipoegreso['idtipoEgresos']}'>
+                    <input type='hidden' name='idtipoEgresos' value='{$tipoegreso['idtipoEgresos']}'>
                     <button type='submit' class='btn btn-warning btn-sm'>
                         <i class='fi fi-rr-edit'></i>
                     </button>
                 </form>
                 <form action='Controller/Caja/Egreso/tipoegreso.controlador.php' method='POST' style='display:inline-block;'>
                     <input type='hidden' name='action' value='eliminar'>
-                    <input type='hidden' name='idtipoegresos' value='{$tipoegreso['idtipoEgresos']}'>
+                    <input type='hidden' name='idtipoEgresos' value='{$tipoegreso['idtipoEgresos']}'>
                     <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este tipo de Egreso?\");'>
                         <i class='fi fi-rr-trash'></i>
                     </button>

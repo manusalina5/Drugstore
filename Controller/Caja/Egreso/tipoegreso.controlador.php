@@ -3,6 +3,8 @@
 include_once '../../../Model/Caja/Egreso/tipoegreso.php';
 include_once '../../../config/conexion.php';
 
+
+
 if (isset($_POST['action'])) {
     $tipoegreso = new TipoEgresoControlador();
     if ($_POST['action'] == 'registro') {
@@ -31,18 +33,18 @@ class TipoEgresoControlador{
     }
 
     public function modificarTipoEgreso(){
-        if (empty($_POST['descripciontipoegreso']) || empty($_POST['idtipoegreso'])){
+        if (empty($_POST['descripciontipoegreso']) || empty($_POST['idtipoEgresos'])){
             header('Location: ../../index.php?page=modificar&message=Por favor, complete todos los campos');
         } else {
-            $tipoegreso = new TipoEgreso($_POST['idtipoegreso'], $_POST['descripciontipoegreso']);
+            $tipoegreso = new TipoEgreso($_POST['idtipoEgresos'], $_POST['descripciontipoegreso']);
             $tipoegreso->actualizar();
             header('Location: ../../../index.php?page=listado_tipoegreso&modulo=caja&submodulo=egreso');
         }
     }
 
     public function eliminarTipoEgreso(){
-        if (!empty($_POST['idtipoegreso'])){
-            $tipoegreso = new TipoEgreso($_POST['idtipoegreso'], null);
+        if (!empty($_POST['idtipoEgresos'])){
+            $tipoegreso = new TipoEgreso($_POST['idtipoEgresos'], null);
             $tipoegreso->eliminar();
             header('Location: ../../../index.php?page=listado_tipoegreso&modulo=caja&submodulo=egreso');
         }
