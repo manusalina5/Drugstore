@@ -100,6 +100,16 @@
                             <li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Metodo de Pago
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?page=alta_metodopago&modulo=ventas&submodulo=metodopago">Agregar Metodo de Pago</a></li>
+                            <li><a class="dropdown-item" href="?page=listado_metodopago&modulo=ventas&submodulo=metodopago">Ver Metodo de Pago</a></li>
+                            <li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
                     </li>
@@ -124,8 +134,8 @@
             $pagesValidas[] = 'editar_' . $page;
         }
 
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor'];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Ventas'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Metodopago'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];

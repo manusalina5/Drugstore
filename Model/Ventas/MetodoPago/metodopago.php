@@ -14,9 +14,7 @@ class MetodoPago{
     private $nombre;
     private $descripcion;
 
-
-    public function __construct($idmetodoPago = "", $nombre = "", $descripcion = "")
-    {
+    public function __construct($idmetodoPago = "", $nombre = "", $descripcion = ""){
         $this->idmetodoPago = $idmetodoPago;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
@@ -27,6 +25,7 @@ class MetodoPago{
         $query = "INSERT INTO metodoPago(nombre, descripcion) VALUES ('$this->nombre','$this->descripcion')";
         return $conexion->insertar($query);
     }
+
 
     public function actualizar(){
         $conexion = new Conexion();
