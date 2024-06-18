@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Inicio</a>
+                    <a class="nav-link" href="index.php"><strong>Inicio</strong></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +38,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
+                    <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><b>Cerrar Sesion</b></a>
                 </li>
             </ul>
         </div>

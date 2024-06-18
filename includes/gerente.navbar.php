@@ -63,7 +63,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
+                    <a class="nav-link link-danger" href="?page=salida&modulo=usuarios">Cerrar Sesion</a>
                 </li>
             </ul>
         </div>

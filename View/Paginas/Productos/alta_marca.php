@@ -9,7 +9,9 @@
                 <label for="nombremarca" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombremarca" name="nombremarca" required>
             </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <div class="d-grid gap-1">
+            <button type="submit" class="btn btn-success">Agregar</button>
+            </div>
         </form>
     </div>
     <div class="col">

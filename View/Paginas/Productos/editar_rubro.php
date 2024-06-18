@@ -24,7 +24,9 @@ if(isset($_GET['id'])) {
                 <label for="nombrerubro" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombrerubro" name="nombrerubro" value="<?php echo $rubroData['nombre']; ?>" required>
             </div>
-            <button type="submit" class="btn btn-primary">Modificar</button>
+            <div class="d-grid gap-1">
+            <button type="submit" class="btn btn-success">Modificar</button>
+            </div>
         </form>
     </div>
     <div class="col"></div>

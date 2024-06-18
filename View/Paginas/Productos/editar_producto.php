@@ -79,8 +79,9 @@ if(isset($_GET['idProductos'])) {
                     ?>
                 </select>
             </div>
-
-            <button type="submit" class="btn btn-primary">Modificar</button>
+            <div class="d-grid gap-1">
+            <button type="submit" class="btn btn-success">Modificar</button>
+            </div>
         </form>
     </div>
     <div class="col">

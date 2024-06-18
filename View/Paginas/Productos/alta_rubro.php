@@ -9,8 +9,9 @@
                 <label for="exampleUserName" class="form-label">Nombre de Rubro</label>
                 <input type="text" class="form-control" id="exampleUserName" name="nombreRubro">
             </div>
-        
-            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <div class="d-grid gap-1">
+            <button type="submit" class="btn btn-success">Ingresar</button>
+            </div>
         </form>
     </div>
     <div class="col">
