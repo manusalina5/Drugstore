@@ -51,7 +51,7 @@ class Proveedor extends Persona
         parent:: eliminar();
 
         $conexion = new Conexion;
-        $query = "UPDATE proveedor SET estado = 0 idProveedor = '$this->idProveedor'";
+        $query = "UPDATE proveedor SET estado = 0 WHERE idProveedor = '$this->idProveedor'";
         return $conexion->actualizar($query);
     }
 

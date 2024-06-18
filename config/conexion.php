@@ -11,7 +11,7 @@ class Conexion{
         $this->host = "localhost";
         $this->dbname = "mydb";
         $this->username = "root";
-        $this->pass = "admin";
+        $this->pass = "Todounpalo98";
     }
 
     public function conectar(){
@@ -33,6 +33,7 @@ class Conexion{
         $this->conectar();
         $this->conn->query($query);
         $id = $this->conn->insert_id;
+        return $id;
     }
 
     public function actualizar($query){
