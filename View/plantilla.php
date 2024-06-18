@@ -127,15 +127,15 @@
         <?php
 
         $pagesValidas = array('login', 'listado_usuarios', 'salida', 'registro');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor','tipoegreso','metodopago');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor','tipoegreso','metodopago','compra');
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
             $pagesValidas[] = 'editar_' . $page;
         }
 
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Ventas'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Metodopago'];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Ventas', 'Compras'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Metodopago', 'Compra'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];
