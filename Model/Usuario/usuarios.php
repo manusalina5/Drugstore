@@ -1,29 +1,34 @@
 <?php
 
-include_once 'config/conexion.php';
+$rutaAbsoluta = $_SERVER['DOCUMENT_ROOT'] . '/Drugstore/config/conexion.php';
 
+if (file_exists($rutaAbsoluta)) {
+    include_once $rutaAbsoluta;
+} else {
+    echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsoluta;
+}
 
 class Usuario
 {
-    private $id;
+    private $idUsuario;
     private $userName;
     private $pass;
-    private $fechaAlta;
     private $idEmpleado;
     private $idPerfiles;
 
-    public function __construct($id = '', $userName = '', $pass = '',$fechaAlta = '', $idEmpleado = '', $iPerfiles = '')
+    public function __construct($idUsuario = '', $userName = '', $pass = '', $idEmpleado = '', $iPerfiles = '')
     {
-        $this->id = $id;
+        $this->idUsuario = $idUsuario;
         $this->userName = $userName;
         $this->pass = $pass;
+        $this->idEmpleado = $idEmpleado;
         $this->idPerfiles = $iPerfiles;
-        $this->fechaAlta = $fechaAlta;
     }
 
     public function guardar()
     {
         $conexion = new Conexion();
+        $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
         $query = "INSERT INTO `usuarios`
                 (`username`,
                 `password`,
@@ -31,28 +36,46 @@ class Usuario
                 `Empleado_idEmpleado`,
                 `perfiles_idperfiles`)
                 VALUES
-                ('$this->userName','$this->pass','$this->fechaAlta','$this->idEmpleado','$this->idPerfiles')";
+                ('$this->userName','$passwordHash',now(),'$this->idEmpleado','$this->idPerfiles')";
         return $conexion->insertar($query);
     }
 
     public function actualizar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE usuarios SET username = '$this->userName', password =  '$this->fechaAlta',Empleado_idEmpleado = '$this->idEmpleado',perfiles_idperfiles ='$this->idPerfiles'";
+        $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
+        $query = "UPDATE usuarios SET username = '$this->userName', password =  '$passwordHash' WHERE idIsuarios = '$this->idUsuario'";
+        return $conexion->actualizar($query);
+    }
+
+    public function actualizarPass()
+    {
+        $conexion = new Conexion();
+        $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
+        $query = "UPDATE usuarios SET password =  '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
+        return $conexion->actualizar($query);
+    }
+
+    public function reestablecerPass()
+    {
+        $conexion = new Conexion();
+        $this->pass = 'drugstore123';
+        $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
+        $query = "UPDATE usuarios SET password = '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
     public function eliminar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE usuarios SET estado = 0 WHERE id = '$this->id'";
+        $query = "UPDATE usuarios SET estado = 0 WHERE id = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
     public function validarUsuario()
     {
         $conexion  = new Conexion();
-        $query = "SELECT * FROM usuarios WHERE username = '$this->userName' AND pass = '$this->pass'";
+        $query = "SELECT * FROM usuarios WHERE username = '$this->userName'";
         return $conexion->consultar($query);
     }
 
@@ -83,15 +106,16 @@ class Usuario
         return $usuarios;
     }
 
-    public function getId()
+
+    public function getIdUsuario()
     {
-        return $this->id;
+        return $this->idUsuario;
     }
 
 
-    public function setId($id)
+    public function setIdUsuario($idUsuario)
     {
-        $this->id = $id;
+        $this->idUsuario = $idUsuario;
 
         return $this;
     }
@@ -111,20 +135,6 @@ class Usuario
     }
 
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-
     public function getPass()
     {
         return $this->pass;
@@ -138,3 +148,6 @@ class Usuario
         return $this;
     }
 }
+
+// $usuario = new Usuario($idUsuario = '', $userName = 'manusalinasfsa', $pass = 'hola123', $idEmpleado = '2', $iPerfiles = '1');
+// $usuario->guardar();

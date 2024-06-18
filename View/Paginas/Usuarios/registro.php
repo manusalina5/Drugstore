@@ -1,29 +1,64 @@
-<div class="row ">
-    <div class="col">
-    </div>
+<link rel="stylesheet" href="Assets/css/registro.css">
+<div class="row">
+    <div class="col"></div>
     <div class="col">
         <h1>Registrar Usuario</h1>
-        <form class="" action="Controller/login.controlador.php" method="POST">
+        <form id="form_registro" action="Controller/Usuario/usuario.controlador.php" method="POST">
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">
-                <label for="exampleUserName" class="form-label">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="exampleUserName" name="nombre_usuario">
+                <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+                <input onfocusout="validate_username(event)" type="text" class="form-control" id="nombre_usuario" name="nombre_usuario">
+                <p id="username_parrafo" class="text-danger" style="display:none;">El usuario ya existe</p>
+                <p id="username_parrafoVacio" class="text-danger" style="display:none;">El usuario no puede estar vacío</p>
+                <p id="username_valido" class="text-success" style="display:none;">El usuario está disponible</p>
             </div>
             <div class="mb-3">
-                <label for="exampleEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleEmail" name="email">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="pass">
+                <p id="password_parrafo" class="text-danger" style="display:none;">La contraseña está vacía</p>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+                <select class='form-select' aria-label='select empleados' required name='idEmpleado'>
+                    <option value="">Selecciona al empleado</option>
+                    <?php
+                    include_once('Model/Personas/Empleado/empleado.php');
+                    $empleadoObj = new Empleado();
+                    $empleados = $empleadoObj->obtenerEmpleados();
+                    if(!empty($empleados)){
+                        foreach($empleados as $empleado){
+                            $nombreApellido = $empleado['nombre'] . ' ' . $empleado['apellido'];
+                            echo "<option value='{$empleado['idEmpleado']}'>{$nombreApellido}</option>";
+                        }
+                    }
+                    ?>
+                </select>
             </div>
-            <div class="mb-3 form-check">
+            <div class="mb-3">
+                <select class='form-select' aria-label='select perfiles' required name='idPerfil'>
+                    <option value="">Selecciona el perfil</option>
+                    <?php
+                    include_once('Model/Usuario/perfiles.php');
+                    $perfilObj = new Perfil();
+                    $perfiles = $perfilObj->obtenerPerfiles();
+                    if(!empty($perfiles)){
+                        foreach($perfiles as $perfil){
+                            $nombrePerfil = $perfil['nombre'];
+                            $idPerfil = $perfil['idPerfiles'];
+                            echo "<option value='{$idPerfil}'>{$nombrePerfil}</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div> -->
+            <div class="d-grid gap-1">
+                <button onclick="validate(event)" type="submit" class="btn btn-success">Registrar</button>
             </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
-    <div class="col">
-    </div>
+    <div class="col"></div>
 </div>
+<script src="Assets/js/Validaciones/usuarios.js"></script>
