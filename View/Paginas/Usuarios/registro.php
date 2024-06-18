@@ -18,7 +18,8 @@
                 <p id="password_parrafo" class="text-danger" style="display:none;">La contraseña está vacía</p>
             </div>
             <div class="mb-3">
-                <select class='form-select' aria-label='select empleados' required name='idEmpleado'>
+                <label for="selectEmpleados">Empleados</label>
+                <select class='form-select' aria-label='select empleados' required name='idEmpleado' id="selectEmpleados">
                     <option value="">Selecciona al empleado</option>
                     <?php
                     include_once('Model/Personas/Empleado/empleado.php');
@@ -34,7 +35,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <select class='form-select' aria-label='select perfiles' required name='idPerfil'>
+                <label for="selectPerfiles">Perfiles</label>
+                <select class='form-select' aria-label='select perfiles' required name='idPerfil' id="selectPerfiles">
                     <option value="">Selecciona el perfil</option>
                     <?php
                     include_once('Model/Usuario/perfiles.php');

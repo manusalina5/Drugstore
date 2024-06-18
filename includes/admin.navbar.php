@@ -19,17 +19,17 @@
                         <li>
                             <a class="dropdown-item" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=listado_usuarios&modulo=usuarios">Listar Usuarios</a>
                         </li>
                         <hr class="dropdown-divider">
                         <li class="nav-item">
-                        <span class="dropdown-item"><strong>Perfiles</strong></span>
+                            <span class="dropdown-item"><strong>Perfiles</strong></span>
                         </li>
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=alta_perfiles&modulo=usuarios&submodulo=perfiles">Agregar Perfiles</a>
@@ -91,8 +91,14 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=salida&modulo=usuarios">Cerra Sesion</a>
+
+                    <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar Sesion</strong></a>
                 </li>
+                <li class="nav-item">
+                    <p class="nav-link d-flex align-items-center ml-auto">@<?php echo $_SESSION['nombre_usuario']; ?></p>
+                </li>
+
+
             </ul>
         </div>
     </div>

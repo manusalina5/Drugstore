@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col"></div>
     <div class="col">
-        <h1 class="text-center">Registrar Proveedor</h1>
+        <h1 class="text-center h2">Registrar Proveedor</h1>
         <form action="Controller/Personas/Proveedor/proveedor.controlador.php" method="POST">
-            <h3>Datos Personales</h3>
             <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->
@@ -77,7 +76,9 @@
                 <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <div class="d-grid gap-1">
+                <button type="submit" class="btn btn-success">Agregar</button>
+            </div>
         </form>
     </div>
     <div class="col">

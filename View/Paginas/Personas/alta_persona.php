@@ -4,7 +4,6 @@
     <div class="col">
         <h1 class="text-center">Registrar Persona</h1>
         <form class="" action="Controller/Personas/persona.controlador.php" method="POST">
-            <h3>Datos Personales</h3>
 
             <!-- Nombre -->
             <input type="hidden" name="action" value="registro">
@@ -70,7 +69,9 @@
                 <label for="direccion" class="form-label">Dirección</label>
                 <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <div class="d-grid gap-1">
+                <button type="submit" class="btn btn-success">Agregar</button>
+            </div>
         </form>
     </div>
     <div class="col">

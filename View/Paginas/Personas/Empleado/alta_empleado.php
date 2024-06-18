@@ -3,7 +3,6 @@
     <div class="col">
         <h1 class="text-center">Registrar Empleado</h1>
         <form action="Controller/Personas/Empleado/empleado.controlador.php" method="POST">
-            <h3>Datos Personales</h3>
             <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->
