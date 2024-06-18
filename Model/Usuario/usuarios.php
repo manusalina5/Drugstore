@@ -29,7 +29,7 @@ class Usuario
     {
         $conexion = new Conexion();
         $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
-        $query = "INSERT INTO `usuarios`
+        $query = "INSERT INTO `usuario`
                 (`username`,
                 `password`,
                 `fechaAlta`,
@@ -44,7 +44,7 @@ class Usuario
     {
         $conexion = new Conexion();
         $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
-        $query = "UPDATE usuarios SET username = '$this->userName', password =  '$passwordHash' WHERE idIsuarios = '$this->idUsuario'";
+        $query = "UPDATE usuario SET username = '$this->userName', password =  '$passwordHash' WHERE idIsuarios = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
@@ -52,7 +52,7 @@ class Usuario
     {
         $conexion = new Conexion();
         $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
-        $query = "UPDATE usuarios SET password =  '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
+        $query = "UPDATE usuario SET password =  '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
@@ -61,21 +61,21 @@ class Usuario
         $conexion = new Conexion();
         $this->pass = 'drugstore123';
         $passwordHash = password_hash($this->pass, PASSWORD_DEFAULT);
-        $query = "UPDATE usuarios SET password = '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
+        $query = "UPDATE usuario SET password = '$passwordHash' WHERE idUsuario = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
     public function eliminar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE usuarios SET estado = 0 WHERE id = '$this->idUsuario'";
+        $query = "UPDATE usuario SET estado = 0 WHERE id = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
     public function validarUsuario()
     {
         $conexion  = new Conexion();
-        $query = "SELECT * FROM usuarios WHERE username = '$this->userName'";
+        $query = "SELECT * FROM usuario WHERE username = '$this->userName'";
         return $conexion->consultar($query);
     }
 
@@ -83,7 +83,7 @@ class Usuario
     {
         $conexion = new Conexion();
         $username = $this->userName;
-        $query = "SELECT pass FROM usuarios WHERE username = '$username'";
+        $query = "SELECT pass FROM usuario WHERE username = '$username'";
         $resultado = $conexion->consultar($query);
         $fila = $resultado->fetch_assoc();
         $hash = $fila['pass'];
@@ -95,7 +95,7 @@ class Usuario
     public function obtenerUsuarios()
     {
         $conexion = new Conexion();
-        $query = "SELECT idusuario, username, password, fechaalta FROM usuarios";
+        $query = "SELECT idusuario, username, password, fechaalta FROM usuario";
         $resultado = $conexion->consultar($query);
         $usuarios = [];
         if ($resultado->num_rows > 0) {
