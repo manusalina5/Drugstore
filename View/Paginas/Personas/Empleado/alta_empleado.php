@@ -19,7 +19,7 @@
 
             <!-- Tipo Documento -->
             <div class="mb-3">
-                <label for="tipodocumento" class="font-weight-bold">Documento</label>
+                <label id="label-tipodocumento" for="tipodocumento" class="font-weight-bold">Tipo de Documento</label>
                 <select class="form-select" aria-label="Select TipoDocumento" required name="idtipoDocumentos" id="tipodocumento">
                     <option selected value="">Elija tipo de documento</option>
                     <?php
@@ -42,7 +42,7 @@
 
             <!-- Tipo Contacto -->
             <div class="mb-3">
-                <label for="tipocontacto" class="font-weight-bold">Contacto</label>
+                <label id="label-select" for="tipocontacto" class="font-weight-bold">Contacto</label>
                 <select class="form-select" aria-label="Select TipoContacto" required name="idtipoContacto" id="tipocontacto">
                     <option selected value="">Elija tipo de contacto</option>
                     <?php
@@ -66,7 +66,7 @@
             <!-- Dirección -->
             <div class="mb-3">
                 <label for="direccion" class="form-label">Dirección</label>
-                <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion"></textarea>
+                <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion">Ingrese la dirección</textarea>
             </div>
 
             <!-- Legajo -->
@@ -81,3 +81,18 @@
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#tipodocumento').select2({
+            placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#tipocontacto').select2({
+            placeholder: "Elija tipo de contacto",
+            allowClear: true
+        });
+    });
+    </script>

@@ -42,7 +42,7 @@
 
             <!-- Tipo Contacto -->
             <div class="mb-3">
-                <label for="tipocontacto" class="font-weight-bold">Contacto</label>
+                <label id="label-select" for="tipocontacto" class="font-weight-bold">Contacto</label>
                 <select class="form-select" aria-label="Select TipoContacto" required name="idtipoContacto" id="tipocontacto">
                     <option selected value="">Elija tipo de contacto</option>
                     <?php
@@ -77,3 +77,18 @@
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#tipodocumento').select2({
+            placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#tipocontacto').select2({
+            placeholder: "Elija tipo de contacto",
+            allowClear: true
+        });
+    });
+    </script>

@@ -47,9 +47,8 @@ if (isset($_GET['idProveedor'])) {
 
             <!-- Tipo Documento -->
             <div class="mb-3">
-                <label for="tipodocumento" class="font-weight-bold">Documento</label>
+                <label id="label-select" for="tipodocumento" class="font-weight-bold">Documento</label>
                 <select class="form-select" aria-label="Select TipoDocumento" required name="idtipoDocumentos" id="tipodocumento">
-
                     <?php
                     include_once('Model/Personas/Documento/tipoDocumento.php');
                     include_once('Model/Personas/Documento/Documento.php');
@@ -154,3 +153,12 @@ if (isset($_GET['idProveedor'])) {
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#tipodocumento').select2({
+            placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    </script>

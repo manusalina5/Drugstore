@@ -7,7 +7,7 @@ if (isset($_GET['id'])){
     $id = $_GET['id'];
     $direccion = new Direccion();
     $direccion->setId($id);
-    $direccionData = direccion->obtenerDireccionPorId();
+    $direccionData = $direccion->obtenerDireccionPorId();
 } else{
     echo "El form está vacío";
 }

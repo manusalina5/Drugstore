@@ -26,7 +26,7 @@
 
             <!-- Tipo Documento -->
             <div class="mb-3">
-                <label for="tipodocumento" class="font-weight-bold">Documento</label>
+                <label id="label-select" for="tipodocumento" class="font-weight-bold">Documento</label>
                 <select class="form-select" aria-label="Select TipoDocumento" required name="idtipoDocumentos" id="tipodocumento">
                     <option selected value="">Elija tipo de documento</option>
                     <?php
@@ -84,3 +84,18 @@
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#tipodocumento').select2({
+            placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#tipocontacto').select2({
+            placeholder: "Elija tipo de contacto",
+            allowClear: true
+        });
+    });
+    </script>
