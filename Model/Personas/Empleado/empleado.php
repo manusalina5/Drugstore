@@ -12,23 +12,26 @@ if (file_exists($rutaAbsoluta)) {
 $rutaAbsolutaPersona = $_SERVER['DOCUMENT_ROOT'] . '/Drugstore/Model/Personas/persona.php';
 if (file_exists($rutaAbsolutaPersona)) {
     include_once $rutaAbsolutaPersona;
-}else{
-    echo "Error: Archivo de configuración no encontrado en: " .$rutaAbsolutaPersona;
+} else {
+    echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsolutaPersona;
 }
 
 
-class Empleado extends Persona{
+class Empleado extends Persona
+{
     private $idEmpleado;
     private $legajo;
     private $idPersona;
 
-    public function __construct($idEmpleado = "", $legajo = "", $idPersona = "", $nombre = "", $apellido = "") {
+    public function __construct($idEmpleado = "", $legajo = "", $idPersona = "", $nombre = "", $apellido = "")
+    {
         parent::__construct($idPersona, $nombre, $apellido);
         $this->idEmpleado = $idEmpleado;
         $this->legajo = $legajo;
     }
 
-    public function guardar(){
+    public function guardar()
+    {
         // Se guarda la persona
         $this->idPersona = parent::guardar();
 
@@ -38,7 +41,8 @@ class Empleado extends Persona{
         return $conexion->insertar($query);
     }
 
-    public function actualizar(){
+    public function actualizar()
+    {
         // Se actualiza la persona
         parent::actualizar();
 
@@ -48,9 +52,10 @@ class Empleado extends Persona{
         return $conexion->actualizar($query);
     }
 
-    public function eliminar(){
+    public function eliminar()
+    {
         // Se elimina la persona
-        parent:: eliminar();
+        parent::eliminar();
 
         // Se elimina el empleado
         $conexion = new Conexion;
@@ -58,7 +63,8 @@ class Empleado extends Persona{
         return $conexion->actualizar($query);
     }
 
-    public function obtenerEmpleados(){ 
+    public function obtenerEmpleados()
+    {
         $conexion = new Conexion;
         $query = "SELECT e.idEmpleado as idEmpleado,
                     e.fechaAlta as fechaAlta,
@@ -70,15 +76,40 @@ class Empleado extends Persona{
                     INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona WHERE e.estado = 1";
         $resultado = $conexion->consultar($query);
         $empleado = array();
-        if($resultado->num_rows > 0){
-            while($row = $resultado->fetch_assoc()){
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $empleado[] = $row;
             }
         }
         return $empleado;
     }
 
-    public function obtenerEmpleadosPorId(){
+    public function obtenerEmpleadosSinUsuario()
+    {
+        $conexion = new Conexion;
+        $query = "SELECT e.idEmpleado AS idEmpleado,
+                        e.fechaAlta AS fechaAlta,
+                        e.legajo AS legajo,
+                        p.idPersona AS idPersona,
+                        p.nombre AS nombre,
+                        p.apellido AS apellido
+                    FROM persona p
+                    INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona
+                    LEFT JOIN usuario u ON u.Empleado_idEmpleado = e.idEmpleado
+                    WHERE e.estado = 1
+                    AND u.Empleado_idEmpleado IS NULL";
+        $resultado = $conexion->consultar($query);
+        $empleado = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $empleado[] = $row;
+            }
+        }
+        return $empleado;
+    }
+
+    public function obtenerEmpleadosPorId()
+    {
         $conexion = new Conexion;
         $query = "SELECT e.idEmpleado as idEmpleado,
                     e.fechaAlta as fechaAlta,
@@ -134,6 +165,4 @@ class Empleado extends Persona{
 
         return $this;
     }
-
-
 }

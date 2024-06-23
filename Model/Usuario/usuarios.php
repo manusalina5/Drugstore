@@ -68,7 +68,7 @@ class Usuario
     public function eliminar()
     {
         $conexion = new Conexion();
-        $query = "UPDATE usuario SET estado = 0 WHERE id = '$this->idUsuario'";
+        $query = "UPDATE usuario SET estado = 0 WHERE idUsuario = '$this->idUsuario'";
         return $conexion->actualizar($query);
     }
 
@@ -95,7 +95,10 @@ class Usuario
     public function obtenerUsuarios()
     {
         $conexion = new Conexion();
-        $query = "SELECT idusuario, username, password, fechaalta FROM usuario";
+        $query = "SELECT idusuario, username, password, fechaalta, nombre
+                    FROM usuario
+                    LEFT JOIN perfiles ON perfiles.idperfiles = usuario.perfiles_idperfiles
+                    WHERE usuario.estado = 1";
         $resultado = $conexion->consultar($query);
         $usuarios = [];
         if ($resultado->num_rows > 0) {

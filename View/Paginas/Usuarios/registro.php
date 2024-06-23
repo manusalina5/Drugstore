@@ -13,8 +13,8 @@
                 <p id="username_valido" class="text-success" style="display:none;">El usuario está disponible</p>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" name="pass">
+                <!-- <label for="password" class="form-label">Contraseña</label> -->
+                <input type="hidden" class="form-control" id="password" name="pass" value='drugstore123'>
                 <p id="password_parrafo" class="text-danger" style="display:none;">La contraseña está vacía</p>
             </div>
             <div class="mb-3">
@@ -24,7 +24,7 @@
                     <?php
                     include_once('Model/Personas/Empleado/empleado.php');
                     $empleadoObj = new Empleado();
-                    $empleados = $empleadoObj->obtenerEmpleados();
+                    $empleados = $empleadoObj->obtenerEmpleadosSinUsuario();
                     if(!empty($empleados)){
                         foreach($empleados as $empleado){
                             $nombreApellido = $empleado['nombre'] . ' ' . $empleado['apellido'];

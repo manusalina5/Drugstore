@@ -1,9 +1,24 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id = $_POST['user_id'];
+    $username = $_POST['username'];
+    $mensaje = $_POST['mensaje'];
+    $status = $_POST['status'];
+    // Mostrar mensaje de advertencia
+    echo '<div class="alert alert-' . $status . ' text-center" role="alert">' . $mensaje . '</div>';
+} else {
+    header('Location: ../../index.php?mensaje=Acceso no autorizado&status=danger');
+    exit;
+}
+?>
+
 <div class="row">
     <div class="col"></div>
     <div class="col">
-        <h1>Actualizar Contraseña de <?php echo $_SESSION['nombre_usuario']; ?></h1>
+        <h1 class="h3">Actualizar Contraseña de</h1>
+        <h2 class="h4"> <?php echo htmlspecialchars($username); ?></h2>
         <form action="Controller/Usuario/usuario.controlador.php" method="POST">
-            <input type="hidden" name="idUsuario" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($user_id); ?>">
             <input type="hidden" name="action" value="actualizarPass">
             <div class="mb-3">
                 <label for="nuevoPass" class="form-label">Nueva Contraseña</label>

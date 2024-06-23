@@ -1,8 +1,6 @@
 <?php
 ob_start();
 session_start();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +9,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Sistema Gestión de Drugstore</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="Assets/css/style.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
@@ -31,27 +29,26 @@ session_start();
 
 <body>
     <?php
-    if (!empty($_SESSION)) {
-        switch ($_SESSION['nombre_perfil']) {
-            case 'Administrador':
-                include_once('includes/admin.navbar.php');
-                break;
-            case 'Vendedor':
-                include_once('includes/vendedor.navbar.php');
-                break;
-            case 'Gerente':
-                include_once('includes/gerente.navbar.php');
-                break;
-            case 'CambioPass':
-                #
-                break;
-            default:
-                include_once('View/Paginas/Usuarios/salida.php');
-                break;
+    // Verificar si la página actual es actualizar_pass
+    $pagina_actual = isset($_GET['page']) ? $_GET['page'] : '';
+    if ($pagina_actual !== 'actualizar_pass') {
+        if (!empty($_SESSION)) {
+            switch ($_SESSION['nombre_perfil']) {
+                case 'Administrador':
+                    include_once('includes/admin.navbar.php');
+                    break;
+                case 'Vendedor':
+                    include_once('includes/vendedor.navbar.php');
+                    break;
+                case 'Gerente':
+                    include_once('includes/gerente.navbar.php');
+                    break;
+                default:
+                    include_once('View/Paginas/Usuarios/salida.php');
+                    break;
+            }
         }
-    } else {
     }
-
     ?>
 
     <?php
@@ -67,8 +64,8 @@ session_start();
     ?>
     <div class="container">
         <?php
-        if (!isset($_SESSION['nombre_usuario'])) {
-            // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión
+        if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
+            // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión
             include_once('View/Paginas/Usuarios/login.php');
             exit(); // Terminar el script para evitar que el resto del código se ejecute
         }
@@ -90,7 +87,6 @@ session_start();
             $modulo = ucfirst($_GET['modulo']);
             // ucfirst convierte la primer letra del string en Mayuscula
             if (!empty(($_GET['submodulo']))) {
-
                 $submodulo = ucfirst(($_GET['submodulo']));
                 if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos) && in_array($submodulo, $submodulosValidos)) {
                     include('View/Paginas/' . $modulo . '/' . $submodulo . '/' . $page . '.php');
@@ -111,9 +107,6 @@ session_start();
                 include_once('View/Paginas/Usuarios/login.php');
             }
         }
-
-
-
         ?>
     </div>
 </body>
