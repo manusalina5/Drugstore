@@ -1,19 +1,15 @@
 <?php
 
-require_once ('config/conexion.php');
+require_once 'config/conexion.php';
 
 class Permisos{
-    private $id;
+    private $idpermisos;
     private $nombre;
 
-    public function __construct($id, $nombre){
-        $this->id = $id;
+    public function __construct($idpermisos = '', $nombre = ''){
+        $this->idpermisos = $idpermisos;
         $this->nombre = $nombre;
     }
     
-
-
-
-
 
 }

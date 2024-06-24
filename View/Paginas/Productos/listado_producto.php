@@ -1,4 +1,8 @@
 <h1 class="text-center">Lista de productos</h1>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_producto&modulo=productos" class="btn btn-success">Agregar nuevo Producto</a>
+
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -16,7 +20,7 @@
     </thead>
     <tbody>
         <?php
-        include_once('Model/Productos/producto.php');
+        include_once ('Model/Productos/producto.php');
         include_once 'Model/Productos/marca.php';
         include_once 'Model/Productos/rubro.php';
         $productoObj = new Producto();

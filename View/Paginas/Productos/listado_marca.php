@@ -1,4 +1,7 @@
 <h1 class="text-center">Lista de marcas</h1>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_marca&modulo=productos" class="btn btn-success">Agregar Marca</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
