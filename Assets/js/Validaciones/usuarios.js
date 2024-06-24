@@ -42,13 +42,18 @@ function validate(event) {
 
     const password = document.getElementById('password');
     const username = document.getElementById('nombre_usuario');
+    const empleado = document.getElementById('selectEmpleados');
+    const perfil = document.getElementById('selectPerfiles'); // Corregir el error tipográfico
     const form = document.getElementById('form_registro');
     const username_parrafoVacio = document.getElementById('username_parrafoVacio');
     const password_parrafo = document.getElementById('password_parrafo');
+    const empleado_parrafo = document.getElementById('empleado_parrafo');
+    const perfil_parrafo = document.getElementById('perfil_parrafo');
 
     let valid = true;
 
     if (username.value.length == 0) {
+        username.classList.remove('validation-success');
         username.classList.add('validation-error');
         username_parrafoVacio.style.display = 'block';
         valid = false;
@@ -59,6 +64,7 @@ function validate(event) {
     }
 
     if (password.value.length == 0) {
+        password.classList.remove('validation-success');
         password.classList.add('validation-error');
         password_parrafo.style.display = 'block';
         valid = false;
@@ -66,6 +72,28 @@ function validate(event) {
         password.classList.remove('validation-error');
         password_parrafo.style.display = 'none';
         password.classList.add('validation-success');
+    }
+
+    if (empleado.value.length == 0) {
+        empleado.classList.remove('validation-success');
+        empleado.classList.add('validation-error');
+        empleado_parrafo.style.display = 'block';
+        valid = false;
+    } else {
+        empleado.classList.remove('validation-error');
+        empleado_parrafo.style.display = 'none';
+        empleado.classList.add('validation-success');
+    }
+
+    if (perfil.value.length == 0) {
+        perfil.classList.remove('validation-success');
+        perfil.classList.add('validation-error');
+        perfil_parrafo.style.display = 'block';
+        valid = false;
+    } else {
+        perfil.classList.remove('validation-error');
+        perfil_parrafo.style.display = 'none';
+        perfil.classList.add('validation-success');
     }
 
     if (valid) {

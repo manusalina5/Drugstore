@@ -6,3 +6,13 @@
     border-color: green;
 }
 
+#username_parrafo{
+    color: red;
+    display: none;
+
+}
+
+#password_parrafo{
+    color: red;
+    display: none;
+}

@@ -33,6 +33,7 @@
                     }
                     ?>
                 </select>
+                <p id="empleado_parrafo" class="text-danger" style="display:none;">Elija un empleado</p>
             </div>
             <div class="mb-3">
                 <label for="selectPerfiles">Perfiles</label>
@@ -51,6 +52,7 @@
                     }
                     ?>
                 </select>
+                <p id="perfil_parrafo" class="text-danger" style="display:none;">Elija un perfil</p>
             </div>
             <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
