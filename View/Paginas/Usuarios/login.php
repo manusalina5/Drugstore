@@ -9,12 +9,12 @@
             <div class="mb-3">
                 <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
                 <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario">
-                <p id="username_parrafo" style="color:red; display: none;">Se requiere el nombre de usuario</p>
+                <p id="username_parrafo">Se requiere el nombre de usuario</p>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
                 <input  type="password" class="form-control" id="password" name="pass">
-                <p id="password_parrafo" style="color:red; display: none;">Se requiere una contraseña</p>
+                <p id="password_parrafo">Se requiere una contraseña</p>
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
