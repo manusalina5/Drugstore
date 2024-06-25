@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'model/usuario/modulos.php';
+require_once 'model/usuario/modulos.php';
 
 ?>
 
@@ -16,12 +16,12 @@
             <ul class="navbar-nav">
 
                 <?php
-                
-                if (isset($_SESSION['idPerfil'])){
+
+                if (isset($_SESSION['idPerfil'])) {
                     $modulo = new Modulos();
                     $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
-                    while($row = $modulos->fetch_assoc()){
-                        if ($row['nombre'] == 'usuarios'){
+                    while ($row = $modulos->fetch_assoc()) {
+                        if ($row['nombre'] == 'usuarios') {
                             echo '<li class="nav-item">
                     <a class="nav-link" href="index.php">Inicio</a>
                 </li>
@@ -51,10 +51,23 @@
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=listado_perfiles&modulo=usuarios&submodulo=perfiles">Listar Perfiles</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="?page=accesos_perfiles&modulo=usuarios">Accesos</a>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <li class="nav-item">
+                            <span class="dropdown-item"><strong>Modulos</strong></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="?page=alta_modulos&modulo=usuarios&submodulo=modulos">Agregar Modulos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="?page=listado_modulos&modulo=usuarios&submodulo=modulos">Listar Modulos</a>
+                        </li>
                     </ul>
                 </li>';
                         }
-                        if ($row['nombre'] == 'productos'){
+                        if ($row['nombre'] == 'productos') {
                             echo '<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Productos
@@ -70,9 +83,9 @@
                         <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Ver de rubros</a></li>
                     </ul>
                 </li>';
-                    }
-                    if ($row['nombre'] == 'personas'){
-                        echo '<li class="nav-item dropdown">
+                        }
+                        if ($row['nombre'] == 'personas') {
+                            echo '<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Personas
                             </a>
@@ -97,9 +110,9 @@
                                 <li><a class="dropdown-item" href="?page=listado_tipocontacto&modulo=personas&submodulo=contacto">Ver Tipo Contactos</a></li>
                             </ul>
                         </li>';
-                    }
-                    if ($row['nombre'] == 'egresos'){
-                        echo '<li class="nav-item dropdown">
+                        }
+                        if ($row['nombre'] == 'egresos') {
+                            echo '<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Tipo Egreso
                             </a>
@@ -109,10 +122,21 @@
                                 <li>
                             </ul>
                         </li>';
+                        }
                     }
                 }
-            }
                 ?>
+                
+                <div ></div>
+                <li class="nav-item">
+                    <a href="" class="nav-link"> </a>
+                </li>
+
+                <li class="nav-item">
+                    <strong>
+                        <a href="?page=configuracion&modulo=usuarios" class="nav-link"><i class='fi fi-rr-user-pen'> </i>Editar Datos</a>
+                    </strong>
+                </li>
 
                 <li class="nav-item">
 
@@ -121,6 +145,7 @@
                 <li class="nav-item">
                     <p class="nav-link d-flex align-items-center ml-auto">@<?php echo $_SESSION['nombre_usuario']; ?></p>
                 </li>
+                
 
 
             </ul>
