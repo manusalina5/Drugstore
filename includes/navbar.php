@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="Assets/img/avatar.png" alt="Bootstrap" width="38" height="38">
+            <img src="Assets/img/avatar.png" alt="Bootstrap" width="24" height="24">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,9 @@
                         Usuarios
                     </a>
                     <ul class="dropdown-menu">
-                        
+                        <li>
+                            <a class="dropdown-item" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
