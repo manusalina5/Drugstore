@@ -30,10 +30,9 @@ require_once 'model/usuario/modulos.php';
                         Usuarios
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" aria-current="page" href="?page=login&modulo=usuarios">Inicio</a>
+                        <li class="nav-item">
+                            <span class="dropdown-item"><strong>Usuarios</strong></span>
                         </li>
-
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=registro&modulo=usuarios">Registrar Usuarios</a>
                         </li>
