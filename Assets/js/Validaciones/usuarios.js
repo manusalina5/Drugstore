@@ -103,3 +103,34 @@ function validate(event) {
         }, 1000); // 1000 milisegundos equivalen a 1 segundo
     }
 }
+
+function validarCambioPass(event) {
+    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+    const passwordNueva = document.getElementById("nuevoPass").value;
+    const passwordConfirmacion = document.getElementById('confirmarPass').value;
+    const form = document.getElementById("form-pass");
+    const alert = document.getElementById("alert-cambio-pass");
+
+    let isValid = true; // Variable para controlar la validez general
+
+    if (passwordNueva !== passwordConfirmacion) {
+        alert.style.display = 'block';
+        isValid = false; // Se marca como inválido
+    } else {
+        alert.style.display = 'none';
+    }
+
+    if (isValid) {
+        // Envío del formulario solo si es válido
+        form.submit();
+    }
+
+    // Ocultar mensajes de éxito después de un tiempo
+    setTimeout(function () {
+        alert.style.display = 'none';
+    }, 2000);
+
+    return false; // Se mantiene el return false para evitar el envío por defecto del navegador
+}
+

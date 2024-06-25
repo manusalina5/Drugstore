@@ -20,7 +20,10 @@ if (isset($_POST['action'])) {
         $empleado->modificarEmpleado();
     } elseif ($_POST['action'] == 'eliminar') {
         $empleado->eliminarEmpleado();
-    } else {
+    }else if ($_POST['action'] == 'modificarUser'){
+        $empleado->modificarEmpleado();
+    } 
+    else {
         echo "ERROR: Contactarse con el administrador";
     }
 }
@@ -102,8 +105,12 @@ class EmpleadoControlador
             } else {
                 $direccion->guardar();
             }
-
-            header('Location: ../../../?page=listado_empleado&modulo=personas&submodulo=empleado&status=success');
+            if($_POST['action']== 'modificar'){
+                header('Location: ../../../?page=listado_empleado&modulo=personas&submodulo=empleado&status=success');
+            }else if($_POST['action']== 'modificarUser'){
+                header('Location: ../../../?page=configuracion&modulo=usuarios&mensaje=Se actualizaron los datos correctamente&status=success');
+            }
+            
         }
     }
 

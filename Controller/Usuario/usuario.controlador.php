@@ -71,9 +71,9 @@ class UsuarioControlador
                 $usuario->setPass($_POST['nuevoPass']);
                 $usuario->setIdUsuario($_POST['idUsuario']);
                 $usuario->actualizarPass();
-                header('Location: ../../index.php?mensaje=Se actualizo correctamente la contraseña&status=success');
+                header('Location: ../../index.php?page=salida&modulo=usuarios&mensaje=Se actualizo correctamente la contraseña, ingrese nuevamente&status=success');
             } else {
-                header('Location: ../../index.php?page=actualizar_pass&modulo=usuarios&mensaje=Las contraseñas no coinciden&status=danger');
+                header('Location: ../../index.php?mensaje=Las contraseñas no coinciden&status=danger');
             }
         }
     }
