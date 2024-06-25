@@ -1,3 +1,8 @@
+<?php
+
+    require_once 'model/usuario/modulos.php';
+
+?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -8,6 +13,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+
+
+            <?php
+                
+                if (isset($_SESSION['idPerfil'])){
+                    $modulo = new Modulos();
+                    $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
+                    while($row = $modulos->fetch_assoc()){
+                        if ($row['nombre'] == 'productos'){
+                        echo'
                 <li class="nav-item">
                     <a class="nav-link" href="index.php"><strong>Inicio</strong></a>
                 </li>
@@ -25,7 +40,9 @@
                         <li><a class="dropdown-item" href="?page=alta_rubro&modulo=productos">Agregar rubro</a></li>
                         <li><a class="dropdown-item" href="?page=listado_rubro&modulo=productos">Ver de rubros</a></li>
                     </ul>
-                </li>
+                </li>';
+                        }
+                    }
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +56,11 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><b>Cerrar Sesion</b></a>
-                </li>
+                </li>';
+                    }
+                }
+            }
+                ?>
             </ul>
         </div>
     </div>

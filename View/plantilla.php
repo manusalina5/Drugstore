@@ -33,20 +33,21 @@ session_start();
     $pagina_actual = isset($_GET['page']) ? $_GET['page'] : '';
     if ($pagina_actual !== 'actualizar_pass') {
         if (!empty($_SESSION)) {
-            switch ($_SESSION['nombre_perfil']) {
-                case 'Administrador':
-                    include_once('includes/admin.navbar.php');
-                    break;
-                case 'Vendedor':
-                    include_once('includes/vendedor.navbar.php');
-                    break;
-                case 'Gerente':
-                    include_once('includes/gerente.navbar.php');
-                    break;
-                default:
-                    include_once('View/Paginas/Usuarios/salida.php');
-                    break;
-            }
+            include ('includes/navbar.php');
+        //     switch ($_SESSION['nombre_perfil']) {
+        //         case 'Administrador':
+        //             include_once('includes/admin.navbar.php');
+        //             break;
+        //         case 'Vendedor':
+        //             include_once('includes/vendedor.navbar.php');
+        //             break;
+        //         case 'Gerente':
+        //             include_once('includes/gerente.navbar.php');
+        //             break;
+        //         default:
+        //             include_once('View/Paginas/Usuarios/salida.php');
+        //             break;
+        //     }
         }
     }
     ?>

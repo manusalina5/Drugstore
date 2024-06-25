@@ -41,10 +41,9 @@ class LoginControlador
                     // Inicializar variables de sesión si la contraseña no es la predeterminada
                     $_SESSION['nombre_usuario'] = $row['username'];
                     $perfilData = $perfil->obtenerPerfilesPorId($row['perfiles_idperfiles']);
-                    $_SESSION['idPerfil'] = $perfilData['idperfiles'];
+                    $_SESSION['idPerfil'] = $perfilData['idPerfiles'];
                     $_SESSION['nombre_perfil'] = $perfilData['nombre'];
                     $_SESSION['user_id'] = $row['idUsuario'];
-
                     header('Location: ../../index.php?page=listado_usuarios');
                     exit;
                 }

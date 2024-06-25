@@ -20,7 +20,7 @@ class DetalleCompra{
     ($iddetallecompra = "",
     $precioactual = "",
     $cantidad = "",
-    $producto_idproducto == "",
+    $producto_idproducto = "",
     $compra_idcompra = "")
     {
         $this->iddetallecompra = $iddetallecompra;
