@@ -1,4 +1,7 @@
 <h2 class="text-center">Lista de Tipo de Egresos</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_tipoegreso&modulo=caja&submodulo=egreso" class="btn btn-success">Agregar Tipo de Egresos</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

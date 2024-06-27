@@ -1,4 +1,7 @@
 <h2 class="text-center">Lista de Tipo de Documentos</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_tipodocumento&modulo=personas&submodulo=documento" class="btn btn-success">Agregar Tipo Documento</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

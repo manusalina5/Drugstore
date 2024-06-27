@@ -1,4 +1,7 @@
 <h2 class="text-center">Proveedores</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_proveedor&modulo=personas&submodulo=proveedor" class="btn btn-success">Agregar Proveedor</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

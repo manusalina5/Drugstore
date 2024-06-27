@@ -1,4 +1,7 @@
 <h1 class="text-center">Lista de rubros</h1>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_rubro&modulo=productos" class="btn btn-success">Agregar Rubro</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
