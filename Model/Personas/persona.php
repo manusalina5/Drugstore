@@ -43,10 +43,10 @@ class Persona
         return $conexion->actualizar($query);
     }
 
-    public function obtenerPersonas()
+    public function obtenerPersonas($inicio,$registro_por_pagina)
     {
         $conexion = new Conexion();
-        $query = "SELECT idPersona, nombre, apellido FROM persona WHERE estado = 1";
+        $query = "SELECT idPersona, nombre, apellido FROM persona WHERE estado = 1 LIMIT $inicio, $registro_por_pagina ";
         $resultado = $conexion->consultar($query);
         $persona = array();
         if ($resultado->num_rows > 0) {
@@ -55,6 +55,17 @@ class Persona
             }
         }
         return $persona;
+    }
+
+    public static function totalPaginas($registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM persona WHERE estado = 1";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+
+        return $total_paginas;
     }
 
     public function obtenerPersonasPorId()
