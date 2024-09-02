@@ -1,4 +1,7 @@
 <h2 class="text-center">Empleados</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_empleado&modulo=personas&submodulo=empleado" class="btn btn-success">Agregar Empleado</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

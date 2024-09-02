@@ -1,4 +1,7 @@
 <h1 class="text-center">Lista de perfiles</h1>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_perfiles&modulo=usuarios&submodulo=perfiles" class="btn btn-success">Agregar Perfil</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

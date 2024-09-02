@@ -1,4 +1,7 @@
 <h2 class="text-center">Lista de Tipo de contactos</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_tipocontacto&modulo=personas&submodulo=contacto" class="btn btn-success">Agregar Tipo Contacto</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

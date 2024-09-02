@@ -66,7 +66,7 @@
             <!-- Dirección -->
             <div class="mb-3">
                 <label for="direccion" class="form-label">Dirección</label>
-                <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion">Ingrese la dirección</textarea>
+                <textarea required class="form-control" maxlength="255" id="direccion" rows="1" name="direccion"></textarea>
             </div>
 
             <!-- Legajo -->

@@ -1,4 +1,7 @@
 <h1 class="text-center">Lista de modulos</h1>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_modulos&modulo=usuarios&submodulo=modulos" class="btn btn-success">Agregar Modulo</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
