@@ -20,11 +20,24 @@
     </thead>
     <tbody>
         <?php
-        include_once ('Model/Productos/producto.php');
+        include_once('Model/Productos/producto.php');
         include_once 'Model/Productos/marca.php';
         include_once 'Model/Productos/rubro.php';
         $productoObj = new Producto();
-        $productos = $productoObj->obtenerProductos();
+
+        $registro_por_pagina = 5;
+
+        $total_paginas = Producto::totalPaginas($registro_por_pagina);
+
+        if (isset($_GET['pagina'])) {
+            $pagina_actual = $_GET['pagina'];
+        } else {
+            $pagina_actual = 1;
+        }
+
+        $inicio = ($pagina_actual - 1) * $registro_por_pagina;
+
+        $productos = $productoObj->obtenerProductos($inicio, $registro_por_pagina);
         if (!empty($productos)) {
             foreach ($productos as $producto) {
                 $marca = new Marca();
@@ -69,3 +82,32 @@
         ?>
     </tbody>
 </table>
+
+<!-- Paginación -->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <!-- Botón "Anterior" -->
+        <li class="page-item <?php if ($pagina_actual <= 1)
+            echo 'disabled'; ?>">
+            <a class="page-link" href="<?php if ($pagina_actual > 1)
+                echo '?page=listado_producto&modulo=productos&pagina=' . ($pagina_actual - 1); ?>">Anterior</a>
+        </li>
+
+        <!-- Enlaces a las páginas -->
+        <?php
+        for ($i = 1; $i <= $total_paginas; $i++): ?>
+            <li class="page-item <?php if ($i == $pagina_actual)
+                echo 'active'; ?>">
+                <a class="page-link"
+                    href="?page=listado_producto&modulo=productos&pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+
+        <!-- Botón "Siguiente" -->
+        <li class="page-item <?php if ($pagina_actual >= $total_paginas)
+            echo 'disabled'; ?>">
+            <a class="page-link" href="<?php if ($pagina_actual < $total_paginas)
+                echo '?page=listado_producto&modulo=productos&pagina=' . ($pagina_actual + 1); ?>">Siguiente</a>
+        </li>
+    </ul>
+</nav>

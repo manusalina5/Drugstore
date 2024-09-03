@@ -89,7 +89,7 @@ class Producto
         return $conexion->actualizar($query);
     }
 
-    public function obtenerProductos()
+    public function obtenerProductos($inicio, $registro_por_pagina)
     {
         $conexion = new Conexion;
         $query = "SELECT `producto`.`idProductos`,
@@ -103,7 +103,7 @@ class Producto
         `producto`.`Marca_idMarca`,
         `producto`.`Rubro_idRubros`
         FROM `producto`
-        WHERE estado = 1";
+        WHERE estado = 1 LIMIT $inicio, $registro_por_pagina ";
         $resultado = $conexion->consultar($query);
         $productos = array();
         if ($resultado->num_rows > 0){
@@ -113,6 +113,17 @@ class Producto
         }
         return $productos;
 
+    }
+
+    public static function totalPaginas($registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM producto WHERE estado = 1";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+
+        return $total_paginas;
     }
 
     
