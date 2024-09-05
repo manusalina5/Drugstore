@@ -15,7 +15,7 @@ class Persona
     private $nombre;
     private $apellido;
 
-    public function __construct($idPersona="", $nombre="", $apellido="")
+    public function __construct($idPersona = "", $nombre = "", $apellido = "")
     {
         $this->idPersona = $idPersona;
         $this->nombre = $nombre;
@@ -43,7 +43,7 @@ class Persona
         return $conexion->actualizar($query);
     }
 
-    public function obtenerPersonas($inicio,$registro_por_pagina)
+    public function obtenerPersonas($inicio, $registro_por_pagina)
     {
         $conexion = new Conexion();
         $query = "SELECT idPersona, nombre, apellido FROM persona WHERE estado = 1 LIMIT $inicio, $registro_por_pagina ";
@@ -57,7 +57,8 @@ class Persona
         return $persona;
     }
 
-    public static function totalPaginas($registro_por_pagina){
+    public static function totalPaginas($registro_por_pagina)
+    {
         $conexion = new Conexion();
         $query = "SELECT COUNT(*) FROM persona WHERE estado = 1";
         $resultado = $conexion->consultar($query);
@@ -75,6 +76,38 @@ class Persona
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
     }
+
+    public function buscarPersonas($busqueda, $inicio, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT idPersona, nombre, apellido 
+                  FROM persona 
+                  WHERE estado = 1 
+                  AND (nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%') 
+                  LIMIT $inicio, $registro_por_pagina";
+        $resultado = $conexion->consultar($query);
+        $personas = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $personas[] = $row;
+            }
+        }
+        return $personas;
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) 
+                  FROM persona 
+                  WHERE estado = 1 
+                  AND (nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+        return $total_paginas;
+    }
+
 
 
     public function getId()
@@ -117,4 +150,3 @@ class Persona
         return $this;
     }
 }
-

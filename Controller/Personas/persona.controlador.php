@@ -8,6 +8,25 @@ include_once '../../Model/Personas/Contacto/contacto.php';
 include_once '../../Model/Personas/Direccion/direccion.php';
 include_once '../../config/conexion.php';
 
+if ($_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 5;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $personaObj = new Persona();
+    $personas = $personaObj->buscarPersonas($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = Persona::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'personas' => $personas,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
+
+
 if (isset($_POST['action'])) {
     $persona = new PersonaControlador();
     if ($_POST['action'] == 'registro') {

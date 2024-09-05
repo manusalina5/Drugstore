@@ -4,6 +4,24 @@
 include_once '../../Model/Productos/producto.php';
 include_once '../../config/conexion.php';
 
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $productoObj = new Producto();
+    $productos = $productoObj->buscarProductos($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = Producto::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'productos' => $productos,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
+
 
 class ProductoControlador
 {

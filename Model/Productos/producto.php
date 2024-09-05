@@ -136,6 +136,45 @@ class Producto
         
     }
 
+    function buscarProductos($busqueda, $inicio, $registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT idProductos, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro
+                    FROM producto
+                    INNER JOIN marca m ON m.idMarca = producto.Marca_idMarca
+                    INNER JOIN rubro r ON r.idRubros = producto.Rubro_idRubros
+                    WHERE producto.estado = 1 AND
+                    (producto.nombre LIKE '%$busqueda%' OR 
+                    m.nombre LIKE '%$busqueda%' OR
+                    r.nombre LIKE '%$busqueda%')
+                    LIMIT $inicio, $registro_por_pagina";
+        $resultado = $conexion->consultar($query);
+        $productos = array();
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()){
+                $productos[] = $row;
+            }
+            return $productos;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) 
+                    FROM producto 
+                    INNER JOIN marca m ON m.idMarca = producto.Marca_idMarca
+                    INNER JOIN rubro r ON r.idRubros = producto.Rubro_idRubros
+                    WHERE producto.estado = 1 AND
+                    (producto.nombre LIKE '%$busqueda%' OR 
+                    m.nombre LIKE '%$busqueda%' OR
+                    r.nombre LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+        return $total_paginas;
+    }
+    
+
     public function getId()
     {
         return $this->id;
