@@ -15,6 +15,13 @@ class PerfilModulo
 {
     $conexion = new Conexion;
     $query = "SELECT modulos_idmodulos FROM perfiles_has_modulos WHERE perfiles_idperfiles = " . $idPerfil . " AND estado = 1";
+    return $conexion->consultar($query);
+}
+
+public function obtenerModulosPorPerfil2($idPerfil)
+{
+    $conexion = new Conexion;
+    $query = "SELECT modulos_idmodulos FROM perfiles_has_modulos WHERE perfiles_idperfiles = " . $idPerfil . " AND estado = 1";
     $resultado = $conexion->consultar($query);
     $modulosAsignados = [];
 
@@ -24,7 +31,6 @@ class PerfilModulo
 
     return $modulosAsignados; // Devuelve el array de IDs de módulos
 }
-
 
     
 
