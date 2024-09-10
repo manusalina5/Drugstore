@@ -12,6 +12,10 @@ $user_id = $_SESSION['user_id'];
             <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($user_id); ?>">
             <input type="hidden" name="action" value="actualizarPass">
             <div class="mb-3">
+                <label for="passActual" class="form-label">Contraseña actual</label>
+                <input type="password" class="form-control" id="passActual" name="passActual" required>
+            </div>
+            <div class="mb-3">
                 <label for="nuevoPass" class="form-label">Nueva Contraseña</label>
                 <input type="password" class="form-control" id="nuevoPass" name="nuevoPass" required>
             </div>
@@ -29,6 +33,5 @@ $user_id = $_SESSION['user_id'];
 
 <script src="Assets/js/Validaciones/usuarios.js"></script>
 <script>
-
-document.getElementById("form-pass").addEventListener("submit", validarCambioPass);
+    document.getElementById("form-pass").addEventListener("submit", validarCambioPass);
 </script>

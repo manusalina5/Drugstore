@@ -82,11 +82,11 @@ class Usuario
     public function obtenerHash()
     {
         $conexion = new Conexion();
-        $username = $this->userName;
-        $query = "SELECT pass FROM usuario WHERE username = '$username'";
+        $idUsuario = $this->idUsuario;
+        $query = "SELECT password FROM usuario WHERE idUsuario = '$idUsuario'";
         $resultado = $conexion->consultar($query);
         $fila = $resultado->fetch_assoc();
-        $hash = $fila['pass'];
+        $hash = $fila['password'];
         return $hash;
     }
 

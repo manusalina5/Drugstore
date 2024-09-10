@@ -21,6 +21,14 @@
                 echo "<td scope='row'>{$perfil['idPerfiles']}</td>";
                 echo "<td scope='row'>{$perfil['nombre']}</td>";
                 echo "<td scope='row'>
+                <form action='?page=accesos_perfiles&modulo=usuarios&idPerfiles={$perfil['idPerfiles']}' method='GET' style='display:inline-block;'>
+                    <input type='hidden' name='page' value='accesos_perfiles'>
+                    <input type='hidden' name='modulo' value='usuarios'>
+                    <input type='hidden' name='idPerfiles' value='{$perfil['idPerfiles']}'>
+                    <button type='submit' class='btn btn-info btn-sm'>
+                        <i class='fi fi-rr-settings'></i>
+                    </button>
+                </form>
                 <form action='?page=editar_perfiles&modulo=usuarios&idPerfiles={$perfil['idPerfiles']}' method='GET' style='display:inline-block;'>
                     <input type='hidden' name='page' value='editar_perfiles'>
                     <input type='hidden' name='modulo' value='usuarios'>
@@ -37,8 +45,9 @@
                         <i class='fi fi-rr-trash'></i>
                     </button>
                 </form>
+                
                 </td>";
-            echo "</tr>";
+                echo "</tr>";
             }
         } else {
             echo "<div colspan='3' class='text-center'>No hay perfiles registradas</div>";

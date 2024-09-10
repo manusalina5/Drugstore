@@ -50,9 +50,7 @@ require_once 'model/usuario/modulos.php';
                         <li class="nav-item">
                             <a class="dropdown-item" href="?page=listado_perfiles&modulo=usuarios&submodulo=perfiles">Listar Perfiles</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="dropdown-item" href="?page=accesos_perfiles&modulo=usuarios">Accesos</a>
-                        </li>
+                        
                         <hr class="dropdown-divider">
                         <li class="nav-item">
                             <span class="dropdown-item"><strong>Modulos</strong></span>

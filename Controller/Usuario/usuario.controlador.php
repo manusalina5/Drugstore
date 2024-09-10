@@ -6,9 +6,13 @@ include_once '../../config/conexion.php';
 
 session_start();
 
-//print_r($_POST);
+// print_r($_POST);
 // echo "<br>";
 // echo $_SESSION['nombre_usuario'];
+// echo "<br>";
+// $usuario = new UsuarioControlador();
+// $verify = $usuario->validarPass($_POST['passActual']);
+// var_dump($verify);
 //exit();
 
 session_start();
@@ -57,24 +61,37 @@ class UsuarioControlador
         }
     }
 
+    public function validarPass($pass){
+        $usuario = new Usuario();
+        $usuario->setIdUsuario($_POST['idUsuario']);
+        $hash = $usuario->obtenerHash();
+        return password_verify($pass,$hash);
+    }
+
     public function actualizarPass()
     {
         if (
             empty($_POST['idUsuario']) ||
             empty($_POST['confirmarPass']) ||
-            empty($_POST['nuevoPass'])
+            empty($_POST['nuevoPass']) ||
+            empty($_POST['passActual'])
         ) {
-            header('Location: ../../index.php?page=actualizar_pass&modulo=usuarios&mensaje=Completar todos los campos!&status=danger');
+            header('Location: ../../index.php?page=editar_pass&modulo=usuarios&mensaje=Completar todos los campos!&status=danger');
         } else {
-            if ($_POST['nuevoPass'] == $_POST['confirmarPass']) {
-                $usuario = new Usuario();
-                $usuario->setPass($_POST['nuevoPass']);
-                $usuario->setIdUsuario($_POST['idUsuario']);
-                $usuario->actualizarPass();
-                header('Location: ../../index.php?page=salida&modulo=usuarios&mensaje=Se actualizo correctamente la contraseña, ingrese nuevamente&status=success');
-            } else {
-                header('Location: ../../index.php?mensaje=Las contraseñas no coinciden&status=danger');
+            if($this->validarPass($_POST['passActual'])){
+                if ($_POST['nuevoPass'] == $_POST['confirmarPass']) {
+                    $usuario = new Usuario();
+                    $usuario->setPass($_POST['nuevoPass']);
+                    $usuario->setIdUsuario($_POST['idUsuario']);
+                    $usuario->actualizarPass();
+                    header('Location: ../../index.php?page=salida&modulo=usuarios&mensaje=Se actualizo correctamente la contraseña, ingrese nuevamente&status=success');
+                } else {
+                    header('Location: ../../index.php?mensaje=Las contraseñas no coinciden&status=danger');
+                }
+            }else{
+                header('Location: ../../index.php?page=editar_pass&modulo=usuarios&mensaje=Contraseña actual incorrecta&status=danger');
             }
+            
         }
     }
 

@@ -12,11 +12,21 @@ class PerfilModulo
 {
 
     public function obtenerModulosPorPerfil($idPerfil)
-    {
-        $conexion = new Conexion;
-        $query = "SELECT modulos_idmodulos FROM perfiles_has_modulos WHERE perfiles_idperfiles = " . $idPerfil;
-        return $conexion->consultar($query);
+{
+    $conexion = new Conexion;
+    $query = "SELECT modulos_idmodulos FROM perfiles_has_modulos WHERE perfiles_idperfiles = " . $idPerfil . " AND estado = 1";
+    $resultado = $conexion->consultar($query);
+    $modulosAsignados = [];
+
+    while ($row = $resultado->fetch_assoc()) {
+        $modulosAsignados[] = $row['modulos_idmodulos'];  // Guardar los IDs de los módulos asignados
     }
+
+    return $modulosAsignados; // Devuelve el array de IDs de módulos
+}
+
+
+    
 
 
     public function guardarModulosPorPerfil($idPerfil, $modulos)

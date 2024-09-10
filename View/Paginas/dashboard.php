@@ -9,5 +9,5 @@ if(!empty($_SESSION['nombre_usuario'])){
 <h2 class="text-center">Sistema de gestión de Drugstore</h2>
 
 <div class="text-center">
-    <img src="Assets/img/bannerIa.jpeg" class="img-fluid" alt="...">
+    <img src="Assets/img/sgd.png" class="img-fluid" alt="...">
 </div>

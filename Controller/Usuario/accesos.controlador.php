@@ -14,4 +14,4 @@ $modulos = $_POST['modulos'];
 
 $perfil_modulo->guardarModulosPorPerfil($perfil_id, $modulos);
 
-header('Location: ../../index.php?page=accesos_perfiles&modulo=usuarios&mensaje=Accesos modificados correctamente&status=success');
+header('Location: ../../index.php?page=listado_perfiles&modulo=usuarios&submodulo=perfiles&mensaje=Accesos modificados correctamente&status=success');

@@ -13,7 +13,7 @@ class Conexion
         $this->host = "localhost";
         $this->dbname = "mydb";
         $this->username = "root";
-        $this->pass = "";
+        $this->pass = "admin";
     }
 
     public function conectar()

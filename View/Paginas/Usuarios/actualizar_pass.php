@@ -20,21 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1 class="h3">Actualizar Contraseña de</h1>
             <h2 class="h4"> <?php echo htmlspecialchars($username); ?></h2>
             <form id="form-pass" action="Controller/Usuario/usuario.controlador.php" method="POST">
-                <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($user_id); ?>">
-                <input type="hidden" name="action" value="actualizarPass">
-                <div class="mb-3">
-                    <label for="nuevoPass" class="form-label">Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="nuevoPass" name="nuevoPass" required>
-                </div>
-                <div class="mb-3">
-                    <label for="confirmarPass" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" id="confirmarPass" name="confirmarPass" required>
-                </div>
-                <div class="d-grid gap-2">
-                    
-                <button onclick="validarCambioPass()"type="submit" class="btn btn-success">Actualizar</button>
-                </div>
-            </form>
+            <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($user_id); ?>">
+            <input type="hidden" name="action" value="actualizarPass">
+            <div class="mb-3">
+                <label for="passActual" class="form-label">Contraseña actual</label>
+                <input type="password" class="form-control" id="passActual" name="passActual" required>
+            </div>
+            <div class="mb-3">
+                <label for="nuevoPass" class="form-label">Nueva Contraseña</label>
+                <input type="password" class="form-control" id="nuevoPass" name="nuevoPass" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirmarPass" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" id="confirmarPass" name="confirmarPass" required>
+            </div>
+            <div class="d-grid gap-2">
+                <button onclick="validarCambioPass()" type="submit" class="btn btn-success">Actualizar</button>
+            </div>
+        </form>
         </div>
         <div class="col"></div>
     </div>
