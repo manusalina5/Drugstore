@@ -24,7 +24,7 @@
         </tr>
     </thead>
     <tbody id="tablaProductos">
-        <!-- Aquí se cargarán las personas desde el script de JavasCript -->
+        <!-- Aquí se cargarán los productos desde el script de JavasCript -->
     </tbody>
 </table>
 

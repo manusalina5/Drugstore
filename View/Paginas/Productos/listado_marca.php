@@ -2,6 +2,12 @@
 <div class=" boton-agregar">
     <a href="index.php?page=alta_marca&modulo=productos" class="btn btn-success">Agregar Marca</a>
 </div>
+
+<div class="form-group">
+    <input type="text" id="busqueda" class="form-control" placeholder="Buscar marca">
+</div>
+
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -10,39 +16,19 @@
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>
-        <?php
-        include_once('Model/Productos/marca.php');
-        $marcaObj = new Marca();
-        $marcas = $marcaObj->obtenerMarcas();
-        if (!empty($marcas)) {
-            foreach ($marcas as $marca) {
-                echo "<tr>";
-                echo "<td scope='row'>{$marca['idmarca']}</td>";
-                echo "<td scope='row'>{$marca['nombre']}</td>";
-                echo "<td scope='row'>
-                <form action='?page=editar_marca&modulo=productos&id={$marca['idmarca']}' method='GET' style='display:inline-block;'>
-                    <input type='hidden' name='page' value='editar_marca'>
-                    <input type='hidden' name='modulo' value='productos'>
-                    <input type='hidden' name='id' value='{$marca['idmarca']}'>
-                    <button type='submit' class='btn btn-warning btn-sm'>
-                        <i class='fi fi-rr-edit'></i>
-                    </button>
-                </form>
-                <form action='Controller/Productos/marca.controlador.php' method='POST' style='display:inline-block;'>
-                    <input type='hidden' name='action' value='eliminar'>
-                    <input type='hidden' name='id' value='{$marca['idmarca']}'>
-                    <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm(\"¿Estás seguro de que deseas eliminar esta marca?\");'>
-                        <i class='fi fi-rr-trash'></i>
-                    </button>
-                </form>
-                </td>";
-            echo "</tr>";
-            }
-        } else {
-            echo "<div colspan='3' class='text-center'>No hay marcas registradas</div>";
-        }
-
-        ?>
+    <tbody id="tablaMarcas">
+        <!-- Aquí se cargarán las marcas desde el script de JavasCript -->
     </tbody>
 </table>
+
+
+<!-- Paginación -->
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center" id="paginacion">
+        <!-- Paginacion de productos -->
+    </ul>
+
+</nav>
+
+<script src="Assets\js\Buscadores\buscar_marca.js"></script>

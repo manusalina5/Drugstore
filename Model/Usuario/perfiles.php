@@ -50,15 +50,9 @@ class Perfil{
 
     public function obtenerPerfilesPorId($idPerfil){
         $conexion = new Conexion();
-        $query = "SELECT idPerfiles, nombre FROM perfiles WHERE idPerfiles = $idPerfil AND estado = 1";
+        $query = "SELECT idPerfiles, nombre FROM perfiles WHERE idPerfiles = '$idPerfil'";
         $resultado = $conexion->consultar($query);
-        $perfiles = array();
-        if($resultado->num_rows>0){
-            while($row = $resultado->fetch_assoc()) {
-                $perfiles[] = $row;
-            }
-        }
-        return $perfiles;
+        return $resultado->fetch_assoc();
     }
 
 }
