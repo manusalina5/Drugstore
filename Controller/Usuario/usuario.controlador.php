@@ -6,16 +6,23 @@ include_once '../../config/conexion.php';
 
 session_start();
 
-// print_r($_POST);
-// echo "<br>";
-// echo $_SESSION['nombre_usuario'];
-// echo "<br>";
-// $usuario = new UsuarioControlador();
-// $verify = $usuario->validarPass($_POST['passActual']);
-// var_dump($verify);
-//exit();
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
 
-session_start();
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $usuarioObj = new Usuario();
+    $usuarios = $usuarioObj->buscarUsuarios($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = Usuario::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'usuarios' => $usuarios,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
 
 if (isset($_POST['action'])) {
     $login_controller = new UsuarioControlador();
@@ -61,11 +68,12 @@ class UsuarioControlador
         }
     }
 
-    public function validarPass($pass){
+    public function validarPass($pass)
+    {
         $usuario = new Usuario();
         $usuario->setIdUsuario($_POST['idUsuario']);
         $hash = $usuario->obtenerHash();
-        return password_verify($pass,$hash);
+        return password_verify($pass, $hash);
     }
 
     public function actualizarPass()
@@ -78,7 +86,7 @@ class UsuarioControlador
         ) {
             header('Location: ../../index.php?page=editar_pass&modulo=usuarios&mensaje=Completar todos los campos!&status=danger');
         } else {
-            if($this->validarPass($_POST['passActual'])){
+            if ($this->validarPass($_POST['passActual'])) {
                 if ($_POST['nuevoPass'] == $_POST['confirmarPass']) {
                     $usuario = new Usuario();
                     $usuario->setPass($_POST['nuevoPass']);
@@ -88,10 +96,9 @@ class UsuarioControlador
                 } else {
                     header('Location: ../../index.php?mensaje=Las contraseñas no coinciden&status=danger');
                 }
-            }else{
+            } else {
                 header('Location: ../../index.php?page=editar_pass&modulo=usuarios&mensaje=Contraseña actual incorrecta&status=danger');
             }
-            
         }
     }
 

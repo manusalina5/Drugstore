@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const busqueda = document.getElementById('busqueda').value;
 
         // Hacer la petición con fetch
-        fetch(`Controller/Productos/producto.controlador.php?action=buscar&pagina=${pagina}&busqueda=${busqueda}`)
+        fetch(`Controller/Usuario/usuario.controlador.php?action=buscar&pagina=${pagina}&busqueda=${busqueda}`)
             .then(response => {
                 // Verificar que la respuesta sea correcta
                 if (!response.ok) {
@@ -23,35 +23,34 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(data => {
                 // Limpiar la tabla actual
-                const tabla = document.getElementById('tablaProductos');
+                const tabla = document.getElementById('tablaUsuarios');
                 tabla.innerHTML = '';
 
                 // Insertar los nuevos productos
-                data.productos.forEach(producto => {
+                data.usuarios.forEach(usuario => {
                     const row = `
                         <tr>
-                            <td scope='row'>${producto.idProductos}</td>
-                            <td scope='row'>${producto.nombre}</td>
-                            <td scope='row'>${producto.codBarras}</td>
-                            <td scope='row'>${producto.cantidad}</td>
-                            <td scope='row'>${producto.cantidadMin}</td>
-                            <td scope='row'>${producto.precioCosto}</td>
-                            <td scope='row'>${producto.precioVenta}</td>
-                            <td scope='row'>${producto.marca}</td>
-                            <td scope='row'>${producto.rubro}</td>
+                            <td scope='row'>${usuario.username}</td>
+                            <td scope='row'>${usuario.nombre}</td>
+                            <td scope='row'>${usuario.apellido}</td>
+                            <td scope='row'>${usuario.perfil}</td>
+                            <td scope='row'>${usuario.fechaAlta}</td>
                             <td scope='row'>
-                                <form action='?page=editar_producto&modulo=productos&id=${producto.idProductos}' method='GET' style='display:inline-block;'>
-                                    <input type='hidden' name='page' value='editar_producto'>
-                                    <input type='hidden' name='modulo' value='productos'>
-                                    <input type='hidden' name='idProductos' value='${producto.idProductos}'>
-                                    <button type='submit' class='btn btn-warning btn-sm'>
-                                        <i class='fi fi-rr-edit'></i>
+                                <!-- Reestablecer contraseña -->
+                                <form action='Controller/Usuario/usuario.controlador.php' method='POST' style='display:inline-block; margin-right: 10px;'>
+                                    <input type='hidden' name='action' value='reestrablecerPass'>
+                                    <input type='hidden' name='idUsuario' value='${usuario.idusuario}'>
+                                    <button type='submit' class='btn btn-warning btn-sm' onclick='return confirm("¿Estás seguro de que deseas reestablecer la contraseña?");'>
+                                        <i class='fi fi-rr-refresh'> Reestablecer Contraseña</i>
                                     </button>
                                 </form>
-                                <form action='Controller/Productos/producto.controlador.php' method='POST' style='display:inline-block;'>
+                                
+                                <!-- Eliminar usuario -->
+                                <form action='Controller/Usuario/usuario.controlador.php' method='POST' style='display:inline-block;'>
                                     <input type='hidden' name='action' value='eliminar'>
-                                    <input type='hidden' name='idProductos' value='${producto.idProductos}'>
-                                    <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm("¿Estás seguro de que deseas eliminar este producto?");'>
+                                    <input type='hidden' name='idUsuario' value='${usuario.idusuario}'>
+                                    <input type='hidden' name='username' value='${usuario.username}'>
+                                    <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm("¿Estás seguro de que deseas eliminar el usuario?");'>
                                         <i class='fi fi-rr-trash'></i>
                                     </button>
                                 </form>

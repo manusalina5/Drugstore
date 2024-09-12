@@ -109,6 +109,55 @@ class Usuario
         return $usuarios;
     }
 
+    public function buscarUsuarios($busqueda, $inicio, $registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT u.username as username,
+		u.fechaAlta as fechaAlta,
+        p.nombre as perfil,
+        pers.nombre as nombre,
+        pers.apellido as apellido
+			FROM usuario u
+			LEFT JOIN perfiles p ON p.idperfiles = u.perfiles_idperfiles
+			INNER JOIN empleado e ON e.idEmpleado = u.Empleado_idEmpleado
+			INNER JOIN persona pers ON pers.idPersona = e.Persona_idPersona
+			WHERE u.estado = 1 AND 
+            (u.username LIKE '%$busqueda%' OR
+            u.fechaAlta LIKE '%$busqueda%' OR
+            p.nombre LIKE '%$busqueda%' OR
+            pers.nombre LIKE '%$busqueda%' OR
+            pers.apellido LIKE '%$busqueda%')
+            LIMIT $inicio, $registro_por_pagina";
+        $resultado = $conexion->consultar($query);
+        $usuarios = array();
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()){
+                $usuarios[] = $row;
+            }
+            return $usuarios;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*)
+			FROM usuario u
+			LEFT JOIN perfiles p ON p.idperfiles = u.perfiles_idperfiles
+			INNER JOIN empleado e ON e.idEmpleado = u.Empleado_idEmpleado
+			INNER JOIN persona pers ON pers.idPersona = e.Persona_idPersona
+			WHERE u.estado = 1 AND 
+            (u.username LIKE '%$busqueda%' OR
+            u.fechaAlta LIKE '%$busqueda%' OR
+            p.nombre LIKE '%$busqueda%' OR
+            pers.nombre LIKE '%$busqueda%' OR
+            pers.apellido LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+        return $total_paginas;
+    }
+    
+
 
     public function getIdUsuario()
     {

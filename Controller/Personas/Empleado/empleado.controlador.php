@@ -9,8 +9,23 @@ include_once '../../../Model/Personas/Contacto/contacto.php';
 include_once '../../../Model/Personas/Direccion/direccion.php';
 include_once '../../../config/conexion.php';
 
-// print_r($_POST);
-// exit();
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $empleadoObj = new Empleado();
+    $empleados = $empleadoObj->buscarEmpleados($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = Empleado::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'empleados' => $empleados,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
 
 if (isset($_POST['action'])) {
     $empleado = new EmpleadoControlador();

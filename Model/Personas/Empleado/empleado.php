@@ -124,6 +124,63 @@ class Empleado extends Persona
         return $resultado->fetch_assoc();
     }
 
+    function buscarEmpleados($busqueda, $inicio, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT e.idEmpleado AS idEmpleado,
+                    e.fechaAlta AS fechaAlta,
+                    e.legajo AS legajo,
+                    p.idPersona AS idPersona, 
+                    p.nombre AS nombre, 
+                    p.apellido AS apellido,
+                    d.valor AS documento,
+                    td.valor AS tipodocumento,
+                    c.valor AS contacto,
+                    tc.valor AS tipocontacto
+                FROM persona p
+                INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona
+                INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto
+                INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                WHERE e.estado = 1
+                AND p.estado = 1
+                AND (p.nombre LIKE '%$busqueda%' OR
+                    p.apellido LIKE '%$busqueda%' OR 
+                    e.legajo LIKE '%$busqueda%' OR
+                    e.fechaAlta LIKE '%$busqueda%' OR
+                    d.valor LIKE '%$busqueda%' OR
+                    c.valor LIKE '%$busqueda%' OR
+                    tc.valor LIKE '%$busqueda%' OR
+                    td.valor LIKE '%$busqueda%')
+                LIMIT $inicio, $registro_por_pagina;
+";
+        $resultado = $conexion->consultar($query);
+        $empleados = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $empleados[] = $row;
+            }
+            return $empleados;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT count(*)
+                    FROM persona p
+                    INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona WHERE e.estado = 1 
+                    AND (p.nombre LIKE '%$busqueda%' OR
+                        p.apellido LIKE '%$busqueda%' OR 
+                        e.legajo LIKE '%$busqueda%' OR
+                        e.fechaAlta LIKE '%$busqueda')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+        return $total_paginas;
+    }
+
     public function getIdEmpleado()
     {
         return $this->idEmpleado;

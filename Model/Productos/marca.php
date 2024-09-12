@@ -64,6 +64,28 @@ class Marca
         return $resultado->fetch_assoc();
     }
 
+    function buscarMarca($busqueda, $inicio, $registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT * FROM marca where estado = 1 AND (nombre LIKE '%$busqueda%') LIMIT $inicio, $registro_por_pagina";
+        $resultado = $conexion->consultar($query);
+        $marcas = array();
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()){
+                $marcas[] = $row;
+            }
+            return $marcas;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM marca WHERE estado = 1 AND (nombre LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+        return $total_paginas;
+    }
+
 
     public function getId()
     {
