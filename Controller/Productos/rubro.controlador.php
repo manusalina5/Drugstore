@@ -3,6 +3,24 @@
 include_once '../../Model/Productos/rubro.php';
 include_once '../../config/conexion.php';
 
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $rubroObj = new Rubro();
+    $rubros = $rubroObj->buscarRubro($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = Rubro::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'rubros' => $rubros,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
+
 if (isset($_POST['action'])) {
     $rubro_controller = new RubroControlador();
     if ($_POST['action'] == 'registro') {
@@ -17,7 +35,6 @@ if (isset($_POST['action'])) {
 
 class RubroControlador
 {
-
     public function registrarRubro()
     {
 
