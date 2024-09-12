@@ -48,6 +48,7 @@ class Perfil{
         return $perfiles;
     }
 
+
     public function obtenerPerfilesPorId($idPerfil){
         $conexion = new Conexion();
         $query = "SELECT idPerfiles, nombre FROM perfiles WHERE idPerfiles = '$idPerfil'";
