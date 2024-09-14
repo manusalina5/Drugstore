@@ -170,11 +170,19 @@ class Empleado extends Persona
         $conexion = new Conexion();
         $query = "SELECT count(*)
                     FROM persona p
-                    INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona WHERE e.estado = 1 
+                    INNER JOIN empleado e ON p.idPersona = e.Persona_idPersona
+                    INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                    INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto
+                    INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                    INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos WHERE e.estado = 1 
                     AND (p.nombre LIKE '%$busqueda%' OR
-                        p.apellido LIKE '%$busqueda%' OR 
-                        e.legajo LIKE '%$busqueda%' OR
-                        e.fechaAlta LIKE '%$busqueda')";
+                    p.apellido LIKE '%$busqueda%' OR 
+                    e.legajo LIKE '%$busqueda%' OR
+                    e.fechaAlta LIKE '%$busqueda%' OR
+                    d.valor LIKE '%$busqueda%' OR
+                    c.valor LIKE '%$busqueda%' OR
+                    tc.valor LIKE '%$busqueda%' OR
+                    td.valor LIKE '%$busqueda%')";
         $resultado = $conexion->consultar($query);
         $total_registros = $resultado->fetch_array()[0];
         $total_paginas = ceil($total_registros / $registro_por_pagina);

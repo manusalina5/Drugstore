@@ -41,7 +41,7 @@ session_start();
         }
 
         $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida','actualizar_pass','configuracion','accesos_perfiles');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'tipoegreso', 'metodopago', 'perfiles','pass','compra','modulos','moduloperfil');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'tipoegreso', 'metodopago', 'perfiles','pass','compra','modulos','moduloperfil','venta','cliente');
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
@@ -49,8 +49,8 @@ session_start();
             $pagesValidas[] = 'actualizar_' . $page;
         }
 
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja','Compras'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Perfiles','Compra','Modulos','Moduloperfil'];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja','Compras','Ventas','Clientes'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Perfiles','Compra','Modulos','Moduloperfil','Venta','Cliente'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];

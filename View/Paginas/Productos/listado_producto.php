@@ -8,7 +8,7 @@
     <input type="text" id="busqueda" class="form-control" placeholder="Buscar producto">
 </div>
 
-<table class="table table-striped table-hover">
+<table class="table table-striped table-hover table-responsive">
     <thead>
         <tr>
             <th scope="col">Id</th>
