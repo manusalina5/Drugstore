@@ -4,23 +4,7 @@
 include_once '../../Model/Productos/producto.php';
 include_once '../../config/conexion.php';
 
-if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
-    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
 
-    $registro_por_pagina = 10;
-    $inicio = ($pagina - 1) * $registro_por_pagina;
-
-    $productoObj = new Producto();
-    $productos = $productoObj->buscarProductos($busqueda, $inicio, $registro_por_pagina);
-    $total_paginas = Producto::totalPaginasBusqueda($busqueda, $registro_por_pagina);
-
-    echo json_encode([
-        'productos' => $productos,
-        'total_paginas' => $total_paginas
-    ]);
-    exit();
-}
 
 
 class ProductoControlador
@@ -40,14 +24,21 @@ class ProductoControlador
                     break;
             }
         }
+
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'buscar':
+                    $this->listadoProductos();
+                    break;
+                case 'buscarventa':
+                    $this->listadoProductosVenta();
+                    break;
+            }
+        }
     }
 
     public function registrarProducto()
     {
-        // echo "<pre>";
-        // print_r($_POST);
-        // echo "</pre>";
-        // exit();
         if (
             empty($_POST['nombre']) ||
             empty($_POST['codBarras']) ||
@@ -60,7 +51,8 @@ class ProductoControlador
         ) {
             header('Location: ../../index.php?page=alta_producto&modulo=productos?message=Por favor, completar todos los campos');
         } else {
-            $producto = new Producto(null,
+            $producto = new Producto(
+                null,
                 $_POST['nombre'],
                 $_POST['codBarras'],
                 $_POST['cantidad'],
@@ -108,13 +100,47 @@ class ProductoControlador
 
     public function eliminarProducto()
     {
-        if(!empty($_POST['idProductos'])){
+        if (!empty($_POST['idProductos'])) {
             $producto = new Producto();
             $producto->setId($_POST['idProductos']);
             $producto->eliminar();
             header('Location: ../../index.php?page=listado_producto&modulo=productos');
         }
     }
-}
 
+
+    public function listadoProductos()
+    {
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+        $registro_por_pagina = 10;
+        $inicio = ($pagina - 1) * $registro_por_pagina;
+
+        $productoObj = new Producto();
+        $productos = $productoObj->buscarProductos($busqueda, $inicio, $registro_por_pagina);
+        $total_paginas = Producto::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+        echo json_encode([
+            'productos' => $productos,
+            'total_paginas' => $total_paginas
+        ]);
+        exit();
+    }
+
+    public function listadoProductosVenta(){
+        if (isset($_GET['query'])) {
+            $query = $_GET['query'];
+            
+            $productoModel = new Producto();
+            $productos = $productoModel->obtenerProductos($query);
+
+            var_dump($productos);
+            exit();
+
+            // Devolver los resultados en formato JSON
+            echo json_encode($productos);
+    }
+}
+}
 new ProductoControlador();

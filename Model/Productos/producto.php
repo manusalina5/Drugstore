@@ -89,21 +89,12 @@ class Producto
         return $conexion->actualizar($query);
     }
 
-    public function obtenerProductos($inicio, $registro_por_pagina)
+    public function obtenerProductos($busqueda)
     {
         $conexion = new Conexion;
-        $query = "SELECT `producto`.`idProductos`,
-        `producto`.`nombre`,
-        `producto`.`codBarras`,
-        `producto`.`cantidad`,
-        `producto`.`cantidadMin`,
-        `producto`.`precioCosto`,
-        `producto`.`precioVenta`,
-        `producto`.`estado`,
-        `producto`.`Marca_idMarca`,
-        `producto`.`Rubro_idRubros`
-        FROM `producto`
-        WHERE estado = 1 LIMIT $inicio, $registro_por_pagina ";
+        $query = "SELECT *
+        FROM producto
+        WHERE estado = 1 AND (nombre LIKE '%$busqueda%' OR codBarras LIKE '%$busqueda%')";
         $resultado = $conexion->consultar($query);
         $productos = array();
         if ($resultado->num_rows > 0){
