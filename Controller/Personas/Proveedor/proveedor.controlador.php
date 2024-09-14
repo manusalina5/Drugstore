@@ -12,21 +12,45 @@ include_once '../../../config/conexion.php';
 // print_r($_POST);
 // exit();
 
-if (isset($_POST['action'])) {
-    $proveedor = new ProveedorControlador();
-    if ($_POST['action'] == 'registro') {
-        $proveedor->registrarProveedor();
-    } else if ($_POST['action'] == 'modificar') {
-        $proveedor->modificarProveedor();
-    } elseif ($_POST['action'] == 'eliminar') {
-        $proveedor->eliminarProveedor();
-    } else {
-        echo "ERROR: Contactarse con el administrador";
-    }
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $proveedorObj = new Proveedor();
+    $proveedores = $proveedorObj->buscarProveedores($busqueda, $inicio, $registro_por_pagina);
+    # $total_paginas = Proveedor::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+    $total_paginas = 1;
+    header('Content-Type: application/json');
+    echo json_encode([
+        'proveedores' => $proveedores,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
 }
 
 
+
+
 class ProveedorControlador{
+
+    public function __construct()
+    {
+        if (isset($_POST['action'])) {
+            $proveedor = new ProveedorControlador();
+            if ($_POST['action'] == 'registro') {
+                $proveedor->registrarProveedor();
+            } else if ($_POST['action'] == 'modificar') {
+                $proveedor->modificarProveedor();
+            } elseif ($_POST['action'] == 'eliminar') {
+                $proveedor->eliminarProveedor();
+            } else {
+                echo "ERROR: Contactarse con el administrador";
+            }
+        }
+    }
     public function registrarProveedor() { 
         if (
             empty($_POST['nombre']) ||
