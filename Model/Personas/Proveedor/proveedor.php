@@ -47,8 +47,9 @@ class Proveedor extends Persona
         return $conexion->actualizar($query);
     }
 
-    public function eliminar(){
-        parent:: eliminar();
+    public function eliminar()
+    {
+        parent::eliminar();
 
         $conexion = new Conexion;
         $query = "UPDATE proveedor SET estado = 0 WHERE idProveedor = '$this->idProveedor'";
@@ -68,15 +69,85 @@ class Proveedor extends Persona
                     INNER JOIN proveedor pro ON p.idPersona = pro.Persona_idPersona WHERE pro.estado = 1";
         $resultado = $conexion->consultar($query);
         $proveedor = array();
-        if($resultado->num_rows>0){
-            while($row = $resultado->fetch_assoc()) {
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $proveedor[] = $row;
+            }
+        }
+        return $proveedor;
+    }
+
+    public static function totalPaginas($registro_por_pagina)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM proveedor WHERE estado = 1";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+
+        $total_paginas = ceil($total_registros / $registro_por_pagina);
+
+        return $total_paginas;
+    }
+
+    function buscarProveedores($busqueda, $inicio, $registro_por_pagina)
+{
+    $conexion = new Conexion();
+    $query = "SELECT pro.idProveedor, nombre, apellido, razonSocial, fechaAlta, idPersona,
+                    d.valor as documento, td.valor as tipodocumento, c.valor as contacto, tc.valor as tipocontacto
+                    FROM persona p
+                    INNER JOIN proveedor pro ON pro.Persona_idPersona = p.idPersona
+                    INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                    INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                    INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                    INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto 
+                    WHERE pro.estado = 1 
+                    AND (p.nombre LIKE '%$busqueda%' OR
+                    p.apellido LIKE '%$busqueda%' OR
+                    razonSocial LIKE '%$busqueda%' OR
+                    fechaAlta LIKE '%$busqueda%' OR
+                    d.valor LIKE '%$busqueda%' OR
+                    c.valor LIKE '%$busqueda%' OR
+                    td.valor LIKE '%$busqueda%' OR
+                    tc.valor LIKE '%$busqueda%')
+                    LIMIT $inicio, $registro_por_pagina";
+
+    $resultado = $conexion->consultar($query);
+    $proveedores = array();
+    if ($resultado->num_rows > 0) {
+        while ($row = $resultado->fetch_assoc()) {
+            $proveedores[] = $row;
         }
     }
-    return $proveedor;
+    return $proveedores;
 }
 
-    public function obtenerProveedoresPorId(){
+public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
+{
+    $conexion = new Conexion();
+    $query = "SELECT COUNT(*)
+                FROM persona p
+                    INNER JOIN proveedor pro ON pro.Persona_idPersona = p.idPersona
+                    INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                    INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                    INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                    INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto 
+                    WHERE pro.estado = 1 AND (p.nombre LIKE '%$busqueda%' OR
+                    p.apellido LIKE '%$busqueda%' OR
+                    razonSocial LIKE '%$busqueda%' OR
+                    fechaAlta LIKE '%$busqueda%' OR
+                    d.valor LIKE '%$busqueda%' OR
+                    c.valor LIKE '%$busqueda%' OR
+                    td.valor LIKE '%$busqueda%' OR
+                    tc.valor LIKE '%$busqueda%');
+    $resultado = $conexion->consultar($query);
+    $total_registros = $resultado->fetch_array()[0];
+    $total_paginas = ceil($total_registros / $registro_por_pagina);
+    return $total_paginas;
+}
+
+
+    public function obtenerProveedoresPorId()
+    {
         $conexion = new Conexion;
         $query = "SELECT pro.idProveedor as idProveedor,
                 pro.fechaAlta as fechaAlta,
