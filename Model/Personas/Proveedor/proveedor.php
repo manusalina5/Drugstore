@@ -138,7 +138,7 @@ public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
                     d.valor LIKE '%$busqueda%' OR
                     c.valor LIKE '%$busqueda%' OR
                     td.valor LIKE '%$busqueda%' OR
-                    tc.valor LIKE '%$busqueda%');
+                    tc.valor LIKE '%$busqueda%')";
     $resultado = $conexion->consultar($query);
     $total_registros = $resultado->fetch_array()[0];
     $total_paginas = ceil($total_registros / $registro_por_pagina);
