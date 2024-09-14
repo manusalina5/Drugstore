@@ -3,6 +3,25 @@
 include_once '../../../Model/Personas/Contacto/tipoContacto.php';
 include_once '../../../config/conexion.php';
 
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $tipoContactoObj = new TipoContacto();
+    $tipoContactos = $tipoContactoObj->buscarTipoContacto($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = TipoContacto::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'tipoContactos' => $tipoContactos,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
+
+
 if (isset($_POST['action'])) {
     $tipocontacto = new TipoContactoControlador();
     if ($_POST['action'] == 'registro') {

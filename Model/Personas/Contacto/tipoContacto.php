@@ -64,6 +64,28 @@ class TipoContacto
         return $resultado->fetch_assoc();
     }
 
+    public function buscarTipoContacto($busqueda, $inicio, $paginas){
+        $conexion = new Conexion();
+        $query = "SELECT * FROM tipoContacto WHERE estado = 1 AND (valor LIKE '%$busqueda%') LIMIT $inicio, $paginas";
+        $resultado = $conexion->consultar($query);
+        $tipoContactos = array();
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()){
+                $tipoContactos[] = $row;
+            }
+            return $tipoContactos;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registros_por_pagina){
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM tipoContacto WHERE estado = 1 AND (valor LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registros_por_pagina);
+        return $total_paginas;
+    }
+
     public function getId()
     {
         return $this->id;
