@@ -1,0 +1,7 @@
+.no-alerta {
+    display: none;
+}
+
+.alerta {
+    display: block;
+}

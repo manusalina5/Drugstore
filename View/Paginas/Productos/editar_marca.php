@@ -11,11 +11,15 @@ if (isset($_GET['id'])) {
 }
 ?>
 
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row">
     <div class="col"></div>
     <div class="col">
         <h1>Modificar Marca</h1>
-        <form action="Controller/Productos/marca.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" action="Controller/Productos/marca.controlador.php" method="POST" onsubmit="return validate(event)">
             <input type="hidden" name="action" value="modificar">
             <input type="hidden" name="id" value="<?php echo $marcaData['idmarca']; ?>">
             <div class="mb-3">
@@ -29,3 +33,5 @@ if (isset($_GET['id'])) {
     </div>
     <div class="col"></div>
 </div>
+
+<script src="Assets/js/Validaciones/alta_marca.js"></script>

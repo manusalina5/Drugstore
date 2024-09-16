@@ -49,10 +49,10 @@ class RubroControlador
 
     public function modificarRubro()
     {
-        if (empty($_POST['nombrerubro']) || empty($_POST['id'])) {
+        if (empty($_POST['nombreRubro']) || empty($_POST['id'])) {
             header('Location: ../index.php?page=modificar&id=' . $_POST['id'] . 'message=Por favor, completa todos los campos');
         } else {
-            $rubro = new Rubro($_POST['id'], $_POST['nombrerubro']);
+            $rubro = new Rubro($_POST['id'], $_POST['nombreRubro']);
             $rubro->actualizar();
             header('Location: ../../index.php?page=listado_rubro&modulo=productos');
         }
