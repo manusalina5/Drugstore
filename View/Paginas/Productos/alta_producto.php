@@ -1,8 +1,12 @@
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row">
     <div class="col"></div>
     <div class="col">
         <h1>Registrar Producto</h1>
-        <form class="" action="Controller/Productos/producto.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST" onsubmit="return validate(event)">
             <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->
@@ -99,56 +103,4 @@
 </script>
 
 
-<script>
-    // Validación Precio venta
-
-    IMask(
-        document.getElementById('precioVenta'), {
-            mask: '$num',
-            blocks: {
-                num: {
-                    // nested masks are available!
-                    mask: Number,
-                    thousandsSeparator: ' '
-                }
-            }
-        }
-    )
-
-    // Validación precio compra
-
-    IMask(
-        document.getElementById('precioCosto'), {
-            mask: '$num',
-            blocks: {
-                num: {
-                    // nested masks are available!
-                    mask: Number,
-                    thousandsSeparator: ' '
-                }
-            }
-        }
-    )
-
-    // Validación cantidad 
-
-    IMask(
-        document.getElementById('cantidad'), {
-            mask: Number,
-            min: 1,
-            max: 10000,
-            thousandsSeparator: ' '
-        }
-    )
-
-    // Validación cantidad minima
-
-    IMask(
-        document.getElementById('cantidadMin'), {
-            mask: Number,
-            min: 1,
-            max: 10000,
-            thousandsSeparator: ' '
-        }
-    )
-</script>
+<script src="Assets/js/Validaciones/alta_producto.js"></script>
