@@ -1,9 +1,13 @@
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row ">
     <div class="col">
     </div>
     <div class="col">
         <h1 class="h3">Registrar Tipo Contacto</h1>
-        <form class="" action="Controller/Personas/Contacto/tipocontacto.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" class="" action="Controller/Personas/Contacto/tipocontacto.controlador.php" method="POST" onsubmit="return validate(event)">
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">
                 <label for="valortipocontacto" class="form-label">Valor</label>
@@ -17,3 +21,5 @@
     <div class="col">
     </div>
 </div>
+
+<script src="Assets/js/Validaciones/alta_tipocontacto.js"></script>
