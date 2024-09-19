@@ -11,12 +11,16 @@ if(isset($_GET['idProductos'])) {
 }
 ?>
 
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row ">
     <div class="col">
     </div>
     <div class="col">
         <h1>Modificar Producto</h1>
-        <form class="" action="Controller/Productos/producto.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST" onsubmit="return validate(event)">
             <input type="hidden" name="action" value="modificar">
             <input type="hidden" name="idProductos" value="<?php echo $productoData['idProductos']; ?>">
             <div class="mb-3">
@@ -37,14 +41,14 @@ if(isset($_GET['idProductos'])) {
             </div>
             <div class="mb-3">
                 <label for="precioCosto" class="form-label">Precio Costo</label>
-                <input type="number" class="form-control" id="precioCosto" name="precioCosto" required value="<?php echo $productoData['precioCosto']; ?>">
+                <input type="text" class="form-control" id="precioCosto" name="precioCosto" required value="<?php echo $productoData['precioCosto']; ?>">
             </div>
             <div class="mb-3">
                 <label for="precioVenta" class="form-label">Precio Venta</label>
-                <input type="number" class="form-control" id="precioVenta" name="precioVenta" required value="<?php echo $productoData['precioVenta']; ?>">
+                <input type="text" class="form-control" id="precioVenta" name="precioVenta" required value="<?php echo $productoData['precioVenta']; ?>">
             </div>
             <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" required name="marcaId" >
+                <select class="form-select" aria-label="Default select example" required name="marcaId" id="marca" >
                     <?php
                     include_once('Model/Productos/marca.php');
                     $marcasObj = new Marca();
@@ -62,7 +66,7 @@ if(isset($_GET['idProductos'])) {
                 </select>
             </div>
             <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" required name="rubroId">
+                <select class="form-select" aria-label="Default select example" required name="rubroId" id="rubro">
                     <?php
                     include_once('Model/Productos/rubro.php');
                     $rubroObj = new Rubro();
@@ -87,3 +91,20 @@ if(isset($_GET['idProductos'])) {
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#marca').select2({
+            placeholder: "Elija la marca",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#rubro').select2({
+            placeholder: "Elija el rubro",
+            allowClear: true
+        });
+    });
+</script>
+
+<script src="Assets/js/Validaciones/alta_producto.js"></script>
