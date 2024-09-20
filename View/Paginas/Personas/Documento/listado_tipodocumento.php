@@ -2,6 +2,11 @@
 <div class=" boton-agregar">
     <a href="index.php?page=alta_tipodocumento&modulo=personas&submodulo=documento" class="btn btn-success">Agregar Tipo Documento</a>
 </div>
+
+<div class="form-group">
+    <input type="text" id="busqueda" class="form-control" placeholder="Buscar tipo de documento">
+</div>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -10,7 +15,7 @@
             <th scope="col"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tablaTipoDocumentos">
         <?php
         include_once('Model/Personas/Documento/tipodocumento.php');
         $tipodocumentoObj = new TipoDocumento();
@@ -47,3 +52,14 @@
         ?>
     </tbody>
 </table>
+
+<!-- Paginación -->
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center" id="paginacion">
+        <!-- Paginacion de tipo de documentos -->
+    </ul>
+
+</nav>
+
+<script src="Assets\js\Buscadores\buscar_tipodocumento.js"></script>

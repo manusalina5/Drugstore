@@ -60,6 +60,28 @@ class TipoDocumento
         return $resultado->fetch_assoc();
     }
 
+    public function buscarTipoDocumentos($busqueda, $inicio, $paginas){
+        $conexion = new Conexion();
+        $query = "SELECT * FROM tipodocumentos WHERE estado = 1 AND (valor LIKE '%$busqueda%') LIMIT $inicio, $paginas";
+        $resultado = $conexion->consultar($query);
+        $tipoDocumentos = array();
+        if($resultado->num_rows > 0){
+            while($row = $resultado->fetch_assoc()) {
+                $tipoDocumentos[] = $row;
+            }
+            return $tipoDocumentos;
+        }
+    }
+
+    public static function totalPaginasBusqueda($busqueda, $registro_por_paginas){
+        $conexion = new Conexion();
+        $query = "SELECT COUNT(*) FROM tipodocumentos WHERE estado = 1 AND (valor LIKE '%$busqueda%')";
+        $resultado = $conexion->consultar($query);
+        $total_registros = $resultado->fetch_array()[0];
+        $total_paginas = ceil($total_registros / $registro_por_paginas);
+        return $total_paginas;
+    }
+
 
     public function getId()
     {

@@ -1,3 +1,18 @@
+IMask(
+    document.getElementById('contacto'),
+    {
+        mask: [
+            {
+                mask: '+{549}(370)0000000'
+            },
+            {
+                mask: /^\S*@?\S*$/
+            }
+        ]
+    }
+)
+
+
 function validate(event) {
     event.preventDefault(); // Prevenir el envío por defecto
 
@@ -9,6 +24,8 @@ function validate(event) {
     const direccion = document.getElementById('direccion');
     const alert = document.getElementById('alert');
     const form = document.getElementById('form');
+    const tipocontacto = document.getElementById('tipocontacto');
+    const tipodocumento = document.getElementById('tipodocumento');
 
     let esValido = true;
 
@@ -41,11 +58,27 @@ function validate(event) {
         alert.innerHTML += 'El campo "Razon Social" no puede estar vacío.<br>';
         esValido = false;
     }
+    //tipo documento
+    if (tipodocumento.value.trim() === "") {
+        alert.classList.remove("no-alerta");
+        alert.classList.add("alerta");
+        alert.innerHTML += 'Seleccione un tipo de documento<br>';
+        esValido = false;
+    }
+
     //documento
     if (documento.value.trim() === "") {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
         alert.innerHTML += 'El campo "Documento" no puede estar vacío.<br>';
+        esValido = false;
+    }
+
+    //tipo contacto
+    if (tipocontacto.value.trim() === "") {
+        alert.classList.remove("no-alerta");
+        alert.classList.add("alerta");
+        alert.innerHTML += 'Seleccione un tipo de contacto<br>';
         esValido = false;
     }
     //contacto
@@ -107,7 +140,7 @@ function validate(event) {
         esValido = false;
     }
 
-    // 3. Validar longitud máxima (50 caracteres)
+    // 3. Validar longitud máxima 
     //nombre
     if (nombre.value.length > 50) {
         alert.classList.remove("no-alerta");
@@ -123,31 +156,31 @@ function validate(event) {
         esValido = false;
     }
     //razon social
-    if (razonsocial.value.length > 50) {
+    if (razonsocial.value.length > 100) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Razón Social" no debe exceder los 50 caracteres.<br>';
+        alert.innerHTML += 'El campo "Razón Social" no debe exceder los 100 caracteres.<br>';
         esValido = false;
     }
     //documento
-    if (documento.value.length > 50) {
+    if (documento.value.length > 30) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" no debe exceder los 50 caracteres.<br>';
+        alert.innerHTML += 'El campo "Documento" no debe exceder los 30 caracteres.<br>';
         esValido = false;
     }
     //contacto
-    if (contacto.value.length > 50) {
+    if (contacto.value.length > 100) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" no debe exceder los 50 caracteres.<br>';
+        alert.innerHTML += 'El campo "Contacto" no debe exceder los 100 caracteres.<br>';
         esValido = false;
     }
     //direccion
-    if (direccion.value.length > 50) {
+    if (direccion.value.length > 255) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" no debe exceder los 50 caracteres.<br>';
+        alert.innerHTML += 'El campo "Dirección" no debe exceder los 255 caracteres.<br>';
         esValido = false;
     }
 
@@ -174,24 +207,25 @@ function validate(event) {
         esValido = false;
     }
     //documento
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(documento.value)) {
+    if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(documento.value)) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
         alert.innerHTML += 'El campo "Documento" solo debe contener letras y espacios.<br>';
         esValido = false;
     }
-    //contacto
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(contacto.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" solo debe contener letras y espacios.<br>';
-        esValido = false;
-    }
+    // //contacto
+    // if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ@\s]+$/.test(contacto.value)) {
+    //     alert.classList.remove("no-alerta");
+    //     alert.classList.add("alerta");
+    //     alert.innerHTML += 'El campo "Contacto" solo debe contener letras y espacios.<br>';
+    //     esValido = false;
+    // }
+
     //direccion
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(direccion.value)) {
+    if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(direccion.value)) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" solo debe contener letras y espacios.<br>';
+        alert.innerHTML += 'El campo "Dirección" solo debe contener letras, números y espacios.<br>';
         esValido = false;
     }
 

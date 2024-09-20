@@ -3,6 +3,25 @@
 include_once '../../../Model/Personas/Documento/tipoDocumento.php';
 include_once '../../../config/conexion.php';
 
+if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+    $registro_por_pagina = 10;
+    $inicio = ($pagina - 1) * $registro_por_pagina;
+
+    $tipoDocumentosObj = new TipoDocumento();
+    $tipoDocumentos = $tipoDocumentosObj->buscarTipoDocumentos($busqueda, $inicio, $registro_por_pagina);
+    $total_paginas = TipoDocumento::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+    echo json_encode([
+        'tipoDocumentos' => $tipoDocumentos,
+        'total_paginas' => $total_paginas
+    ]);
+    exit();
+}
+
+
 if(isset($_POST['action'])){
     $tipodocumento = new TipoDocumentoControlador();
     if($_POST['action'] == 'registro'){

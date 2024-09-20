@@ -25,7 +25,7 @@ if (isset($_GET['idProveedor'])) {
         <h1 class="text-center">Modificar Proveedor</h1>
         <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
         </div>
-        <form action="Controller/Personas/Proveedor/proveedor.controlador.php" method="POST" onsubmit="return validate(event)">
+        <form id="form" action="Controller/Personas/Proveedor/proveedor.controlador.php" method="POST" onsubmit="return validate(event)">
             <h3>Datos Personales</h3>
             <input type="hidden" name="action" value="modificar">
             <input type="hidden" name="idProveedor" value="<?php echo $proveedorData['idProveedor']; ?>">
@@ -113,7 +113,7 @@ if (isset($_GET['idProveedor'])) {
 
                             if (!empty($tipoContactos)) {
                                 foreach ($tipoContactos as $tipoContacto) {
-                                    if ($tipoContacto['idtipoContacto'] == $ontactoObt['idtipoContacto']) {
+                                    if ($tipoContacto['idtipoContacto'] == $contactoObt['idtipoContacto']) {
                                         echo "<option selected value='{$contactoObt['idtipoContacto']}'>{$contactoObt['valorTipoContactos']}</option>";
                                     } else {
                                         echo "<option value='{$tipoContacto['idtipoContacto']}'>{$tipoContacto['valor']}</option>";
@@ -162,6 +162,12 @@ if (isset($_GET['idProveedor'])) {
     $(document).ready(function() {
         $('#tipodocumento').select2({
             placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#tipocontacto').select2({
+            placeholder: "Elija tipo de contacto",
             allowClear: true
         });
     });

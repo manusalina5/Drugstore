@@ -32,26 +32,27 @@ if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
 }
 
 
-
-
-class ProveedorControlador{
-
-    public function __construct()
-    {
-        if (isset($_POST['action'])) {
-            $proveedor = new ProveedorControlador();
-            if ($_POST['action'] == 'registro') {
-                $proveedor->registrarProveedor();
-            } else if ($_POST['action'] == 'modificar') {
-                $proveedor->modificarProveedor();
-            } elseif ($_POST['action'] == 'eliminar') {
-                $proveedor->eliminarProveedor();
-            } else {
-                echo "ERROR: Contactarse con el administrador";
-            }
-        }
+if (isset($_POST['action'])) {
+    $proveedor = new ProveedorControlador();
+    if ($_POST['action'] == 'registro') {
+        $proveedor->registrarProveedor();
+    } else if ($_POST['action'] == 'modificar') {
+        $proveedor->modificarProveedor();
+    } elseif ($_POST['action'] == 'eliminar') {
+        $proveedor->eliminarProveedor();
+    } else {
+        echo "ERROR: Contactarse con el administrador";
     }
-    public function registrarProveedor() { 
+}
+
+
+
+class ProveedorControlador
+{
+
+
+    public function registrarProveedor()
+    {
         if (
             empty($_POST['nombre']) ||
             empty($_POST['apellido']) ||
@@ -65,7 +66,7 @@ class ProveedorControlador{
             header('Location: ../../../index.php?error=missing_fields');
             exit();
         } else {
-            $proveedor = new Proveedor(null,$_POST['razonSocial'],null,$_POST['nombre'],$_POST['apellido']);
+            $proveedor = new Proveedor(null, $_POST['razonSocial'], null, $_POST['nombre'], $_POST['apellido']);
             $proveedor->guardar();
             $idPersona = $proveedor->getIdPersona();
             if ($idPersona) {
@@ -96,15 +97,14 @@ class ProveedorControlador{
             empty($_POST['direccion']) ||
             empty($_POST['razonSocial'])
         ) {
-            header('Location: ../../index.php?error=missing_fields');
-            exit();
+            header('Location: ../../..//index.php?error=missing_fields');
         } else {
             $idProveedor = $_POST['idProveedor'];
             $idPersona = $_POST['idPersona'];
 
-            $proveedor = new Proveedor($idProveedor,$_POST['razonSocial'],$idPersona,$_POST['nombre'],$_POST['apellido']);
+            $proveedor = new Proveedor($idProveedor, $_POST['razonSocial'], $idPersona, $_POST['nombre'], $_POST['apellido']);
             $proveedor->actualizar();
-            
+
             $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
             if ($documento->existeDocumento()) {
                 $documento->actualizar();
@@ -141,5 +141,5 @@ class ProveedorControlador{
             header('Location: ../../index.php?error=missing_id');
         }
     }
-
 }
+

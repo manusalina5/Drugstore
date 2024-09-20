@@ -5,7 +5,7 @@
 
 
 <div class="form-group">
-    <input type="text" id="busqueda" class="form-control" placeholder="Buscar marca">
+    <input type="text" id="busqueda" class="form-control" placeholder="Buscar tipo de contacto">
 </div>
 
 <table class="table table-striped table-hover">
@@ -25,7 +25,7 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center" id="paginacion">
-        <!-- Paginacion de productos -->
+        <!-- Paginacion de tipo contactos -->
     </ul>
 
 </nav>

@@ -35,8 +35,9 @@ class Contacto
     public function actualizar()
     {
         $conexion = new Conexion;
-        $query = "UPDATE contacto 
-        SET valor = '$this->valor' WHERE Persona_idPersona = '$this->Persona_idPersona'";
+        $query = "UPDATE contacto SET valor = '$this->valor', 
+        tipoContacto_idtipoContacto = '$this->tipoContacto_idtipoContacto' 
+        WHERE Persona_idPersona = '$this->Persona_idPersona'";
         return $conexion->actualizar($query);
     }
 
