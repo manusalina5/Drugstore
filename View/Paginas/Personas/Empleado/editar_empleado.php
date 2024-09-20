@@ -17,11 +17,15 @@ if (isset($_GET['idEmpleado'])) {
 
 ?>
 
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row">
     <div class="col"></div>
     <div class="col">
         <h1 class="text-center">Modificar Empleado</h1>
-        <form action="Controller/Personas/Empleado/empleado.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" action="Controller/Personas/Empleado/empleado.controlador.php" method="POST" onsubmit="return validate(event)">
             <h3>Datos Personales</h3>
             <input type="hidden" name="action" value="modificar">
             <input type="hidden" name="idEmpleado" value="<?php echo $empleadoData['idEmpleado']; ?>">
@@ -72,9 +76,9 @@ if (isset($_GET['idEmpleado'])) {
                     // Documento
                     echo '<div class="mb-3">';
                     if (!empty($documentoObt['valorDocumento'])) {
-                        echo "<input type='text' class='form-control' placeholder='Ingrese su documento' aria-label='documento' name='documento' value='" . $documentoObt['valorDocumento'] . "'>";
+                        echo "<input type='text' class='form-control' placeholder='Ingrese su documento' aria-label='documento' id='documento' name='documento' value='" . $documentoObt['valorDocumento'] . "'>";
                     } else {
-                        echo "<input type='text' class='form-control' placeholder='Ingrese su documento' aria-label='documento' name='documento'>";
+                        echo "<input type='text' class='form-control' placeholder='Ingrese su documento' aria-label='documento' name='documento' id='documento'>";
                     }
                     echo '</div>';
 
@@ -118,9 +122,9 @@ if (isset($_GET['idEmpleado'])) {
                             // Contacto
                             echo "<div class='mb-3'>";
                             if (!empty($contactoObt)) {
-                                echo "<input type='text' class='form-control' placeholder='Ingrese su contacto' aria-label='contacto' name='contacto' value='{$contactoObt['valorContacto']}'>";
+                                echo "<input type='text' class='form-control' placeholder='Ingrese su contacto' aria-label='contacto' id='contacto' name='contacto' value='{$contactoObt['valorContacto']}'>";
                             } else {
-                                echo "<input type='text' class='form-control' placeholder='Ingrese su contacto' aria-label='contacto' name='contacto'>";
+                                echo "<input type='text' class='form-control' placeholder='Ingrese su contacto' aria-label='contacto' id='contacto' name='contacto'>";
                             }
                             echo "</div>";
                             ?>
@@ -153,3 +157,20 @@ if (isset($_GET['idEmpleado'])) {
     <div class="col">
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#tipodocumento').select2({
+            placeholder: "Elija tipo de documento",
+            allowClear: true
+        });
+    });
+    $(document).ready(function() {
+        $('#tipocontacto').select2({
+            placeholder: "Elija tipo de contacto",
+            allowClear: true
+        });
+    });
+    </script>
+
+<script src="Assets/js/Validaciones/alta_empleado.js"></script>
