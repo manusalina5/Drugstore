@@ -1,9 +1,13 @@
+<link rel="stylesheet" href="Assets/css/validaciones.css">
+
 <div class="row ">
     <div class="col">
     </div>
     <div class="col">
         <h1 class="text-center">Registrar Persona</h1>
-        <form class="" action="Controller/Personas/persona.controlador.php" method="POST">
+        <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
+        </div>
+        <form id="form" class="" action="Controller/Personas/persona.controlador.php" method="POST" onsubmit="return validate(event)">
 
             <!-- Nombre -->
             <input type="hidden" name="action" value="registro">
@@ -37,7 +41,7 @@
             </div>
             <!-- Documento -->
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Ingrese su documento" aria-label="documento" name="documento">
+                <input type="text" class="form-control" placeholder="Ingrese su documento" aria-label="documento" name="documento" id="documento">
             </div>
 
             <!-- Tipo Contacto -->
@@ -61,7 +65,7 @@
 
             <!-- Contacto -->
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Ingrese su contacto" aria-label="contacto" name="contacto">
+                <input type="text" class="form-control" placeholder="Ingrese su contacto" aria-label="contacto" name="contacto" id="contacto">
             </div>
 
             <!-- Dirección -->
@@ -92,3 +96,6 @@
         });
     });
     </script>
+
+
+<script src="Assets/js/Validaciones/alta_persona.js"></script>

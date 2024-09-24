@@ -18,7 +18,6 @@ function validate(event) {
 
     const nombre = document.getElementById('nombre');
     const apellido = document.getElementById('apellido');
-    const legajo = document.getElementById('legajo');
     const documento = document.getElementById('documento');
     const contacto = document.getElementById('contacto');
     const direccion = document.getElementById('direccion');
@@ -49,13 +48,6 @@ function validate(event) {
         alert.classList.remove("no-alerta");
         alert.classList.add("alerta");
         alert.innerHTML += 'El campo "Apellido" no puede estar vacío.<br>';
-        esValido = false;
-    }
-    //legajo
-    if (legajo.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Legajo" no puede estar vacío.<br>';
         esValido = false;
     }
     //tipo documento
@@ -111,13 +103,6 @@ function validate(event) {
         alert.innerHTML += 'El campo "Apellido" debe tener al menos 3 caracteres.<br>';
         esValido = false;
     }
-    //legajo
-    if (legajo.value.length < 4) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "legajo" debe tener al menos 4 caracteres.<br>';
-        esValido = false;
-    }
     //documento
     if (documento.value.length < 3) {
         alert.classList.remove("no-alerta");
@@ -155,13 +140,7 @@ function validate(event) {
         alert.innerHTML += 'El campo "Apellido" no debe exceder los 50 caracteres.<br>';
         esValido = false;
     }
-    //legajo
-    if (legajo.value.length > 20) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "legajo" no debe exceder los 20 caracteres.<br>';
-        esValido = false;
-    }
+
     //documento
     if (documento.value.length > 30) {
         alert.classList.remove("no-alerta");
@@ -199,13 +178,7 @@ function validate(event) {
         alert.innerHTML += 'El campo "Apellido" solo debe contener letras y espacios.<br>';
         esValido = false;
     }
-    //legajo
-    if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(legajo.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "legajo" solo debe contener letras, números y espacios.<br>';
-        esValido = false;
-    }
+
     //documento
     if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(documento.value)) {
         alert.classList.remove("no-alerta");
@@ -244,13 +217,7 @@ function validate(event) {
         alert.innerHTML += 'El campo "Apellido" no debe comenzar ni terminar con espacios.<br>';
         esValido = false;
     }
-    //legajo
-    if (legajo.value.trim() !== legajo.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "legajo" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
+
     //documento
     if (documento.value.trim() !== documento.value) {
         alert.classList.remove("no-alerta");
@@ -288,13 +255,7 @@ function validate(event) {
         alert.innerHTML += 'El campo "Apellido" contiene caracteres no permitidos.<br>';
         esValido = false;
     }
-    //legajo
-    if (/["'<>]/.test(legajo.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "legajo" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
+
     //documento
     if (/["'<>]/.test(documento.value)) {
         alert.classList.remove("no-alerta");

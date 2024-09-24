@@ -23,12 +23,11 @@ class CompraControlador{
             header('Location: ../../index.php?page=registro&Por favor, completa todos los campos');
         }
 
-        if 
-        (empty($_POST['fechacompra'])) || 
+        if ((empty($_POST['fechacompra'])) || 
         (empty($_POST['horacompra'])) || 
-        (empty($_POST['totalcompra'])) {
+        (empty($_POST['totalcompra']))) {
             $compra = new Compra(null, $_POST['fechacompra'], $_POST['horacompra'], $_POST['totalcompra'] );
-            $metodopago->guardar();
+            $metodopago = $compra->guardar();
             header('Location: ../../../index.php?page=listado_compra&modulo=compras&submodulo=compra');
         } else {
             echo "El campo está vacío";
@@ -54,4 +53,6 @@ class CompraControlador{
             header('Location: ../../../index.php?page=listado_compra&modulo=compras&submodulo=compra');
         }
     }
+
+    public function registrarMetodoPago() {}
 }
