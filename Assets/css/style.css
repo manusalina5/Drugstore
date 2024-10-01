@@ -1,19 +1,20 @@
-#div-row{
+#div-row {
     margin-top: 25vh;
 }
 
-.img-fluid{
+.img-fluid {
     height: 35vw !important;
     padding-top: 5vh;
 
 }
 
-.boton-agregar{
+.boton-agregar {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
 }
 
 #label-select {
     margin-bottom: 10px;
-  }
+}
+
 

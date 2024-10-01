@@ -1,7 +1,6 @@
 <?php
 
 require_once 'model/usuario/modulos.php';
-
 function generarMenu($modulos) {
     $menu = [
         'usuarios' => [
@@ -20,6 +19,8 @@ function generarMenu($modulos) {
             'submenus' => [
                 'Registrar Ventas' => '?page=alta_venta&modulo=ventas',
                 'Listar Ventas' => '?page=listado_venta&modulo=ventas',
+                'Agregar Metodo de Pago' => '?page=alta_metodopago&modulo=ventas&submodulo=metodopago', 
+                'Ver Metodos de Pago' => '?page=listado_metodopago&modulo=ventas&submodulo=metodopago',  
             ]
         ],
         'productos' => [
@@ -63,7 +64,15 @@ function generarMenu($modulos) {
                 'Agregar Tipo Egreso' => '?page=alta_tipoegreso&modulo=caja&submodulo=egreso',
                 'Ver Tipo Egreso' => '?page=listado_tipoegreso&modulo=caja&submodulo=egreso',
             ]
-        ]
+        ],
+        'caja' => [
+            'label' => 'Caja',
+            'submenus' => [
+                'Apertura Caja' => '?page=apertura_caja&modulo=caja',
+                'Cierre Caja' => '?page=cierre_caja&modulo=caja',
+                'Ver Movimientos Caja' => '?page=movimientos_caja&modulo=caja',
+            ]
+        ],
     ];
 
     // Generar el HTML para los módulos habilitados
@@ -72,14 +81,23 @@ function generarMenu($modulos) {
             echo '<li class="nav-item dropdown">';
             echo '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">' . $menu[$modulo['nombre']]['label'] . '</a>';
             echo '<ul class="dropdown-menu">';
+            
+            // Separar en grupos de submenús
+            $contador = 0;
             foreach ($menu[$modulo['nombre']]['submenus'] as $submenu_label => $submenu_link) {
+                if ($contador > 0 && $contador % 3 == 0) { // Dividir después de cada 3 submenús
+                    echo '<div class="dropdown-divider"></div>';
+                }
                 echo '<li><a class="dropdown-item" href="' . $submenu_link . '">' . $submenu_label . '</a></li>';
+                $contador++;
             }
             echo '</ul>';
             echo '</li>';
         }
     }
 }
+
+
 
 ?>
 

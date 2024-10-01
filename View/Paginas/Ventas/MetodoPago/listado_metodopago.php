@@ -1,4 +1,7 @@
 <h2 class="text-center">Métodos de Pago</h2>
+<div class=" boton-agregar">
+    <a href="index.php?page=alta_metodopago&modulo=ventas&submodulo=metodopago" class="btn btn-success">Agregar Metodo de Pago</a>
+</div>
 <table class="table table-striped table-hover">
     <thead>
         <tr>

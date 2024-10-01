@@ -41,6 +41,8 @@ if (isset($_POST['action'])) {
         $cliente->eliminarcliente();
     } else if ($_POST['action'] == 'modificarUser') {
         $cliente->modificarcliente();
+    } else if ($_POST['action'] == 'registro_venta') {
+        $cliente->registrarClienteVenta();
     } else {
         echo "ERROR: Contactarse con el administrador";
     }
@@ -81,6 +83,137 @@ class ClienteControlador
             }
         }
     }
+
+    public function registrarClienteVenta(){
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion'])
+        ) {
+            header('Location: ../../../index.php?error=missing_fields');
+            exit();
+        } else {
+            $cliente = new Cliente(null, $_POST['observaciones'], null, $_POST['nombre'], $_POST['apellido']);
+            $cliente->guardar();
+            $idPersona = $cliente->getIdPersona();
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+                header('Location: ../../../?page=alta_venta&modulo=ventas');
+            } else {
+                header('Location: ../../../index.php?error=insert_failed');
+            }
+        }
+    }
+    /*
+    public function registrarClienteVenta()
+    {
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion'])
+        ) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Faltan campos por completar'
+            ]);
+            exit(); // Detén la ejecución después de la respuesta
+        } else {
+            $cliente = new Cliente(null, $_POST['observaciones'], null, $_POST['nombre'], $_POST['apellido']);
+            $idCliente = $cliente->guardar();
+            $idPersona = $cliente->getIdPersona();
+            $nombreapellido = $_POST['nombre'] . ' ' . $_POST['apellido'];
+
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Se registró correctamente el cliente',
+                    'clienteId' => $idCliente,
+                    'nombreapellido' => $nombreapellido
+                ]);
+                exit(); // Detén la ejecución después de la respuesta
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Error al registrar el cliente'
+                ]);
+                exit(); // Detén la ejecución después de la respuesta
+            }
+        }
+    }
+    */
+
+
+    /*
+    public function registrarClienteVenta()
+    {   
+        header('Content-Type: application/json');
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion'])
+        ) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Faltan campos por completar'
+            ]);
+            exit();
+        } else {
+            $cliente = new Cliente(null, $_POST['observaciones'], null, $_POST['nombre'], $_POST['apellido']);
+            $idCliente = $cliente->guardar();
+            $idPersona = $cliente->getIdPersona();
+            $nombreapellido = $_POST['nombre'] . ' ' . $_POST['apellido'];
+
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Se registró correctamente el cliente',
+                    'clienteId' => $idCliente,
+                    'nombreapellido' => $nombreapellido
+                ]);
+                exit();
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Error al registrar el cliente'
+                ]);
+                exit();
+            }
+        }
+    }
+    */
+
+
 
     public function modificarcliente()
     {
@@ -133,7 +266,8 @@ class ClienteControlador
         }
     }
 
-    public function eliminarcliente() {
+    public function eliminarcliente()
+    {
         if (!empty($_POST['idCliente']) && !empty($_POST['idPersona'])) {
             $cliente = new Cliente($_POST['idCliente'], null, $_POST['idPersona'], null, null);
             $cliente->eliminar();

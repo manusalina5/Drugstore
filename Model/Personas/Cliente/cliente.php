@@ -16,19 +16,21 @@ if (file_exists($rutaAbsolutaPersona)) {
     echo "Error: Archivo de configuración no encontrado en: " . $rutaAbsolutaPersona;
 }
 
-class Cliente extends Persona{
+class Cliente extends Persona
+{
     private $idCliente;
     private $observaciones;
     private $idPersona;
 
-    public function __construct($idCliente = "",$observaciones ="", $idPersona = "", $nombre = "", $apellido="")
+    public function __construct($idCliente = "", $observaciones = "", $idPersona = "", $nombre = "", $apellido = "")
     {
-        parent::__construct($idPersona,$nombre,$apellido);
+        parent::__construct($idPersona, $nombre, $apellido);
         $this->idCliente = $idCliente;
         $this->observaciones = $observaciones;
     }
 
-    public function guardar(){
+    public function guardar()
+    {
         $this->idPersona = parent::guardar();
 
         $conexion = new Conexion;
@@ -36,7 +38,8 @@ class Cliente extends Persona{
         return $conexion->insertar($query);
     }
 
-    public function actualizar(){
+    public function actualizar()
+    {
         parent::actualizar();
 
         $conexion = new Conexion;
@@ -44,15 +47,48 @@ class Cliente extends Persona{
         return $conexion->actualizar($query);
     }
 
-    public function eliminar(){
-        parent:: eliminar();
+    public function eliminar()
+    {
+        parent::eliminar();
 
         $conexion = new Conexion;
         $query = "UPDATE clientes SET estado = 0 WHERE idClientes = '$this->idCliente'";
         return $conexion->actualizar($query);
     }
 
-    public function buscarClientes($busqueda, $inicio, $registro_por_pagina){
+    public static function obtenerClientes()
+    {
+        $conexion = new Conexion();
+        $query = "SELECT cli.idClientes AS idClientes,
+                    cli.fechaAlta AS fechaAlta,
+                    cli.observaciones AS observaciones,
+                    p.idPersona AS idPersona, 
+                    p.nombre AS nombre, 
+                    p.apellido AS apellido,
+                    d.valor AS documento,
+                    td.valor AS tipodocumento,
+                    c.valor AS contacto,
+                    tc.valor AS tipocontacto
+                    FROM persona p
+                    INNER JOIN clientes cli ON p.idPersona = cli.Persona_idPersona
+                    INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                    INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto
+                    INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                    INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                    WHERE cli.estado = 1
+";
+        $resultado = $conexion->consultar($query);
+        $clientes = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $clientes[] = $row;
+            }
+            return $clientes;
+        }
+    }
+
+    public function buscarClientes($busqueda, $inicio, $registro_por_pagina)
+    {
 
         $conexion = new Conexion();
         $query = "SELECT cli.idClientes AS idClientes,
@@ -118,7 +154,8 @@ class Cliente extends Persona{
         return $total_paginas;
     }
 
-    public function obtenerClientesPorId(){
+    public function obtenerClientesPorId()
+    {
         $conexion = new Conexion;
         $query = "SELECT cli.idClientes as idClientes,
                     cli.fechaAlta as fechaAlta,
@@ -132,7 +169,6 @@ class Cliente extends Persona{
                     AND cli.idClientes = '$this->idCliente'";
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
-        
     }
 
     public function getIdCliente()

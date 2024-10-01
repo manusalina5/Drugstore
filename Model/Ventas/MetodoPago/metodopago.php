@@ -39,7 +39,7 @@ class MetodoPago{
         return $conexion->actualizar($query);
     }
 
-    public function obtenerMetodoPago(){
+    public static function obtenerMetodoPago(){
         $conexion = new Conexion();
         $query = "SELECT idmetodoPago, nombre, descripcion FROM metodoPago WHERE estado = 1";
         $resultado = $conexion->consultar($query);

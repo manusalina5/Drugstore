@@ -22,7 +22,7 @@ class ModulosControlador
     public function registrarModulos()
     {
         if (empty($_POST['nombremodulo'])) {
-            header('Location: ../../index.php?page=alta_modulos&modulo=usuarios&submodulo=modulos&mensaje=Por favor, completa todos los campos&status=danger');
+            header('Location: ../../../index.php?page=alta_modulos&modulo=usuarios&submodulo=modulos&mensaje=Por favor, completa todos los campos&status=danger');
             exit();
         }
 

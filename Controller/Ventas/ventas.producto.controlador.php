@@ -7,7 +7,7 @@ include_once '../../config/conexion.php';
 
 
 
-class ProductoControlador
+class VentasProductoControlador
 {
     public function __construct()
     {
@@ -129,16 +129,18 @@ class ProductoControlador
     }
 
     public function listadoProductosVenta(){
-        if (isset($_GET['q'])) {
-            $query = $_GET['q'];
+        if (isset($_GET['query'])) {
+            $query = $_GET['query'];
             
             $productoModel = new Producto();
             $productos = $productoModel->obtenerProductos($query);
 
+            var_dump($productos);
+            exit();
+
             // Devolver los resultados en formato JSON
             echo json_encode($productos);
     }
-    exit();
 }
 }
 new ProductoControlador();

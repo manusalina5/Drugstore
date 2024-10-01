@@ -24,7 +24,7 @@ if(isset($_GET['idmodulos'])){
                 <label for="nombremodulo" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombremodulo" name="nombremodulo" value="<?php echo $moduloData['nombre']; ?>" required>
             </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <button type="submit" class="btn btn-success">Modificar</button>
         </form>
     </div>
     <div class="col">

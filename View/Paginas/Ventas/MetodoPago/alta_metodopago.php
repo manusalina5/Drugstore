@@ -2,7 +2,8 @@
     <div class="col">
     </div>
     <div class="col">
-        <h1>Registrar Método de Pago</h1>
+        <h2 class="h4 text-center">Registrar Método de Pago</h2>
+
         <form class="" action="Controller/Ventas/MetodoPago/metodopago.controlador.php" method="POST">
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">
@@ -11,9 +12,15 @@
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                <input type="text" class="form-control" id="descripcion" name="descripcion">
             </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <div class="d-grid gap-1">
+                <button type="submit" class="btn btn-primary">Agregar</button>
+            </div>
+            <div class=" boton-agregar">
+            <a href="index.php?page=listado_metodopago&modulo=ventas&submodulo=metodopago" class="btn btn-success">Ver Metodos de Pago</a>
+        </div>
+
         </form>
     </div>
     <div class="col">
