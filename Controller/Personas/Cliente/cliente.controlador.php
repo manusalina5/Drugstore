@@ -10,7 +10,7 @@ include_once '../../../Model/Personas/Direccion/direccion.php';
 include_once '../../../config/conexion.php';
 
 
-// print_r($_POST);
+// print_r(value: $_POST);
 // exit();
 
 if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
@@ -83,7 +83,7 @@ class ClienteControlador
             }
         }
     }
-
+    /*
     public function registrarClienteVenta(){
         if (
             empty($_POST['nombre']) ||
@@ -112,8 +112,7 @@ class ClienteControlador
                 header('Location: ../../../index.php?error=insert_failed');
             }
         }
-    }
-    /*
+    }*/
     public function registrarClienteVenta()
     {
         if (
@@ -160,7 +159,6 @@ class ClienteControlador
             }
         }
     }
-    */
 
 
     /*

@@ -1,6 +1,3 @@
-
-
-
 <div class="modal fade" id="modalAgregarCliente" tabindex="-1" aria-labelledby="modalAgregarCliente" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -14,7 +11,7 @@
                 <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert_clientes">
                 </div>
 
-                <form id="form_clientes" action="Controller/Personas/Cliente/cliente.controlador.php" method="POST" onsubmit="return validate(event)">
+                <form id="form_clientes" action="Controller/Personas/Cliente/cliente.controlador.php" method="POST">
                     <input type="hidden" name="action" value="registro_venta">
 
                     <!-- Nombre -->
@@ -89,7 +86,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        <button type="button" onclick="validate()" class="btn btn-primary">Guardar cambios</button>
                     </div>
                 </form>
 

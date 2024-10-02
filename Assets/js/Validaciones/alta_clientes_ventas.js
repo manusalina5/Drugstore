@@ -34,10 +34,49 @@ $(document).ready(function () {
     });
 });
 
+function submitForm() {
+    //const formData = new FormData(document.getElementById('form_clientes'));
+    const data = {
+        action : 'registro_venta',
+        nombre : document.getElementById('nombre_clientes').value,
+        apellido : document.getElementById('apellido_clientes').value,
+        observaciones : document.getElementById('observaciones_clientes').value,
+        documento : document.getElementById('documento_clientes').value,
+        contacto : document.getElementById('contacto_clientes').value,
+        direccion : document.getElementById('direccion_clientes').value,
+        tipocontacto : document.getElementById('tipocontacto_clientes').value,
+        tipodocumento : document.getElementById('tipodocumento_clientes').value
+    }
+    // console.log(data)
+    $.ajax({
+        type:"POST", // la variable type guarda el tipo de la peticion GET,POST,..
+        url:"Controller/Personas/Cliente/cliente.controlador.php", //url guarda la ruta hacia donde se hace la peticion
+        data:data, // data recive un objeto con la informacion que se enviara al servidor
+        success:function(datos){ //success es una funcion que se utiliza si el servidor retorna informacion
+             console.log(datos)
+            alert(data.message); // Mensaje de éxito
+
+            // // Actualizar campos de venta con datos del cliente
+            // const cliente = document.getElementById('seleccionarCliente');
+            // const idCliente = document.getElementById('clienteId');
+            // cliente.value = data.nombreapellido;
+            // idCliente.value = data.clienteId;
+
+            // // Cerrar el modal después del registro
+            // const modalElement = document.getElementById('modalClientes');
+            // const modalBootstrap = bootstrap.Modal.getInstance(modalElement);
+            // modalBootstrap.hide(); // Cerrar el modal
+            // console.log('Modal cerrado'); // Verifica si el modal se cierra
+         },
+        
+    })
+
+   
+}
 
 
-function validate(event) {
-    event.preventDefault(); // Prevenir el envío por defecto
+function validate() {
+    //event.preventDefault(); // Prevenir el envío por defecto
 
     const nombre = document.getElementById('nombre_clientes');
     const apellido = document.getElementById('apellido_clientes');
@@ -304,11 +343,13 @@ function validate(event) {
 
     // Si es válido, enviar el formulario
     if (esValido) {
-        form.submit(); // Enviar el formulario si todo es válido
+    //    form.submit(); // Enviar el formulario si todo es válido
+        submitForm();
     }
-
+      
     return false; // Prevenir el envío del formulario si hay errores
 }
+
 
 // function enviarFormulario() {
 //     fetch("Controller/Personas/Cliente/cliente.controlador.php", {
