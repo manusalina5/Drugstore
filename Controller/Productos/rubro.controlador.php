@@ -38,11 +38,15 @@ class RubroControlador
     public function registrarRubro()
     {
 
-        if (!empty($_POST['nombreRubro'])) {
+        if (!empty($_POST['nombrerubro'])) {
             $rubro = new Rubro();
-            $rubro->setNombre($_POST['nombreRubro']);
+            $rubro->setNombre($_POST['nombrerubro']);
             $rubro->guardar();
             header('Location: ../../index.php?page=listado_rubro&modulo=productos');
+            exit();
+        }else{
+            header('Location: ../../index.php?page=alta_rubro&modulo=productos&status=danger&mensaje=Falta completar campos');
+            exit();
         }
 
     }
