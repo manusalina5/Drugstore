@@ -6,7 +6,7 @@
         <h1>Registrar Producto</h1>
         <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
         </div>
-        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST" onsubmit="return validate(event)">
+        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST"">
             <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->
@@ -80,7 +80,7 @@
             </div>
 
             <div class="d-grid gap-1">
-                <button type="submit" class="btn btn-success">Agregar</button>
+                <button id='formbutton' type="button" class="btn btn-success">Agregar</button>
             </div>
         </form>
     </div>
@@ -103,4 +103,4 @@
 </script>
 
 
-<script src="Assets/js/Validaciones/alta_producto.js"></script>
+<script type='module' src="Assets/js/Validaciones/alta_producto.js"></script>

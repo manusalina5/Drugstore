@@ -1,54 +1,7 @@
 // Buscar productos
 let carrito = []; 
 
-document.getElementById('buscarProducto').addEventListener('input', function () {
-    let query = this.value;
-
-    if (query.length > 2) {
-        fetch(`Controller/Productos/producto.controlador.php?action=buscarventa&q=${query}`) // Agregar direccion del controlador
-            .then(response => response.json())
-            .then(data => {
-                mostrarSuregencias(data);
-            })
-            .catch(error => console.error('Error:', error));
-    }else{
-        document.getElementById('listaProductos').innerHTML = '';
-    }
-}
-);
-
-function mostrarSuregencias(productos) {
-    let lista = document.getElementById('listaProductos');
-    lista.innerHTML = '';
-    
-    productos.forEach(producto =>{
-        let item = document.createElement('button');
-        item.classList.add('list-group-item', 'list-group-item-action');
-        item.textContent = `${producto.nombre} - $${producto.precioVenta}`;
-        item.setAttribute(`data-id`, producto.idProductos);
-        item.setAttribute('data-precio', producto.precioVenta);
-
-        item.addEventListener('click', function(){
-            seleccionarProducto(this);
-        });
-
-        lista.appendChild(item);
-    });
-}
-
-function seleccionarProducto(item) {
-    let nombre = item.textContent.split(' - ')[0];  // Obtener el nombre del producto
-    let precio = item.getAttribute('data-precio');
-    let id = item.getAttribute('data-id');
-    
-    // Rellenar los campos del formulario con los datos del producto seleccionado
-    document.getElementById('buscarProducto').value = nombre;
-    document.getElementById('precio').value = precio;
-    document.getElementById('idProducto').value = id;
-
-    // Limpiar la lista de sugerencias
-    document.getElementById('listaProductos').innerHTML = '';
-}
+// script de la busqueda y seleccion del producto en buscar_productosventa.js
 
 document.getElementById('btnAgregarProducto').addEventListener('click', function() {
     let nombreProducto = document.getElementById('buscarProducto').value;

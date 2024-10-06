@@ -2,8 +2,8 @@
 include_once 'Model/Ventas/MetodoPago/metodopago.php';
 $metodosDePagos = MetodoPago::obtenerMetodoPago();
 
-include_once 'Model/Personas/Cliente/cliente.php';
-$clientes = Cliente::obtenerClientes();
+// include_once 'Model/Personas/Cliente/cliente.php';
+// $clientes = Cliente::obtenerClientes();
 
 ?>
 <link rel="stylesheet" href="Assets/css/validaciones.css">
@@ -26,15 +26,46 @@ $clientes = Cliente::obtenerClientes();
                             <div id="listaProductos" class="list-group mt-2"></div>
                         </div>
                         <input type="hidden" id="idProducto" name="">
+
+                        <!-- Código de barras y cantidad -->
                         <div class="mb-3">
-                            <label for="cantidad" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control" id="cantidad" value="1">
+                            <div class="row g-3">
+                                <div class="col-sm">
+                                    <label for="precio" class="form-label">Precio Unitario</label>
+                                    <input type="number" class="form-control" id="precio" placeholder="$0.00" readonly>
+                                </div>
+                                <div class="col-sm-8">
+                                    <label for="codBarras" class="form-label">Código de Barras</label>
+                                    <input type="text" id="codBarras" class="form-control" placeholder="Código de barras">
+                                </div>
+                            </div>
                         </div>
+
+
+                        <!-- Cantidad -->
+
                         <div class="mb-3">
-                            <label for="precio" class="form-label">Precio Unitario</label>
-                            <input type="number" class="form-control" id="precio" placeholder="$0.00" readonly>
+                            <div class="row g-3">
+                                <div class="col-sm">
+                                <label for="cantidad" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control" id="cantidad" value="1">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="text" id="stock" class="form-control alert-success">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="nivel_stock" class="form-label" id="stocklabel">Estado Stock</label>
+                                    <input type="text" id="nivel_stock" class="form-control" title="" disabled>
+                                </div>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="btnAgregarProducto">Agregar al carrito</button>
+
+                        <!-- Agregar al carrito -->
+                        <div class="mb-6">
+                            <button type="button" class="btn btn-primary" id="btnAgregarProducto">Agregar al carrito</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -80,23 +111,17 @@ $clientes = Cliente::obtenerClientes();
                 </div>
                 <div class="card-body">
                     <div class="mb-2">
-                        <select class="form-select" aria-label="Select Cliente" required name="idCliente" id="seleccionarCliente">
-                            <option selected value="">Elija el cliente</option>
-                            <?php
-                            if (!empty($clientes)) {
-                                foreach ($clientes as $cliente) {
-                                    echo "<option value='{$cliente['idClientes']}'>{$cliente['nombre']} {$cliente['apellido']} - {$cliente['documento']} </option>";
-                                }
-                            }
-                            ?>
-                        </select>
-        
+                        <input type="text" class="form-control" id="buscarCliente" placeholder="Ingresar nombre del cliente">
+                        <div id="listaClientes" class="list-group mt-2"></div>
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" id="clienteId" placeholder="Id del cliente">
 
                     </div>
                     <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#modalAgregarCliente">Agregar Cliente</button>
 
-                        <!-- Modal - Alta de clientes-->
-                        <?php require('View/Paginas/Personas/Cliente/form.alta_cliente.php'); ?>
+                    <!-- Modal - Alta de clientes-->
+                    <?php require('View/Paginas/Personas/Cliente/form.alta_cliente.php'); ?>
                 </div>
             </div>
         </div>
@@ -108,7 +133,6 @@ $clientes = Cliente::obtenerClientes();
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="metodoPago" class="form-label">Método de Pago</label>
                         <select class="form-select" id="metodoPago">
                             <?php
                             foreach ($metodosDePagos as $metodopago) {
@@ -118,10 +142,6 @@ $clientes = Cliente::obtenerClientes();
                             }
                             ?>
                         </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descuento" class="form-label">Descuento (Opcional)</label>
-                        <input type="number" class="form-control" id="descuento" placeholder="0%">
                     </div>
                 </div>
             </div>
@@ -143,3 +163,5 @@ $clientes = Cliente::obtenerClientes();
 
 <script src="Assets/js/Validaciones/ventas.js"></script>
 <script src="Assets/js/Validaciones/alta_clientes_ventas.js"></script>
+<script src="Assets/js/Buscadores/buscar_clienteventa.js"></script>
+<script src="Assets/js/Buscadores/buscar_productosventa.js"></script>

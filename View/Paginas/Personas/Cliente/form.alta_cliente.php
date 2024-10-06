@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrarModal">Cerrar</button>
                         <button type="button" onclick="validate()" class="btn btn-primary">Guardar cambios</button>
                     </div>
                 </form>

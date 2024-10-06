@@ -56,7 +56,7 @@ class Cliente extends Persona
         return $conexion->actualizar($query);
     }
 
-    public static function obtenerClientes()
+    public function obtenerClientes($busqueda)
     {
         $conexion = new Conexion();
         $query = "SELECT cli.idClientes AS idClientes,
@@ -75,8 +75,14 @@ class Cliente extends Persona
                     INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto
                     INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
                     INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
-                    WHERE cli.estado = 1
-";
+                    WHERE cli.estado = 1 AND (p.nombre LIKE '%$busqueda%' OR
+                    p.apellido LIKE '%$busqueda%' OR 
+                    cli.observaciones LIKE '%$busqueda%' OR
+                    cli.fechaAlta LIKE '%$busqueda%' OR
+                    d.valor LIKE '%$busqueda%' OR
+                    c.valor LIKE '%$busqueda%' OR
+                    tc.valor LIKE '%$busqueda%' OR
+                    td.valor LIKE '%$busqueda%')";
         $resultado = $conexion->consultar($query);
         $clientes = array();
         if ($resultado->num_rows > 0) {

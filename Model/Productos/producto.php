@@ -89,26 +89,54 @@ class Producto
         return $conexion->actualizar($query);
     }
 
+    public function obtenerProductoPorCodBarras($codBarras)
+    {
+        $conexion = new Conexion;
+        $query = "SELECT *,
+        CASE 
+            WHEN cantidad < cantidadMin THEN 'Bajo'
+            WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'
+            ELSE 'Alto'
+            END AS nivel_stock
+        FROM producto
+        WHERE estado = 1 AND codBarras = $codBarras";
+        $resultado = $conexion->consultar($query);
+        $productos = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $productos[] = $row;
+            }
+        }else{
+            $productos = false;
+        }
+        return $productos;
+    }
+
     public function obtenerProductos($busqueda)
     {
         $conexion = new Conexion;
-        $query = "SELECT *
+        $query = "SELECT *,
+        CASE 
+                    WHEN cantidad < cantidadMin THEN 'Bajo'
+                    WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'
+                    ELSE 'Alto'
+                    END AS nivel_stock
         FROM producto
         WHERE estado = 1 AND (nombre LIKE '%$busqueda%' OR codBarras LIKE '%$busqueda%')";
         $resultado = $conexion->consultar($query);
         $productos = array();
-        if ($resultado->num_rows > 0){
+        if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()) {
                 $productos[] = $row;
             }
         }
         return $productos;
-
     }
 
-    public static function totalPaginas($registro_por_pagina){
+    public static function totalPaginas($registro_por_pagina)
+    {
         $conexion = new Conexion();
-        $query = "SELECT COUNT(*) FROM producto WHERE estado = 1";
+        $query = "SELECT COUNT(*),  FROM producto WHERE estado = 1";
         $resultado = $conexion->consultar($query);
         $total_registros = $resultado->fetch_array()[0];
 
@@ -117,7 +145,7 @@ class Producto
         return $total_paginas;
     }
 
-    
+
     public function obtenerProductosPorId()
     {
         $conexion = new Conexion;
@@ -135,24 +163,29 @@ class Producto
         WHERE idProductos = '$this->id'";
         $resultado = $conexion->consultar($query);
         return $resultado->fetch_assoc();
-        
     }
 
-    function buscarProductos($busqueda, $inicio, $registro_por_pagina){
+    function buscarProductos($busqueda, $inicio, $registro_por_pagina)
+    {
         $conexion = new Conexion();
-        $query = "SELECT idProductos, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro
-                    FROM producto
-                    INNER JOIN marca m ON m.idMarca = producto.Marca_idMarca
-                    INNER JOIN rubro r ON r.idRubros = producto.Rubro_idRubros
-                    WHERE producto.estado = 1 AND
-                    (producto.nombre LIKE '%$busqueda%' OR 
-                    m.nombre LIKE '%$busqueda%' OR
-                    r.nombre LIKE '%$busqueda%')
-                    LIMIT $inicio, $registro_por_pagina";
+        $query = "SELECT idProductos, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro,
+                    CASE 
+                    WHEN cantidad < cantidadMin THEN 'Bajo'
+                    WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'
+                    ELSE 'Alto'
+                    END AS nivel_stock
+                FROM producto
+                INNER JOIN marca m ON m.idMarca = producto.Marca_idMarca
+                INNER JOIN rubro r ON r.idRubros = producto.Rubro_idRubros
+                WHERE producto.estado = 1 AND
+                (producto.nombre LIKE '%$busqueda%' OR 
+                m.nombre LIKE '%$busqueda%' OR
+                r.nombre LIKE '%$busqueda%')
+                LIMIT $inicio, $registro_por_pagina";
         $resultado = $conexion->consultar($query);
         $productos = array();
-        if($resultado->num_rows > 0){
-            while($row = $resultado->fetch_assoc()){
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $productos[] = $row;
             }
             return $productos;
@@ -175,7 +208,7 @@ class Producto
         $total_paginas = ceil($total_registros / $registro_por_pagina);
         return $total_paginas;
     }
-    
+
 
     public function getId()
     {

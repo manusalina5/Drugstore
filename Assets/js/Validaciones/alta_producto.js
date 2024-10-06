@@ -1,4 +1,3 @@
-
 // Validación cantidad
 
 IMask(document.getElementById("cantidad"), {
@@ -9,7 +8,6 @@ IMask(document.getElementById("cantidad"), {
 });
 
 // Validación cantidad minima
-
 IMask(document.getElementById("cantidadMin"), {
     mask: Number,
     min: 1,
@@ -25,72 +23,78 @@ IMask(document.getElementById("codBarras"), {
     padFractionalZeros: false, // Sin ceros decimales
 });
 
+const formbuttom = document.getElementById("formbutton");
+formbuttom.addEventListener("click", validate, false);
+
+import { validarCampo } from './validaciones.js';
+
 function validate(event) {
     event.preventDefault(); // Prevenir el envío por defecto
-
-    const valor = document.getElementById("nombre");
-    const alert = document.getElementById("alert");
     const form = document.getElementById("form");
-
     let esValido = true;
 
-    // Limpiar alertas previas
-    alert.innerHTML = '';
-    alert.classList.add("no-alerta");
+    const alert = document.getElementById("alert");
+
     alert.classList.remove("alerta");
+    alert.classList.add("no-alerta");
+    alert.innerHTML = '';
 
-    // 1. Validar que el campo no esté vacío
-    if (valor.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El campo no puede estar vacío.<br>";
-        esValido = false;
-    }
+    const campos = [
+        {
+            id: 'nombre',
+            nombre: 'nombre',
+            minLen: 3, maxLen: 50,
+            regex: /^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/,
+            errorMsg: 'solo debe contener letras y espacios.'
 
-    // 2. Validar longitud mínima (3 caracteres)
-    if (valor.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El nombre debe tener al menos 3 caracteres.<br>";
-        esValido = false;
-    }
+        },
+        {
+            id: 'precioCosto',
+            nombre: 'precio de costo',
+            esPrecio: true
+        },
+        {
+            id: 'precioVenta',
+            nombre: 'precio de venta',
+            esPrecio: true
+        },
+        {
+            id: 'marca',
+            nombre: 'marca',
+            esSelect: true
+        },
+        {
+            id: 'rubro',
+            nombre: 'rubro',
+            esSelect: true
+        },
+        {
+            id: 'cantidad',
+            nombre: 'cantidad'
+        },
+        {
+            id: 'codBarras',
+            nombre: 'Código de barras'
+        },
+        {
+            id: 'cantidadMin',
+            nombre: 'cantidad mínima'
+        }
 
-    // 3. Validar longitud máxima (50 caracteres)
-    if (valor.value.length > 50) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El nombre no debe exceder los 50 caracteres.<br>";
-        esValido = false;
-    }
 
-    // 4. Validar caracteres permitidos (solo letras y espacios)
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(valor.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El nombre solo debe contener letras y espacios.<br>";
-        esValido = false;
-    }
+    ]
 
-    // 5. Validar que no haya espacios al inicio o al final
-    if (valor.value.trim() !== valor.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El nombre no debe comenzar ni terminar con espacios.<br>";
-        esValido = false;
-    }
-
-    // 6. Validación de seguridad (evitar inyección de código)
-    if (/["'<>]/.test(valor.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += "El nombre contiene caracteres no permitidos.<br>";
-        esValido = false;
-    }
+    campos.forEach(campo => {
+        esValido = validarCampo(campo) && esValido; // Validar cada campo
+    });
 
     // Si es válido, enviar el formulario
     if (esValido) {
-        form.submit(); // Enviar el formulario si todo es válido
+        form.submit(); 
+        //console.log('Envia formulario');
+    } else {
+        console.log('Hay errores')
     }
 
-    return false; // Prevenir el envío del formulario si hay errores
+    return esValido; // Prevenir el envío del formulario si hay errores
 }

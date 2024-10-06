@@ -21,3 +21,7 @@
 
 <!-- Imask -->
 <script src="https://unpkg.com/imask"></script>
+
+<!-- Alertas -->
+<script src="Assets/js/toastr.min.js"></script>
+<link rel="stylesheet" href="Assets/css/toastr.min.css">
