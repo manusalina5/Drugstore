@@ -1,66 +1,60 @@
-// Buscar productos
-let carrito = []; 
+const btnVentas = document.getElementById('btnConfirmarVenta');
 
-// script de la busqueda y seleccion del producto en buscar_productosventa.js
+btnVentas.onclick = function () {
 
-document.getElementById('btnAgregarProducto').addEventListener('click', function() {
-    let nombreProducto = document.getElementById('buscarProducto').value;
-    let precioProducto = parseFloat(document.getElementById('precio').value);
-    let cantidadProducto = parseInt(document.getElementById('cantidad').value);
-    let idProducto = parseInt(document.getElementById('idProducto').value);
-
-    // Verifica que se haya seleccionado un producto válido
-    if (!nombreProducto || !precioProducto || cantidadProducto <= 0) {
-        alert('Por favor, selecciona un producto válido y asegúrate de ingresar la cantidad correcta.');
-        return;
-    }
-
-    // Agregar el producto al carrito
-    agregarAlCarrito(idProducto, nombreProducto, precioProducto, cantidadProducto);
-});
-
-function agregarAlCarrito(idProducto, nombre, precio, cantidad) {
-    let productoExistente = carrito.find(producto => producto.idProducto === idProducto);
-
-    if (productoExistente) {
-        productoExistente.cantidad += cantidad;
-        productoExistente.subtotal = productoExistente.cantidad * productoExistente.precio;
-    } else {
-        carrito.push({
-            idProducto: idProducto,
-            nombre: nombre,
-            precio: precio,
-            cantidad: cantidad,
-            subtotal: cantidad * precio
-        });
-    }
-
-    actualizarCarrito();
-}
-
-function actualizarCarrito() {
-    let tbody = document.getElementById('carrito');
-    tbody.innerHTML = '';
-    let totalCarrito = 0;
-
-    carrito.forEach(producto => {
-        let fila = `
-            <tr>
-                <td>${producto.nombre}</td>
-                <td>${producto.cantidad}</td>
-                <td>$${producto.precio.toFixed(2)}</td>
-                <td>$${producto.subtotal.toFixed(2)}</td>
-                <td><button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${producto.idProducto})">Eliminar</button></td>
-            </tr>
-        `;
-        tbody.innerHTML += fila;
-        totalCarrito += producto.subtotal;
+    let total = 0;
+    carrito.forEach(element => {
+        total += element['subtotal'];
     });
 
-    document.getElementById('totalCarrito').innerText = `$${totalCarrito.toFixed(2)}`;
+    //alert(total);
+
+    const data = {
+        action: 'ventas',
+        carrito: carrito,
+        total: parseFloat(total),
+        idmetodopago: parseInt(document.getElementById('metodoPago').value),
+        idempleado: 1,
+        idcliente: document.getElementById('clienteId').value
+    }
+
+    fetch("Controller/Ventas/ventas.controlador.php?action=ventas", {
+        method: "POST", // Tipo de petición
+        headers: {
+            'Content-Type': 'application/json' // Especifica que el cuerpo de la petición está en formato JSON
+        },
+        body: JSON.stringify(data) // Convierte el objeto `data` en una cadena JSON
+    })
+        .then(response => response.json()) // Convierte la respuesta en JSON
+        .then(datos => {
+            if (!datos.success) {
+                Command: toastr["warning"]("Hay algunos campos vacíos", "No se pudo completar la venta")
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            } else {
+                alert(datos.message);
+                console.log(datos.carrito);
+                console.log(datos.data);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
 }
 
-function eliminarDelCarrito(idProducto) {
-    carrito = carrito.filter(producto => producto.idProducto !== idProducto);
-    actualizarCarrito();
-}

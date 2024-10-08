@@ -165,3 +165,4 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
 <script src="Assets/js/Validaciones/alta_clientes_ventas.js"></script>
 <script src="Assets/js/Buscadores/buscar_clienteventa.js"></script>
 <script src="Assets/js/Buscadores/buscar_productosventa.js"></script>
+<script src="Assets/js/Validaciones/carrito_ventas.js"></script>

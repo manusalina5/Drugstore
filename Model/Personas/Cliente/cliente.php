@@ -89,8 +89,11 @@ class Cliente extends Persona
             while ($row = $resultado->fetch_assoc()) {
                 $clientes[] = $row;
             }
-            return $clientes;
+            
+        }else{
+            $clientes = false;
         }
+        return $clientes;
     }
 
     public function buscarClientes($busqueda, $inicio, $registro_por_pagina)

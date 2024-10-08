@@ -5,7 +5,6 @@ import { validarCampo } from './validaciones.js';
 
 function validate(event){
     event.preventDefault(); // Prevenir el envío del formulario
-    const valor = document.getElementById("nombrerubro");
     const form = document.getElementById("form");
     let esValido = true;
 
