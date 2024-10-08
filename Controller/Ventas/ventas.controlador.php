@@ -42,7 +42,16 @@ class VentasControlador
 
         if (empty($errores)) {
             $venta = $this->crearObjetoVenta($data);
-            $venta->guardarVenta();
+            $idVenta = $venta->guardarVenta();
+            foreach ($data as $clave => $valor) {
+                if($clave === 'carrito'){
+                    foreach ($valor as $producto){
+                        $detalleVenta = $this->crearObjetoDetalleVenta($producto,$idVenta);
+                        $detalleVenta->guardarDetalleVenta();
+                    }
+                }
+            }
+
 
             echo json_encode(
                 [
@@ -101,4 +110,15 @@ class VentasControlador
         $venta->setClientes_idClientes($data['idcliente']);
         return $venta;
     }
+
+    public function crearObjetoDetalleVenta(array $data,$idVenta){
+        $detalleVenta = new DetalleVenta();
+        $detalleVenta->setPrecioActual($data['precio']);
+        $detalleVenta->setIdProducto($data['idProducto']);
+        $detalleVenta->setCantidad($data['cantidad']);
+        $detalleVenta->setIdVenta($idVenta);
+        return $detalleVenta;
+    }
 }
+
+// $this->precioActual, $this->cantidad, $idVenta, $this->idProducto
