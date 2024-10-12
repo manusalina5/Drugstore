@@ -33,7 +33,7 @@ export function validarCampo(campo) {
                 mostrarAlerta(`El campo "${campo.nombre}" contiene caracteres no permitidos.`);
             }
             if (campo.esPrecio) {
-                const precioRegex = /^\d+(\,\d{1,2})?$/; // Regex para validar precios
+                const precioRegex = /^\d+(\.\d{1,2})?$/; // Regex para validar precios
                 if (!precioRegex.test(valor)) {
                     mostrarAlerta(`El campo "${campo.nombre}" debe ser un número positivo con hasta dos decimales.`);
                 }

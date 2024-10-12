@@ -180,7 +180,9 @@ class Producto
                 WHERE producto.estado = 1 AND
                 (producto.nombre LIKE '%$busqueda%' OR 
                 m.nombre LIKE '%$busqueda%' OR
-                r.nombre LIKE '%$busqueda%')
+                r.nombre LIKE '%$busqueda%' OR
+                codBarras LIKE '%$busqueda%' OR
+                utilidad LIKE '%$busqueda%')
                 LIMIT $inicio, $registro_por_pagina";
         $resultado = $conexion->consultar($query);
         $productos = array();

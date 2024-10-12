@@ -4,9 +4,7 @@
 include_once '../../Model/Productos/producto.php';
 include_once '../../config/conexion.php';
 
-// print_r($_POST);
-// print_r($_GET);
-// exit();
+
 
 class ProductoControlador
 {
@@ -52,7 +50,7 @@ class ProductoControlador
             $errores['codBarras'] = 'El código de barras es obligatorio';
         }
 
-        if (!preg_match('/^[a-zA-Z0-9\s]+$/', $datos['nombre'])) {
+        if (!preg_match('/^[a-zA-Z0-9\s.,]+$/', $datos['nombre'])) {
             $errores['nombre'] = 'El nombre solo puede contener letras, números y espacios';
         }
 
@@ -75,6 +73,7 @@ class ProductoControlador
     public function crearObjetoProducto(array $datos)
     {
         $producto = new Producto();
+        $producto->setId($datos['idProductos']);
         $producto->setNombre($datos['nombre']);
         $producto->setCodBarras($datos['codBarras']);
         $producto->setCantidad($datos['cantidad']);
@@ -122,6 +121,9 @@ class ProductoControlador
 
     public function modificarProducto()
     {
+        // print_r($_POST);
+        // print_r($_GET);
+        // exit();
         try {
             $datos = $_POST;
 
@@ -228,7 +230,7 @@ class ProductoControlador
             $productoModelo = new Producto();
 
             // Llamar a la función del modelo para actualizar
-            $resultado = $productoModelo->actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar,$idselecionado);
+            $resultado = $productoModelo->actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar, $idselecionado);
 
             if ($resultado) {
                 echo json_encode(true);
@@ -246,14 +248,14 @@ class ProductoControlador
     //     $tipoMonto = $_POST['tipoMonto'] ?? '';
     //     $montoActualizar = $_POST['montoActualizar'] ?? '';
     //     $idSeleccionado = $_POST['selectmarcarubro'] ?? ''; // El ID de rubro o marca seleccionada
-    
+
     //     // Asegúrate que todos los valores necesarios estén presentes
     //     if ($tipoAumento && $priceOption && $tipoMonto && $montoActualizar && $idSeleccionado) {
     //         $productoModelo = new Producto();
-            
+
     //         // Llamar a la función del modelo para actualizar, pasando también el ID seleccionado
     //         $resultado = $productoModelo->actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar, $idSeleccionado);
-    
+
     //         if ($resultado) {
     //             echo $resultado;
     //         } else {

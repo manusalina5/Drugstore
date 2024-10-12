@@ -20,9 +20,9 @@ if(isset($_GET['idProductos'])) {
         <h1>Modificar Producto</h1>
         <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
         </div>
-        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST" onsubmit="return validate(event)">
+        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST">
             <input type="hidden" name="action" value="modificar">
-            <input type="hidden" name="idProductos" value="<?php echo $productoData['idProductos']; ?>">
+            <input id="idProductos" type="hidden" name="idProductos" value="<?php echo $productoData['idProductos']; ?>">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required value="<?php echo $productoData['nombre']; ?>">
@@ -84,7 +84,7 @@ if(isset($_GET['idProductos'])) {
                 </select>
             </div>
             <div class="d-grid gap-1">
-            <button type="submit" class="btn btn-success">Modificar</button>
+            <button id='formbutton' type="buttom" class="btn btn-success">Modificar</button>
             </div>
         </form>
     </div>
@@ -107,4 +107,4 @@ if(isset($_GET['idProductos'])) {
     });
 </script>
 
-<script src="Assets/js/Validaciones/alta_producto.js"></script>
+<script type='module' src="Assets/js/Validaciones/editar_producto.js"></script>
