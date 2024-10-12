@@ -5,31 +5,42 @@ include_once '../../Model/Ventas/detalleventas.php';
 include_once '../../config/conexion.php';
 
 
-if (isset($_GET['action']) && $_GET['action'] == 'ventas') {
-    // // Leer el cuerpo de la solicitud
-    // $json = file_get_contents('php://input');
 
-    // // Decodificar el JSON recibido
-    // $data = json_decode($json, true); // true para convertir en array asociativo
+// // Leer el cuerpo de la solicitud
+// $json = file_get_contents('php://input');
 
-    // $metodopago = $data['idmetodopago'];
-    // $carrito = $data['carrito'];
-    // echo json_encode([
-    //     'success' => true,
-    //     'message' => $metodopago,
-    //     'clienteId' => 1,
-    //     'nombreapellido' => 'Manu',
-    //     'carrito' => $carrito,
-    //     'data' => $data
-    // ]);
+// // Decodificar el JSON recibido
+// $data = json_decode($json, true); // true para convertir en array asociativo
 
-    $ventasControlador = new VentasControlador();
-    $ventasControlador->registrarVenta();
-}
+// $metodopago = $data['idmetodopago'];
+// $carrito = $data['carrito'];
+// echo json_encode([
+//     'success' => true,
+//     'message' => $metodopago,
+//     'clienteId' => 1,
+//     'nombreapellido' => 'Manu',
+//     'carrito' => $carrito,
+//     'data' => $data
+// ]);
 
 
 class VentasControlador
 {
+
+    public function __construct()
+    {
+        $action = $_POST['action'] ?? $_GET['action'] ?? null;
+        if (isset($action)) {
+            switch ($action) {
+                case 'ventas':
+                    $this->registrarVenta();
+                    break;
+                case 'buscar':
+                    $this->listadoVentas();
+                    break;
+            }
+        }
+    }
 
     public function registrarVenta()
     {
@@ -44,9 +55,9 @@ class VentasControlador
             $venta = $this->crearObjetoVenta($data);
             $idVenta = $venta->guardarVenta();
             foreach ($data as $clave => $valor) {
-                if($clave === 'carrito'){
-                    foreach ($valor as $producto){
-                        $detalleVenta = $this->crearObjetoDetalleVenta($producto,$idVenta);
+                if ($clave === 'carrito') {
+                    foreach ($valor as $producto) {
+                        $detalleVenta = $this->crearObjetoDetalleVenta($producto, $idVenta);
                         $detalleVenta->guardarDetalleVenta();
                     }
                 }
@@ -59,7 +70,7 @@ class VentasControlador
                     'message' => 'Venta registrada correctamente'
                 ]
             );
-        }else{
+        } else {
             echo json_encode(
                 [
                     'success' => false,
@@ -67,6 +78,25 @@ class VentasControlador
                 ]
             );
         }
+    }
+
+    public function listadoVentas()
+    {
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+        $registro_por_pagina = 10;
+        $inicio = ($pagina - 1) * $registro_por_pagina;
+
+        $ventasObj = new Venta();
+        $ventas = $ventasObj->buscarVentas($busqueda, $inicio, $registro_por_pagina);
+        $total_paginas = Venta::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+        echo json_encode([
+            'ventas' => $ventas,
+            'total_paginas' => $total_paginas
+        ]);
+        exit();
     }
 
     public function validarPost()
@@ -111,7 +141,8 @@ class VentasControlador
         return $venta;
     }
 
-    public function crearObjetoDetalleVenta(array $data,$idVenta){
+    public function crearObjetoDetalleVenta(array $data, $idVenta)
+    {
         $detalleVenta = new DetalleVenta();
         $detalleVenta->setPrecioActual($data['precio']);
         $detalleVenta->setIdProducto($data['idProducto']);
@@ -120,5 +151,5 @@ class VentasControlador
         return $detalleVenta;
     }
 }
-
+new VentasControlador();
 // $this->precioActual, $this->cantidad, $idVenta, $this->idProducto
