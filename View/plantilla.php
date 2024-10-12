@@ -7,7 +7,7 @@ session_start();
 <html lang="es">
 
 <head>
-    <?php include_once ('includes/head.php') ?>
+    <?php include_once('includes/head.php') ?>
 </head>
 
 <body>
@@ -16,8 +16,26 @@ session_start();
     $pagina_actual = isset($_GET['page']) ? $_GET['page'] : '';
     if ($pagina_actual !== 'actualizar_pass') {
         if (!empty($_SESSION)) {
-            include ('includes/navbar.php');
+            include('includes/navbar.php');
         }
+    }
+    ?>
+    <?php
+    // Mostrar errores
+    if (isset($_COOKIE['errores'])) {
+        $errores = unserialize($_COOKIE['errores']);
+        foreach ($errores as $mensaje) {
+            echo '<div class="alert alert-danger text-center" role="alert">' . $mensaje . '</div>';
+        }
+        setcookie('errores', '', time() - 3600, '/'); // Borrar cookie después de usarla
+    }
+
+    // Mostrar mensajes
+    if (isset($_COOKIE['mensaje'])) {
+        $mensaje = $_COOKIE['mensaje'];
+        $status = isset($_GET['status']) ? $_GET['status'] : 'info';
+        echo '<div class="alert alert-' . $status . ' text-center" role="alert">' . $mensaje . '</div>';
+        setcookie('mensaje', '', time() - 3600, '/'); // Borrar cookie después de usarla
     }
     ?>
 
@@ -40,8 +58,8 @@ session_start();
             exit(); // Terminar el script para evitar que el resto del código se ejecute
         }
 
-        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida','actualizar_pass','configuracion','accesos_perfiles','apertura_caja','cierre_caja','movimientos_caja');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'tipoegreso', 'metodopago', 'perfiles','pass','compra','modulos','moduloperfil','venta','cliente','caja');
+        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'tipoegreso', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja');
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
@@ -49,8 +67,8 @@ session_start();
             $pagesValidas[] = 'actualizar_' . $page;
         }
 
-        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja','Compras','Ventas','Clientes'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Perfiles','Compra','Modulos','Moduloperfil','Venta','Cliente','Metodopago'];
+        $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Compras', 'Ventas', 'Clientes'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];

@@ -14,11 +14,11 @@
 <table class="table table-striped table-hover table-responsive">
     <thead>
         <tr>
-            <th scope="col">Id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Codigo de Barras</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Cantidad Min</th>
+            <th scope="col">Utilidad</th>
             <th scope="col">Precio Costo</th>
             <th scope="col">Precio Venta</th>
             <th scope="col">Marca</th>

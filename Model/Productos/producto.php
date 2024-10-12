@@ -168,7 +168,7 @@ class Producto
     function buscarProductos($busqueda, $inicio, $registro_por_pagina)
     {
         $conexion = new Conexion();
-        $query = "SELECT idProductos, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro,
+        $query = "SELECT idProductos,utilidad, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro,
                     CASE 
                     WHEN cantidad < cantidadMin THEN 'Bajo'
                     WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'

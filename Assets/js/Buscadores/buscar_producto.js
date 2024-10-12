@@ -31,11 +31,11 @@ function cargarProductos(){
                 data.productos.forEach(producto => {
                     const row = `
                         <tr>
-                            <td scope='row'>${producto.idProductos}</td>
                             <td scope='row'>${producto.nombre}</td>
                             <td scope='row'>${producto.codBarras}</td>
                             <td scope='row'>${producto.cantidad}</td>
                             <td scope='row'>${producto.cantidadMin}</td>
+                            <td scope='row'>${producto.utilidad + ' %'}</td>
                             <td scope='row'>${producto.precioCosto}</td>
                             <td scope='row'>${producto.precioVenta}</td>
                             <td scope='row'>${producto.marca}</td>
