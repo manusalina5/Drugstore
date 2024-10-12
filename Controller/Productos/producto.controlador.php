@@ -4,6 +4,10 @@
 include_once '../../Model/Productos/producto.php';
 include_once '../../config/conexion.php';
 
+// print_r($_POST);
+// print_r($_GET);
+// exit();
+
 class ProductoControlador
 {
     public function __construct()
@@ -28,6 +32,9 @@ class ProductoControlador
                     break;
                 case 'buscarcodBarras':
                     $this->buscarProductoPorCodBarras();
+                    break;
+                case 'actualizarprecio':
+                    $this->actualizarPrecio();
                     break;
             }
         }
@@ -183,21 +190,79 @@ class ProductoControlador
         exit();
     }
 
-    public function buscarProductoPorCodBarras(){
-        if(isset($_GET['codBarras'])){
+    public function buscarProductoPorCodBarras()
+    {
+        if (isset($_GET['codBarras'])) {
             $codBarras = $_GET['codBarras'];
 
             $productoModel = new Producto();
             $producto = $productoModel->obtenerProductoPorCodBarras($codBarras);
 
-            if(isset($producto)){
+            if (isset($producto)) {
                 echo json_encode($producto);
-            }else{
+            } else {
                 echo json_encode(false);
             }
         }
         exit();
     }
+
+    public function actualizarPrecio()
+    {
+        $json = file_get_contents('php://input');
+        // Decodificar el JSON recibido
+        $data = json_decode($json, true);
+
+        // print_r($data);
+        // exit();
+
+        // Recibe los valores del formulario
+        $tipoAumento = $data['tipoaumento'] ?? '';
+        $idselecionado = $data['selectmarcarubro'] ?? '';
+        $priceOption = $data['priceOptions'] ?? '';
+        $tipoMonto = $data['tipoMonto'] ?? '';
+        $montoActualizar = $data['montoActualizar'] ?? '';
+
+        // Asegurarse que todos los valores necesarios estén presentes
+        if ($tipoAumento && $priceOption && $tipoMonto && $montoActualizar && $idselecionado) {
+            $productoModelo = new Producto();
+
+            // Llamar a la función del modelo para actualizar
+            $resultado = $productoModelo->actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar,$idselecionado);
+
+            if ($resultado) {
+                echo json_encode(true);
+            } else {
+                echo json_encode(false);
+            }
+        } else {
+            echo "Faltan campos por completar";
+        }
+    }
+
+    // public function actualizarPrecio(){
+    //     $tipoAumento = $_POST['tipoaumento'] ?? '';
+    //     $priceOption = $_POST['priceOption'] ?? '';
+    //     $tipoMonto = $_POST['tipoMonto'] ?? '';
+    //     $montoActualizar = $_POST['montoActualizar'] ?? '';
+    //     $idSeleccionado = $_POST['selectmarcarubro'] ?? ''; // El ID de rubro o marca seleccionada
+    
+    //     // Asegúrate que todos los valores necesarios estén presentes
+    //     if ($tipoAumento && $priceOption && $tipoMonto && $montoActualizar && $idSeleccionado) {
+    //         $productoModelo = new Producto();
+            
+    //         // Llamar a la función del modelo para actualizar, pasando también el ID seleccionado
+    //         $resultado = $productoModelo->actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar, $idSeleccionado);
+    
+    //         if ($resultado) {
+    //             echo $resultado;
+    //         } else {
+    //             echo "Error al actualizar";
+    //         }
+    //     } else {
+    //         echo "Faltan campos por completar";
+    //     }
+    // }
 
 }
 new ProductoControlador();

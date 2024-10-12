@@ -106,7 +106,7 @@ class Producto
             while ($row = $resultado->fetch_assoc()) {
                 $productos[] = $row;
             }
-        }else{
+        } else {
             $productos = false;
         }
         return $productos;
@@ -208,6 +208,93 @@ class Producto
         $total_paginas = ceil($total_registros / $registro_por_pagina);
         return $total_paginas;
     }
+
+    public function actualizarPrecio($tipoAumento, $priceOption, $tipoMonto, $montoActualizar, $idSeleccionado)
+    {
+        $conexion = new Conexion;
+        if ($tipoAumento == 'rubro') {
+            $campoFiltro = 'Rubro_idRubros';
+        } elseif ($tipoAumento == 'marca') {
+            $campoFiltro = 'Marca_idMarca';
+        } else {
+            return false;
+        }
+
+        $query = "UPDATE producto SET ";
+        switch ($priceOption) {
+            case 'costo-utilidad':
+                $query .= $this->actualizarCostoManteniendoUtilidad($tipoMonto, $montoActualizar);
+                break;
+            case 'costo-precio':
+                $query .= $this->actualizarCostoManteniendoPrecio($tipoMonto, $montoActualizar);
+                break;
+            case 'precioventa':
+                $query .= $this->actualizarPrecioVenta($tipoMonto, $montoActualizar);
+                break;
+            case 'utilidad':
+                $query .= $this->actualizarUtilidad($tipoMonto, $montoActualizar);
+                break;
+            default:
+                return false;
+        }
+
+        $query .= " WHERE $campoFiltro = $idSeleccionado";
+
+        return $conexion->consultar($query);
+        //return $query;
+    }
+
+    // Función para actualizar el costo manteniendo la utilidad
+    private function actualizarCostoManteniendoUtilidad($tipoMonto, $montoActualizar)
+    {
+        if ($tipoMonto == 'fijo') {
+            return "precioCosto = precioCosto + $montoActualizar, 
+                precioVenta = (precioCosto) * (1 + (utilidad / 100))";
+        } else {
+            return "precioCosto = precioCosto * (1 + $montoActualizar / 100), 
+                precioVenta = (precioCosto) * (1 + (utilidad / 100))";
+        }
+    }
+
+    // Función para actualizar el costo manteniendo el precio de venta
+    private function actualizarCostoManteniendoPrecio($tipoMonto, $montoActualizar)
+    {
+        if ($tipoMonto == 'fijo') {
+            return "precioCosto = precioCosto + $montoActualizar, 
+                utilidad = ((precioVenta - (precioCosto) / (precioCosto)) * 100";
+        } else {
+            return "precioCosto = precioCosto * (1 + $montoActualizar / 100), 
+                utilidad = ((precioVenta - precioCosto) / precioCosto) * 100";
+        }
+    }
+
+    // Función para actualizar el precio de venta y recalcular la utilidad
+    private function actualizarPrecioVenta($tipoMonto, $montoActualizar)
+    {
+        if ($tipoMonto == 'fijo') {
+            return "precioVenta = precioVenta + $montoActualizar, 
+                utilidad = ((precioVenta - precioCosto) / precioCosto) * 100";
+        } else {
+            return "precioVenta = precioVenta * (1 + $montoActualizar / 100), 
+                utilidad = ((precioVenta) - precioCosto) / precioCosto) * 100";
+        }
+    }
+
+    // Función para actualizar la utilidad y recalcular el precio de venta
+    private function actualizarUtilidad($tipoMonto, $montoActualizar)
+    {
+        // Si se pasa un monto fijo, interpretamos que es el nuevo valor de utilidad deseado
+        if ($tipoMonto == 'fijo') {
+            return "utilidad = $montoActualizar, 
+                precioVenta = precioCosto * (1 + ($montoActualizar / 100))";
+        } else {
+            // Si es un porcentaje, se trata de un ajuste porcentual sobre el valor actual
+            return "utilidad = $montoActualizar, 
+                precioVenta = precioCosto * (1 + ($montoActualizar / 100))";
+        }
+    }
+
+
 
 
     public function getId()

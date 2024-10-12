@@ -3,22 +3,16 @@
 include_once '../../Model/Productos/marca.php';
 include_once '../../config/conexion.php';
 
-if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
-    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
-
-    $registro_por_pagina = 10;
-    $inicio = ($pagina - 1) * $registro_por_pagina;
-
-    $marcaObj = new Marca();
-    $marcas = $marcaObj->buscarMarca($busqueda, $inicio, $registro_por_pagina);
-    $total_paginas = Marca::totalPaginasBusqueda($busqueda, $registro_por_pagina);
-
-    echo json_encode([
-        'marcas' => $marcas,
-        'total_paginas' => $total_paginas
-    ]);
-    exit();
+if (isset($_GET['action'])){
+    $marcaControlador = new MarcaControlador();
+    switch ($_GET['action']){
+        case 'buscar':
+            $marcaControlador->buscadorPaginado();
+            break;
+        case 'buscarselect':
+            $marcaControlador->buscarSelected();
+            break;
+    }
 }
 
 
@@ -68,5 +62,30 @@ class MarcaControlador
         }else{
             echo "<div>Error: formulario con campos vacios</>";
         }
+    }
+
+    public function buscadorPaginado() {
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+    
+        $registro_por_pagina = 10;
+        $inicio = ($pagina - 1) * $registro_por_pagina;
+    
+        $marcaObj = new Marca();
+        $marcas = $marcaObj->buscarMarca($busqueda, $inicio, $registro_por_pagina);
+        $total_paginas = Marca::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+    
+        echo json_encode([
+            'marcas' => $marcas,
+            'total_paginas' => $total_paginas
+        ]);
+        exit();
+    }
+
+    public function buscarSelected(){
+        $marca = new Marca();
+        $resultado = $marca->obtenerMarcas();
+        echo json_encode($resultado);
+        exit();
     }
 }

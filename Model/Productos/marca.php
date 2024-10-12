@@ -53,6 +53,8 @@ class Marca
             while ($row = $resultado->fetch_assoc()) {
                 $marcas[] = $row;
             }
+        }else{
+            $marcas = false;
         }
         return $marcas;
     }

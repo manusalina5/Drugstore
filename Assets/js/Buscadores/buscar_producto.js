@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", cargarProductos());
 
+function cargarProductos(){
     // Cargar la tabla al iniciar la página
     cargarTabla();
 
@@ -85,5 +86,4 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Error:', error));
     }
-
-});
+}

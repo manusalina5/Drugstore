@@ -6,7 +6,7 @@
         <h1>Registrar Producto</h1>
         <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
         </div>
-        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST"">
+        <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST">
             <input type="hidden" name="action" value="registro">
 
             <!-- Nombre -->

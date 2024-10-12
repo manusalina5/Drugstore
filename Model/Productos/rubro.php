@@ -45,6 +45,8 @@ class Rubro
             while ($row = $resultado->fetch_assoc()) {
                 $rubros[] = $row;
             }
+        }else{
+            $rubros = false;
         }
         return $rubros;
     }
