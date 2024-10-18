@@ -25,3 +25,5 @@
 <!-- Alertas -->
 <script src="Assets/js/toastr.min.js"></script>
 <link rel="stylesheet" href="Assets/css/toastr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
