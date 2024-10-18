@@ -82,6 +82,7 @@
             <div class="d-grid gap-1">
                 <button id='formbutton' type="button" class="btn btn-success">Agregar</button>
             </div>
+            <hr>    
         </form>
     </div>
     <div class="col"></div>

@@ -107,7 +107,7 @@ function generarMenu($modulos)
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <a class="navbar-brand" href="index.php">
-                    <img src="Assets/img/avatar.png" alt="Bootstrap" width="32" height="32">
+                    <img src="Assets/img/avatar2.png" alt="home" width="24" height="24">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -122,15 +122,13 @@ function generarMenu($modulos)
 
                 <li class="nav-item">
                     <strong>
-                        <a href="?page=configuracion&modulo=usuarios" class="nav-link"><i class='fi fi-rr-user-pen'> </i>Editar Datos</a>
+                        <a href="?page=configuracion&modulo=usuarios" class="nav-link "><i class='fi fi-rr-user-pen'> </i>@<?php echo $_SESSION['nombre_usuario']; ?></a>
                     </strong>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar Sesion</strong></a>
                 </li>
-                <li class="nav-item">
-                    <p class="nav-link d-flex align-items-center ml-auto">@<?php echo $_SESSION['nombre_usuario']; ?></p>
-                </li>
+                
 
             </ul>
         </div>

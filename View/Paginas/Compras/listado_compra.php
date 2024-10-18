@@ -1,4 +1,4 @@
-<h2 class="text-center">Compras</h2>
+<h1 class="text-center">Compras</h1>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <?php
-        include_once 'Model/Compras/Compra/compras.php';
+        include_once 'Model/Compras/compras.php';
         $compraObj = new Compra();
         $compras = $compraObj->obtenerCompra();
         if (!empty($compras)) {

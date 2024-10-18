@@ -38,6 +38,10 @@ h1{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.form-container h1{
+    padding-top: 0px;
+}
+
 .btn-primary{
     margin-top: 20px;
     background-color: #1D9428;

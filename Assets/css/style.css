@@ -57,11 +57,11 @@ table {
 
 .navbar{
     display: flex;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
 }
 
 .navbar-nav .nav-link {
-    margin-right: 30px;
+    margin-right: 25px;
 }
 
 
