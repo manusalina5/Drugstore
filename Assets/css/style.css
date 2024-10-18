@@ -1,5 +1,5 @@
 #div-row {
-    margin-top: 25vh;
+    margin-top: 10vh;
 }
 
 .img-fluid {
@@ -16,5 +16,56 @@
 #label-select {
     margin-bottom: 10px;
 }
+
+body{
+    background-image: url(../img/pattern_triangles_white.png) !important;
+    font-family: 'Barlow', sans-serif !important;
+    color: #1D252D !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center !important;
+    background-attachment: fixed;
+    padding-top: 0px;
+}
+
+h1{
+    padding-top: 100px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px #1D252D;
+}
+
+h2{
+    padding-top: 0px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px #1D252D;
+}
+
+.form-group{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid;
+}
+
+.navbar{
+    display: flex;
+    padding-bottom: 0px;
+}
+
+.navbar-nav .nav-link {
+    margin-right: 30px;
+}
+
+
+
+
 
 

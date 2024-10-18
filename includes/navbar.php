@@ -1,7 +1,8 @@
 <?php
 
 require_once 'model/usuario/modulos.php';
-function generarMenu($modulos) {
+function generarMenu($modulos)
+{
     $menu = [
         'usuarios' => [
             'label' => 'Usuarios',
@@ -19,8 +20,8 @@ function generarMenu($modulos) {
             'submenus' => [
                 'Registrar Ventas' => '?page=alta_venta&modulo=ventas',
                 'Listar Ventas' => '?page=listado_venta&modulo=ventas',
-                'Agregar Metodo de Pago' => '?page=alta_metodopago&modulo=ventas&submodulo=metodopago', 
-                'Ver Metodos de Pago' => '?page=listado_metodopago&modulo=ventas&submodulo=metodopago',  
+                'Agregar Metodo de Pago' => '?page=alta_metodopago&modulo=ventas&submodulo=metodopago',
+                'Ver Metodos de Pago' => '?page=listado_metodopago&modulo=ventas&submodulo=metodopago',
             ]
         ],
         'productos' => [
@@ -81,7 +82,7 @@ function generarMenu($modulos) {
             echo '<li class="nav-item dropdown">';
             echo '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">' . $menu[$modulo['nombre']]['label'] . '</a>';
             echo '<ul class="dropdown-menu">';
-            
+
             // Separar en grupos de submenús
             $contador = 0;
             foreach ($menu[$modulo['nombre']]['submenus'] as $submenu_label => $submenu_link) {
@@ -101,17 +102,16 @@ function generarMenu($modulos) {
 
 ?>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="Assets/img/avatar.png" alt="Bootstrap" width="24" height="24">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-
+                <a class="navbar-brand" href="index.php">
+                    <img src="Assets/img/avatar.png" alt="Bootstrap" width="32" height="32">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <?php
                 if (isset($_SESSION['idPerfil'])) {
                     $modulo = new Modulos();
