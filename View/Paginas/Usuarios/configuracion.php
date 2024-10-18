@@ -153,6 +153,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <div class="d-grid gap-1">
                             <button type="submit" class="btn btn-success">Guardar</button>
+                            <hr>
                             </div>
         </form>
     </div>

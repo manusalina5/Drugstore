@@ -1,4 +1,5 @@
-<h2 class="text-center">Clientes</h2>
+<h1 class="text-center">Clientes</h1>
+<link rel="stylesheet" href="../../../../Assets/css/">
 <div class=" boton-agregar">
     <a href="index.php?page=alta_cliente&modulo=personas&submodulo=cliente" class="btn btn-success">Agregar Cliente</a>
 </div>

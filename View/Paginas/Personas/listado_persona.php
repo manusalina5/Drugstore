@@ -1,4 +1,4 @@
-<h2 class="text-center">Lista de Personas</h2>
+<h1 class="text-center">Lista de Personas</h1>
 
 <!-- Campo de búsqueda -->
 <div class="form-group">

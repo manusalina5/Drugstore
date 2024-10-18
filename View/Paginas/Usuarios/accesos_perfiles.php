@@ -2,7 +2,7 @@
     <div class="col"></div>
     <div class="col">
 
-        <h2 class="mt-5 text-center">Gestión de Accesos</h2>
+        <h1 class="mt-5 text-center">Gestión de Accesos</h1>
         <form action="Controller/Usuario/accesos.controlador.php" method="POST">
             <?php
             include_once('Model/Usuario/modulos.php');
