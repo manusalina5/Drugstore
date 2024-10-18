@@ -4,6 +4,10 @@ session_start();
 include_once '../../Model/Caja/caja.php';
 include_once '../../config/conexion.php';
 
+// print_r($_POST);
+// print_r($_SESSION);
+// exit();
+
 class CajaControlador
 {
     function __construct()
@@ -19,8 +23,10 @@ class CajaControlador
                 case 'obtenerinfo':
                     $this->obtenerInfo();
                     break;
+                case 'cerrarcaja':
+                    $this->cerrarCaja();
+                    break;
             }
-            
         }
     }
 
@@ -33,14 +39,29 @@ class CajaControlador
             $caja = new Caja;
             $caja->setMontoInicial($montoInicial);
             $caja->setEmpleadoId($idEmpleado);
-            $caja->abriCaja();
+            $_SESSION['idCaja'] = $caja->abriCaja();
             header('Location: ../../index.php?page=alta_venta&modulo=ventas');
-        }else{
-            echo "index.php?status=danger&mensaje=Variables no declaras o nulas";
+        } else {
+            header("Location: ../../index.php?status=danger&mensaje=Variables no declaras o nulas");
         }
     }
 
-    public function obtenerEstadoCaja(){
+    public function cerrarCaja(){
+        if (isset($_POST['montoFinal']) && isset($_SESSION['idCaja'])) {
+            $montoFinal = $_POST['montoFinal'];
+            $idCaja = $_SESSION['idCaja'];
+            $caja = new Caja;
+            $caja->setMontoFinal($montoFinal);
+            $caja->setIdCaja($idCaja);
+            $caja->cerrarCaja();
+            header('Location: ../../index.php?page=alta_venta&modulo=ventas&status=success&mensaje=Caja cerrada correctamente');
+        } else {
+            header("Location: ../../index.php?status=danger&mensaje=Variables no declaras o nulas");
+        }
+    }
+
+    public function obtenerEstadoCaja()
+    {
         $caja = new Caja;
         $caja->setEmpleadoId($_SESSION['idEmpleado']);
         $resultado = $caja->obtenerEstadoCaja();
@@ -48,13 +69,22 @@ class CajaControlador
         exit();
     }
 
-    public function obtenerInfo(){
+    public function obtenerInfo()
+    {
         $caja = new Caja;
         $caja->setEmpleadoId($_SESSION['idEmpleado']);
+        $caja->setIdCaja($_SESSION['idCaja']);
+        $totales = $caja->obtenerMontoFinal();
+        $montoFinal = $totales[0]['total'];
+        $montoFinalVenta = $totales[0]['totalVentas'];
         $resultado = $caja->obtenerInfoCaja();
+        $resultado[0]['total'] = $montoFinal;
+        $resultado[0]['totalVentas'] = $montoFinalVenta;
         echo json_encode($resultado);
         exit();
     }
+
+
 }
 
 new CajaControlador;

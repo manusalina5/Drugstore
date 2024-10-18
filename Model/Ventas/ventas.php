@@ -16,6 +16,7 @@ class Venta
     private $metodoPago_idmetodoPago;
     private $empleado_idEmpleado;
     private $clientes_idClientes;
+    private $idCaja;
 
     public function __construct(
         $idVenta = "",
@@ -40,13 +41,15 @@ class Venta
                         `totalVenta`,
                         `metodoPago_idmetodoPago`,
                         `Empleado_idEmpleado`,
-                        `Clientes_idClientes`)
+                        `Clientes_idClientes`,
+                        `caja_idCajas`)
                         VALUES (current_date(),
                         current_time(),
                         $this->totalVenta,
                         $this->metodoPago_idmetodoPago,
                         $this->empleado_idEmpleado,
-                        $this->clientes_idClientes) 
+                        $this->clientes_idClientes,
+                        $this->idCaja)
                     ";
         return $conexion->insertar($query);
     }
@@ -198,6 +201,19 @@ class Venta
     public function setClientes_idClientes($clientes_idClientes)
     {
         $this->clientes_idClientes = $clientes_idClientes;
+
+        return $this;
+    }
+
+
+    public function getIdCaja()
+    {
+        return $this->idCaja;
+    }
+
+    public function setIdCaja($idCaja)
+    {
+        $this->idCaja = $idCaja;
 
         return $this;
     }

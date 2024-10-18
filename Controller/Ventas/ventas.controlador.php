@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once '../../Model/Ventas/ventas.php';
 include_once '../../Model/Ventas/detalleventas.php';
 include_once '../../config/conexion.php';
@@ -138,6 +138,7 @@ class VentasControlador
         $venta->setMetodoPago_idmetodoPago($data['idmetodopago']);
         $venta->setEmpleado_idEmpleado($data['idempleado']);
         $venta->setClientes_idClientes($data['idcliente']);
+        $venta->setIdCaja($_SESSION['idCaja']);
         return $venta;
     }
 

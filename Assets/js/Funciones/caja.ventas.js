@@ -4,6 +4,10 @@ const btnCerrarCaja = document.getElementById('btnCerrarCaja');
 const btnModalAbrirCaja = document.getElementById('btnModalAbrirCaja');
 const btnModalCerrarCaja = document.getElementById('btnModalCerrarCaja');
 const formModalAbrirCaja = document.getElementById('formModalAbrirCaja');
+const formModalCerrarCaja = document.getElementById('formModalCerrarCaja');
+const ventasDia = document.getElementById('ventasDia');
+const saldoFinal = document.getElementById('saldoFinal');
+const montoFinalModal = document.getElementById('montoFinal');
 
 
 document.addEventListener('DOMContentLoaded', caja());
@@ -12,8 +16,8 @@ btnModalAbrirCaja.onclick = function(){
     formModalAbrirCaja.submit();
 }
 
-btnCerrarCaja.onclick = function(){
-
+btnModalCerrarCaja.onclick = function(){
+    formModalCerrarCaja.submit();
 }
 
 function caja(){
@@ -49,6 +53,9 @@ function obtenerInfoCaja(){
             console.log(data);
             let saldoInicial = document.getElementById('saldoInicial');
             saldoInicial.innerHTML = data[0].montoInicial;
+            ventasDia.innerHTML = data[0].totalVentas;
+            saldoFinal.innerHTML = data[0].total;
+            montoFinalModal.value = data[0].total;
         }
     });
 }

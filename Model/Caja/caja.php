@@ -34,6 +34,42 @@ class Caja
         return $conexion->actualizar($query);
     }
 
+    public function obtenerMontoFinal()
+    {
+        $conexion = new Conexion();
+        $query = "SELECT 
+                    caja.montoInicial,
+                    IFNULL(SUM(v.totalVenta), 0) AS totalVentas,
+                    IFNULL(SUM(c.totalCompra), 0) AS totalCompras,
+                    IFNULL(SUM(mc.monto), 0) AS movimientosCaja,
+                    (
+                        IFNULL(SUM(v.totalVenta), 0) 
+                        - IFNULL(SUM(c.totalCompra), 0) 
+                        + IFNULL(SUM(mc.monto), 0)
+                        + caja.montoInicial
+                    ) AS total
+                FROM 
+                    caja
+                LEFT JOIN 
+                    venta v ON v.caja_idCajas = caja.idCajas
+                LEFT JOIN 
+                    compra c ON c.caja_idCajas = caja.idCajas
+                LEFT JOIN 
+                    movimientocaja mc ON mc.caja_idCajas = caja.idCajas
+                WHERE 
+                    caja.idCajas = $this->idCaja";
+        $caja = [];
+        $resultado = $conexion->consultar($query);
+        if ($resultado->num_rows > 0) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $caja[] = $fila;
+            }
+        } else {
+            $caja = false;
+        }
+        return $caja;
+    }
+
     public function obtenerEstadoCaja()
     {
         $conexion = new Conexion();
