@@ -109,7 +109,8 @@ class Usuario
         return $usuarios;
     }
 
-    public function buscarUsuarios($busqueda, $inicio, $registro_por_pagina){
+    public function buscarUsuarios($busqueda, $inicio, $registro_por_pagina)
+    {
         $conexion = new Conexion();
         $query = "SELECT u.username as username,
 		u.fechaAlta as fechaAlta,
@@ -129,8 +130,8 @@ class Usuario
             LIMIT $inicio, $registro_por_pagina";
         $resultado = $conexion->consultar($query);
         $usuarios = array();
-        if($resultado->num_rows > 0){
-            while($row = $resultado->fetch_assoc()){
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
                 $usuarios[] = $row;
             }
             return $usuarios;
@@ -156,8 +157,17 @@ class Usuario
         $total_paginas = ceil($total_registros / $registro_por_pagina);
         return $total_paginas;
     }
-    
 
+    public function obtenerIdEmpleado($idUsuario)
+    {
+        $conexion = new Conexion;
+        $query = "SELECT Empleado_idEmpleado
+                    FROM usuario
+                    WHERE idUsuario = $idUsuario";
+        $resultado = $conexion->consultar($query);
+        $id = $resultado->fetch_array()[0];
+        return $id;
+    }
 
     public function getIdUsuario()
     {

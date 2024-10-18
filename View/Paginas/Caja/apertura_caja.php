@@ -1,26 +1,18 @@
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">   
-
-        Abrir Modal
-    </button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">   
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal de Ejemplo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <h1 class="text-center mb-4">Apertura de Caja</h1>
+            <form action="Controller/Caja/caja.controlador.php?action=abrircaja" method="POST">
+                <div class="mb-3">
+                    <label for="montoInicial" class="form-label">Monto Inicial</label>
+                    <input type="number" class="form-control" id="montoInicial" name="montoInicial" placeholder="Ingrese el monto inicial" required>
                 </div>
-                <div class="modal-body">   
-
-                    Este es el contenido del modal.   
- Puedes agregar aquí cualquier tipo de contenido que desees, como texto, imágenes, formularios, etc.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar   
- cambios</button>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-success">Abrir Caja</button>
+            </form>
+        </div>
+        <div class="col">
         </div>
     </div>
+</div>

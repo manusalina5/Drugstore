@@ -44,6 +44,8 @@ class LoginControlador
                     $_SESSION['idPerfil'] = $perfilData['idPerfiles'];
                     $_SESSION['nombre_perfil'] = $perfilData['nombre'];
                     $_SESSION['user_id'] = $row['idUsuario'];
+                    $idEmpleado = $usuario->obtenerIdEmpleado($row['idUsuario']);
+                    $_SESSION['idEmpleado'] = $idEmpleado;
                     header('Location: ../../index.php?page=listado_usuarios');
                     exit;
                 }
