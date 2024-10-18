@@ -39,17 +39,20 @@ session_start();
     }
     ?>
 
-    <?php
-    if (isset($_GET['mensaje'])) {
-        $mensaje = $_GET['mensaje'];
+<?php
+if (isset($_GET['mensaje'])) {
+    $mensaje = $_GET['mensaje'];
+    $status = isset($_GET['status']) ? $_GET['status'] : 'info'; // Establecer 'info' como estado por defecto
 
-        if (isset($_GET['status'])) {
-            echo '<div class="alert alert-' . $_GET['status'] . ' text-center" role="alert">' . $_GET['mensaje'] . '</div>';
-        } else {
-            echo '<div class="alert alert-info text-center" role="alert">' . $_GET['mensaje'] . '</div>';
-        }
-    }
-    ?>
+    // Añadir un script para mostrar el mensaje con Toastr
+    echo "<script>
+        $(document).ready(function() {
+            toastr.$status('$mensaje');
+        });
+    </script>";
+}
+?>
+
     <div class="container">
         <?php
         if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {

@@ -15,6 +15,7 @@ class ProductoControlador
             switch ($action) {
                 case 'registro':
                     $this->registrarProducto();
+                    //print_r($_POST);
                     break;
                 case 'modificar':
                     $this->modificarProducto();
@@ -107,13 +108,13 @@ class ProductoControlador
             $producto->guardar();
 
             // Redirigir al listado de productos con un mensaje de éxito
-            setcookie('mensaje', 'El producto se ha guardado correctamente', time() + 3600, '/');
-            header('Location: ../../index.php?page=listado_producto&modulo=productos&status=success');
+            //setcookie('mensaje', 'El producto se ha guardado correctamente', time() + 3600, '/');
+            header('Location: ../../index.php?page=listado_producto&modulo=productos&status=success&mensaje=El producto se ha guardado correctamente');
             exit();
         } catch (Exception $e) {
             // Si ocurre una excepción, capturarla y redirigir con un mensaje de error
-            setcookie('errores', 'Ocurrió un error al guardar el producto: ' . $e->getMessage(), time() + 3600, '/');
-            header('Location: ../../index.php?page=alta_producto&modulo=productos&status=danger');
+            //setcookie('errores', 'Ocurrió un error al guardar el producto: ' . $e->getMessage(), time() + 3600, '/');
+            header('Location: ../../index.php?page=alta_producto&modulo=productos&status=danger&mensaje=Ocurrió un error al guardar el producto');
             exit();
         }
     }

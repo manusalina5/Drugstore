@@ -20,6 +20,7 @@ class Producto
     private $precioVenta;
     private $marcaId;
     private $rubroId;
+    private $utilidad;
 
     public function __construct(
         $id = "",
@@ -46,24 +47,27 @@ class Producto
     public function guardar()
     {
         $conexion = new Conexion();
+        $this->calcularUtilidad();
         $query = "INSERT INTO `producto`
-                    (`nombre`,
-                    `codBarras`,
-                    `cantidad`,
-                    `cantidadMin`,
-                    `precioCosto`,
-                    `precioVenta`,
-                    `Marca_idMarca`,
-                    `Rubro_idRubros`)
-                    VALUES
-                    ('$this->nombre',
-                    '$this->codBarras',
-                    '$this->cantidad',
-                    '$this->cantidadMin',
-                    '$this->precioCosto',
-                    '$this->precioVenta',
-                    '$this->marcaId',
-                    '$this->rubroId')";
+            (`nombre`,
+            `codBarras`,
+            `cantidad`,
+            `cantidadMin`,
+            `precioCosto`,
+            `precioVenta`,
+            `Marca_idMarca`,
+            `Rubro_idRubros`,
+            `utilidad`)
+            VALUES
+            ('$this->nombre',
+            '$this->codBarras',
+            '$this->cantidad',
+            '$this->cantidadMin',
+            '$this->precioCosto',
+            '$this->precioVenta',
+            '$this->marcaId',
+            '$this->rubroId',
+            '$this->utilidad')";
         return $conexion->insertar($query);
     }
 
@@ -82,6 +86,14 @@ class Producto
         return $conexion->actualizar($query);
     }
 
+    public function calcularUtilidad(){
+        if ($this->precioCosto > 0) { 
+            $this->utilidad = (($this->precioVenta - $this->precioCosto) / $this->precioCosto) * 100;
+        } else {
+            $this->utilidad = 0; 
+        }
+    }
+    
     public function eliminar()
     {
         $conexion  = new Conexion;
