@@ -169,6 +169,14 @@ class Usuario
         return $id;
     }
 
+    public static function obtenerUserName($idEmpleado){
+        $conexion = new Conexion;
+        $query = "SELECT username FROM usuario WHERE Empleado_idEmpleado = $idEmpleado";
+        $resultado = $conexion->consultar($query);
+        $username = $resultado->fetch_array()[0];
+        return $username;
+    }
+
     public function getIdUsuario()
     {
         return $this->idUsuario;

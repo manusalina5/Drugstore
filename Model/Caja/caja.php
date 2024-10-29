@@ -104,6 +104,39 @@ class Caja
         return $caja;
     }
 
+    public static function listarCajas()
+    {
+        $conexion = new Conexion();
+        $query = "SELECT * FROM caja WHERE estado = 1 OR estado = -1";
+        $resultado = $conexion->consultar($query);
+        $caja = array();
+        if ($resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $caja[] = $row;
+            }
+        } else {
+            $caja = false;
+        }
+        return $caja;
+    }
+    public static function obtenerHistorialMovimientos($idcaja)
+    {
+        $conexion = new Conexion();
+        $query = "SELECT *
+                    FROM caja c
+                    INNER JOIN movimientocaja mc ON mc.caja_idCajas = c.idCajas
+                    WHERE c.idCajas = $idcaja";
+        $resultado = $conexion->consultar($query);
+        $caja = array();
+        if ($resultado && $resultado->num_rows > 0) {
+            while ($row = $resultado->fetch_assoc()) {
+                $caja[] = $row;
+            }
+        }
+        // Devolver el array, aunque esté vacío, en vez de false
+        return $caja;
+    }
+    
 
     public function getIdCaja()
     {

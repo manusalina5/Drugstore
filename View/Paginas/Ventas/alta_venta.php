@@ -32,7 +32,7 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalAbrirCajaLabel">Abrir Caja</h1>
+                    <h3 class="modal-title fs-5" id="modalAbrirCajaLabel">Abrir Caja</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -56,7 +56,7 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalCerrarCajaLabel">Cerrar Caja</h1>
+                    <h3 class="modal-title fs-5" id="modalCerrarCajaLabel">Cerrar Caja</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

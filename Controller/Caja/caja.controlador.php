@@ -26,6 +26,10 @@ class CajaControlador
                 case 'cerrarcaja':
                     $this->cerrarCaja();
                     break;
+                case 'obtenerhistorial':
+                    $this->historialMovimientos();
+                    break;
+
             }
         }
     }
@@ -82,6 +86,18 @@ class CajaControlador
         $resultado[0]['totalVentas'] = $montoFinalVenta;
         echo json_encode($resultado);
         exit();
+    }
+
+    public function historialMovimientos(){
+        $idCaja = $_GET['idCaja'];
+        $movimientos = Caja::obtenerHistorialMovimientos($idCaja);
+        if ($movimientos) {
+            header('Content-Type: application/json');
+            echo json_encode($movimientos);
+        } else {
+            echo json_encode([]);  // Devuelve un array vacío si no hay movimientos
+        }
+        exit;
     }
 
 

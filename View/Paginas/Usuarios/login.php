@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="Assets/css/login.css">
+<link rel="stylesheet" href="Assets/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
 <div class="row" id="div-row">
         <div class="col">
@@ -34,3 +35,4 @@
     </div>
 
 <script src="Assets/js/Validaciones/login.js"></script>
+<script src="Assets/js/bootstrap.bundle.min.js"></script>
