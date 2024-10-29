@@ -3,56 +3,42 @@
 include_once '../../../Model/Compras/Compra/compras.php';
 include_once '../../../config/conexion/php';
 
-if (isset($_POST['action'])) {
-    $compra = new CompraControlador();
-    if ($_POST['action'] == 'registro') {
-        $compra->registrarMetodoPago();
-    } else if ($_POST['action'] == 'modificar') {
-        $compra->modificarCompra();
-    } else if ($_POST['action'] == 'eliminar') {
-        $compra->eliminarCompra();
-    }
-}
-
-
 class CompraControlador{
+
+    public function __construct()
+    {
+        $action = $_POST['action'] ?? $_GET['action'] ?? null;
+        if (isset($action)) {
+            switch ($action) {
+                case 'compras':
+                    $this->registrarCompra();
+                    break;
+                case 'buscar':
+                    $this->listadoCompras();
+                    break;
+            }
+        }
+    }
     public function registrarCompra(){
-        if (empty($_POST['fechacompra']) || 
-        (empty($_POST['horacompra'])) || 
-        (empty($_POST['totalcompra'])) ){
-            header('Location: ../../index.php?page=registro&Por favor, completa todos los campos');
-        }
-
-        if ((empty($_POST['fechacompra'])) || 
-        (empty($_POST['horacompra'])) || 
-        (empty($_POST['totalcompra']))) {
-            $compra = new Compra(null, $_POST['fechacompra'], $_POST['horacompra'], $_POST['totalcompra'] );
-            $metodopago = $compra->guardar();
-            header('Location: ../../../index.php?page=listado_compra&modulo=compras&submodulo=compra');
-        } else {
-            echo "El campo está vacío";
-        }
+        
     }
 
-    public function modificarCompra(){
-        if (empty($_POST['fechacompra']) || 
-        (empty($_POST['horacompra'])) || 
-        (empty($_POST['totalcompra'])) ){
-            header('Location: ../../index.php?page=modificar&message=Por favor, complete todos los campos');
-        } else {
-            $compra = new Compra($_POST['idCompra'], $_POST['fechacompra'], $_POST['horacompra'], $_POST['totalcompra'] );
-            $compra->actualizar();
-            header('Location: ../../../index.php?page=listado_compra&modulo=compras&submodulo=compra');
-        }
+    public function listadoCompras(){
+        $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+        $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+
+        $registro_por_pagina = 10;
+        $inicio = ($pagina - 1) * $registro_por_pagina;
+
+        $compraObj = new Compra();
+        $compras = $compraObj->buscarCompras($busqueda, $inicio, $registro_por_pagina);
+        $total_paginas = Compra::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+
+        echo json_encode([
+            'compras' => $compras,
+            'total_paginas' => $total_paginas
+        ]);
+        exit();
     }
 
-    public function eliminarCompra(){
-        if (!empty($_POST['idCompra'])){
-            $compra = new Compra($_POST['idCompra'], null, null, null);
-            $compra->eliminar();
-            header('Location: ../../../index.php?page=listado_compra&modulo=compras&submodulo=compra');
-        }
-    }
-
-    public function registrarMetodoPago() {}
 }
