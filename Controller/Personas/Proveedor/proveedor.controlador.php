@@ -31,21 +31,23 @@ if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
     exit();
 }
 
-
-if (isset($_POST['action'])) {
+if (isset($_POST["action"])) {
     $proveedor = new ProveedorControlador();
-    if ($_POST['action'] == 'registro') {
-        $proveedor->registrarProveedor();
-    } else if ($_POST['action'] == 'modificar') {
-        $proveedor->modificarProveedor();
-    } elseif ($_POST['action'] == 'eliminar') {
-        $proveedor->eliminarProveedor();
-    } else {
-        echo "ERROR: Contactarse con el administrador";
+    switch ($_POST["action"]) {
+        case 'registro':
+            $proveedor->registrarProveedor();
+            break;
+        case 'modificar':
+            $proveedor->modificarProveedor();
+            break;
+        case 'eliminar':
+            $proveedor->eliminarProveedor();
+            break;
+        case 'registro_proveedor':
+            $proveedor->registrarProveedorCompra();
+            break;
     }
 }
-
-
 
 class ProveedorControlador
 {
@@ -133,12 +135,63 @@ class ProveedorControlador
 
     public function eliminarProveedor()
     {
-        if (!empty($_POST['idProveedor'])  && !empty($_POST['idPersona'])) {
+        if (!empty($_POST['idProveedor']) && !empty($_POST['idPersona'])) {
             $proveedor = new Proveedor($_POST['idProveedor'], null, $_POST['idPersona'], null, null);
             $proveedor->eliminar();
             header('Location: ../../../?page=listado_proveedor&modulo=personas&submodulo=proveedor&status=deleted');
         } else {
             header('Location: ../../index.php?error=missing_id');
+        }
+    }
+
+    public function registrarProveedorCompra()
+    {
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion']) ||
+            empty($_POST['razonSocial'])
+        ) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Faltan campos por completar'
+            ]);
+            exit(); // Detén la ejecución después de la respuesta
+        } else {
+            $proveedor = new Proveedor();
+            $proveedor->setNombre($_POST['nombre']);
+            $proveedor->setApellido($_POST['apellido']);
+            $proveedor->setRazonSocial($_POST['razonSocial']);
+            $idProveedor = $proveedor->guardar();
+            $idPersona = $proveedor->getIdPersona();
+            $nombreapellido = $_POST['nombre'] . ' ' . $_POST['apellido'];
+
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Se registró correctamente el proveedor',
+                    'clienteId' => $idProveedor,
+                    'nombreapellido' => $nombreapellido
+                ]);
+                exit(); // Detén la ejecución después de la respuesta
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Error al registrar el proveedor'
+                ]);
+                exit(); // Detén la ejecución después de la respuesta
+            }
         }
     }
 }

@@ -1,15 +1,3 @@
-// const nivel_stock = document.getElementById('nivel_stock');
-// const stocklabel = document.getElementById('stocklabel');
-
-// stocklabel.addEventListener('click',cambiarcolor,false);
-
-// function cambiarcolor(){
-//     nivel_stock.innerHTML = 'Bajo';
-//     nivel_stock.style.color = '#6e151cff';
-//     nivel_stock.style.backgroundColor = '#f1aeb5';
-//     nivel_stock.style.borderColor = '#f1aeb5';
-// }
-
 
 IMask(
     document.getElementById('contacto_clientes'),

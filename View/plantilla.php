@@ -93,7 +93,7 @@ if (isset($_GET['mensaje'])) {
         }
 
         $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja','tipo_descuento');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja','combo');
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
@@ -102,7 +102,7 @@ if (isset($_GET['mensaje'])) {
         }
 
         $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Compras', 'Ventas', 'Clientes'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago','Combo'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];

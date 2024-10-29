@@ -8,7 +8,7 @@ if (isset($_GET['idCompra'])) {
     $id = $_GET['idCompra']; 
     $compra = new Compra();
     $compra->setIdcompra($id);
-    $compraData = $compra->obtenerCompraId();
+    //$compraData = $compra->obtenerCompraId();
 } else {
     echo "El form esta vacio";
 }

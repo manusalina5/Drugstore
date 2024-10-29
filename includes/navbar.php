@@ -22,7 +22,9 @@ function generarMenu($modulos)
                 'Listar Ventas' => '?page=listado_venta&modulo=ventas',
                 'Agregar Metodo de Pago' => '?page=alta_metodopago&modulo=ventas&submodulo=metodopago',
                 'Ver Metodos de Pago' => '?page=listado_metodopago&modulo=ventas&submodulo=metodopago',
-                'Tipo de Descuento' => '?page=tipo_descuento&modulo=ventas'
+                'Tipo de Descuento' => '?page=tipo_descuento&modulo=ventas',
+                'Alta de Combo' => '?page=alta_combo&modulo=ventas&submodulo=combo',
+                'Ver Combos' => '?page=listado_combo&modulo=ventas&submodulo=combo',
             ]
         ],
         'productos' => [
