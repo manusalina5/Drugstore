@@ -22,6 +22,7 @@ function generarMenu($modulos)
                 'Listar Ventas' => '?page=listado_venta&modulo=ventas',
                 'Agregar Metodo de Pago' => '?page=alta_metodopago&modulo=ventas&submodulo=metodopago',
                 'Ver Metodos de Pago' => '?page=listado_metodopago&modulo=ventas&submodulo=metodopago',
+                'Tipo de Descuento' => '?page=tipo_descuento&modulo=ventas'
             ]
         ],
         'productos' => [
@@ -59,18 +60,10 @@ function generarMenu($modulos)
                 'Ver Tipo Contactos' => '?page=listado_tipocontacto&modulo=personas&submodulo=contacto',
             ]
         ],
-        'egresos' => [
-            'label' => 'Egresos',
-            'submenus' => [
-                'Agregar Tipo Egreso' => '?page=alta_tipoegreso&modulo=caja&submodulo=egreso',
-                'Ver Tipo Egreso' => '?page=listado_tipoegreso&modulo=caja&submodulo=egreso',
-            ]
-        ],
         'caja' => [
             'label' => 'Caja',
             'submenus' => [
-                'Apertura Caja' => '?page=apertura_caja&modulo=caja',
-                'Cierre Caja' => '?page=cierre_caja&modulo=caja',
+                'Ver Cajas' => '?page=listado_caja&modulo=caja',
                 'Ver Movimientos Caja' => '?page=movimientos_caja&modulo=caja',
             ]
         ],
@@ -102,7 +95,7 @@ function generarMenu($modulos)
 
 ?>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">

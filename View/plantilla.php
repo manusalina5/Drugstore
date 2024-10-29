@@ -1,13 +1,44 @@
 <?php
+// Inicia el buffer de salida para manejar redirecciones correctamente
 ob_start();
+
+// Inicia la sesión para acceder a las variables de sesión
 session_start();
+
+// Verifica que el empleado esté logueado y tenga un ID válido
+if (!isset($_SESSION['idEmpleado'])) {
+    // Redirige al usuario a la página de login si no hay un empleado en sesión
+    include_once('View/Paginas/Usuarios/login.php');
+    exit;
+}
+
+// Incluye el archivo del modelo de Caja
+include_once("Model/Caja/caja.php");
+
+// Obtiene el ID del empleado de la sesión, asegurando que sea un entero
+$idEmpleado = intval($_SESSION['idEmpleado']);
+
+// Crea una instancia de la clase Caja y asigna el ID del empleado
+$cajaInicio = new Caja();
+$cajaInicio->setEmpleadoId($idEmpleado);
+
+// Obtiene la información de la caja para el empleado
+$resultadosCaja = $cajaInicio->obtenerInfoCaja();
+
+// Verifica si se obtuvo un resultado válido de la caja
+if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
+    // Si hay una caja abierta, guarda su ID en la sesión
+    $idCaja = $resultadosCaja[0]['idCajas'];
+    $_SESSION['idCaja'] = $idCaja;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <?php include_once('includes/head.php') ?>
+    <?php include_once('includes/head.php'); ?>
 </head>
 
 <body>
@@ -61,8 +92,8 @@ if (isset($_GET['mensaje'])) {
             exit(); // Terminar el script para evitar que el resto del código se ejecute
         }
 
-        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'tipoegreso', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja');
+        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja','tipo_descuento');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja');
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
@@ -71,7 +102,7 @@ if (isset($_GET['mensaje'])) {
         }
 
         $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Compras', 'Ventas', 'Clientes'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Egreso', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago'];
 
         if (!empty($_GET['modulo']) && $_GET['page']) {
             $page = $_GET['page'];
