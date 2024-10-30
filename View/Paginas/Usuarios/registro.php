@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col"></div>
     <div class="col">
-        <h1>Registrar Usuario</h1>
+        <h1 class="text-center">Registrar Usuario</h1>
         <form id="form_registro" action="Controller/Usuario/usuario.controlador.php" method="POST">
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">

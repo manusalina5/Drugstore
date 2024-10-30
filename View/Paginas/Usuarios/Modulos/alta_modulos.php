@@ -2,7 +2,7 @@
     <div class="col">
     </div>
     <div class="col">
-        <h1>Registrar Modulo</h1>
+        <h1 class="text-center">Registrar Modulo</h1>
         <form class="" action="Controller/Usuario/Modulos/modulo.controlador.php" method="POST">
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">
