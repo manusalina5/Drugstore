@@ -11,7 +11,7 @@ if (file_exists($rutaAbsoluta)) {
 
 class DetalleCompra
 {
-    private $iddetalleCompra;
+    private $idDetalleCompra;
     private $precioActual;
     private $cantidad;
     private $idProducto;
@@ -20,19 +20,19 @@ class DetalleCompra
     public function guardarDetalleCompra()
     {
         $conexion = new Conexion();
-        $query = "INSERT INTO detalleCompra(precioActual, cantidad, Producto_idProductos, Compra_idCompra)
+        $query = "INSERT INTO detallecompra(precioActual, cantidad, Producto_idProductos, Compra_idCompra)
         VALUES ($this->precioActual, $this->cantidad, $this->idProducto, $this->idCompra)";
         return $conexion->insertar($query);
     }
 
     public function getIddetalleCompra()
     {
-        return $this->iddetalleCompra;
+        return $this->idDetalleCompra;
     }
 
-    public function setIddetalleCompra($iddetalleCompra)
+    public function setIddetalleCompra($idDetalleCompra)
     {
-        $this->iddetalleCompra = $iddetalleCompra;
+        $this->idDetalleCompra = $idDetalleCompra;
 
         return $this;
     }

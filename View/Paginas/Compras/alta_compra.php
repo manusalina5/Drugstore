@@ -9,160 +9,175 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
 <link rel="stylesheet" href="Assets/css/validaciones.css">
 
 <div class="container">
-    <h1 class="text-left h2">COMPRAS</h1>
-    <div class="d-flex flex-column gap-3 mb-2"> <!-- Contenedor principal -->
-
-
-    <div class="row mb-6">
-        <!-- Tarjeta del Carrito de Compras (Columna aislada) -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Carrito de Compras</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio Unitario</th>
-                                <th>Subtotal</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="carrito"></tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="3" class="text-end">Total</th>
-                                <th id="totalCarrito">$0.00</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta de Agregar Producto y Métodos de Pago (Columna combinada) -->
-        <div class="col-md-6">
-            <div class="row mb-4">
-                <!-- Tarjeta de Agregar Producto -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Agregar Producto</h4>
-                        </div>
-                        <div class="card-body">
-                            <form id="formAgregarProducto">
-                                <div class="mb-3">
-                                    <label for="buscarProducto" class="form-label">Buscar Producto</label>
-                                    <input type="text" class="form-control" id="buscarProducto" placeholder="Nombre o código del producto">
-                                    <div id="listaProductos" class="list-group mt-2"></div>
-                                </div>
-                                <input type="hidden" id="idProducto" name="">
-
-                                <!-- Código de barras y cantidad -->
-                                <div class="mb-3">
-                                    <div class="row g-3">
-                                        <div class="col-sm">
-                                            <label for="precio" class="form-label">Precio Unitario</label>
-                                            <input type="number" class="form-control" id="precio" placeholder="$0.00" readonly>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <label for="codBarras" class="form-label">Código de Barras</label>
-                                            <input type="text" id="codBarras" class="form-control" placeholder="Código de barras">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Cantidad -->
-                                <div class="mb-3">
-                                    <div class="row g-3">
-                                        <div class="col-sm">
-                                            <label for="cantidad" class="form-label">Cantidad</label>
-                                            <input type="number" class="form-control" id="cantidad" value="1">
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="stock" class="form-label">Stock</label>
-                                            <input type="text" id="stock" class="form-control alert-success">
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="nivel_stock" class="form-label" id="stocklabel">Estado Stock</label>
-                                            <input type="text" id="nivel_stock" class="form-control" title="" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Agregar al carrito -->
-                                <div class="mb-6">
-                                    <button type="button" class="btn btn-primary" id="btnAgregarProducto">Agregar al carrito</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tarjetas de Proveedor y Métodos de Pago -->
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Proveedor</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-2">
-                                <input type="text" class="form-control" id="buscarProveedor" placeholder="Ingresar nombre del proveedor">
-                                <div id="listaProveedores" class="list-group mt-2"></div>
-                            </div>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" id="proveedorId" placeholder="Id del proveedor">
-                            </div>
-                            <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#modalAgregarProveedor">Agregar Proveedor</button>
-
-                            <!-- Modal - Alta de proveedores -->
-                            <?php require('View/Paginas/Personas/Proveedor/form.alta_proveedor.php'); ?>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Método de Pago</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <select class="form-select" id="metodoPago">
-                                    <?php
-                                    foreach ($metodosDePagos as $metodopago) {
-                                        $id = $metodopago['idmetodoPago'];
-                                        $nombre = $metodopago['nombre'];
-                                        echo "<option value='$id'>$nombre</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botones de acción en una sola fila -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="d-flex gap-2 justify-content-end">
-                        <button class="btn btn-success" id="btnConfirmarCompra">Confirmar Compra</button>
-                        <button class="btn btn-danger" id="btnCancelarCompra">Cancelar Compra</button>
-                    </div>
+    <!-- Barra de progreso -->
+    <div class="row mt-5">
+        <div class="col">
+            <div class="progress mb-4" style="height: 25px">
+                <div id="progress-bar" class="progress-bar progress-bar-animated progress-bar-striped bg-success" role="progressbar"
+                    aria-valuenow="0" aria-valuemax="100" aria-valuemin="0" style="width: 0%">
+                    0%
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Etapa 1: Proveedor -->
+    <div class="step-content etapa-1 active">
+        <!-- Contenido de la etapa 1 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Proveedor</h4>
+            </div>
+            <div class="card-body">
+            <div class="mb-2">
+                    <input type="text" class="form-control" id="buscarProveedor"
+                        placeholder="Ingresar nombre del proveedor">
+                    <div id="listaProveedores" class="list-group mt-2"></div>
+                </div>
+                <div class="mb-2">
+                    <input type="text" class="form-control" id="proveedorId" placeholder="Id del proveedor">
+                </div>
+                <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal"
+                    data-bs-target="#modalAgregarProveedor">Agregar Proveedor</button>
+
+                <!-- Modal - Alta de Proveedores -->
+                <?php require('View/Paginas/Personas/Proveedor/form.alta_proveedor.php'); ?>
+            
+            </div>
+        </div>
+        <button onclick="nextStep()" class="btn btn-primary">Siguiente</button>
+    </div>
+
+    <!-- Etapa 2: Carrito de Compras -->
+    <div class="step-content etapa-2">
+        <!-- Contenido de la etapa 2 -->
+        <div class="d-flex flex-column gap-3 mb-2">
+        <div class="row mb-6">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Carrito de Compras</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped table-sm text-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="py-1 px-1">Producto</th>
+                                        <th class="py-1 px-1">Cantidad</th>
+                                        <th class="py-1 px-1">Precio Unitario</th>
+                                        <th class="py-1 px-1">Nuevo Precio</th>
+                                        <th class="py-1 px-1">Subtotal</th>
+                                        <th class="py-1 px-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="carrito"></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4" class="text-end py-1 px-1">Total</th>
+                                        <th id="totalCarrito" class="py-1 px-1">$0.00</th>
+                                        <th class="py-1 px-1"></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Agregar Producto -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Agregar Producto</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="formAgregarProducto">
+                                <!-- Buscar Producto -->
+                                <div class="mb-3">
+                                    <label for="buscarProducto" class="form-label">Buscar Producto</label>
+                                    <input type="text" class="form-control" id="buscarProducto"
+                                        placeholder="Nombre o código del producto">
+                                    <div id="listaProductos" class="list-group mt-2"></div>
+                                </div>
+
+                                <input type="hidden" id="idProducto" name="">
+
+                                <!-- Precio Unitario, Precio Nuevo y Código de Barras -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm">
+                                        <label for="precio" class="form-label">Precio Unitario</label>
+                                        <input type="number" class="form-control" id="precio" placeholder="$0.00"
+                                            readonly>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="precioNuevo" class="form-label">Precio Nuevo</label>
+                                        <input type="text" id="precioNuevo" class="form-control"
+                                            placeholder="Precio nuevo">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="codBarras" class="form-label">Código de Barras</label>
+                                        <input type="text" id="codBarras" class="form-control"
+                                            placeholder="Código de barras">
+                                    </div>
+                                </div>
+
+                                <!-- Cantidad, Stock y Estado Stock -->
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm">
+                                        <label for="cantidad" class="form-label">Cantidad</label>
+                                        <input type="number" class="form-control" id="cantidad" value="1">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="stock" class="form-label">Stock</label>
+                                        <input type="text" id="stock" class="form-control alert-success">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="nivel_stock" class="form-label">Estado Stock</label>
+                                        <input type="text" id="nivel_stock" class="form-control" disabled>
+                                    </div>
+                                </div>
+
+                                <!-- Botón Agregar al Carrito -->
+                                <button type="button" class="btn btn-primary" id="btnAgregarProducto">Agregar al
+                                    carrito</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button onclick="prevStep()" class="btn btn-secondary">Anterior</button>
+        <button onclick="nextStep()" class="btn btn-primary">Siguiente</button>
+    </div>
+
+    <!-- Etapa 3: Método de Pago -->
+    <div class="step-content etapa-3">
+        <!-- Contenido de la etapa 3 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Método de Pago</h4>
+            </div>
+            <div class="card-body">
+                <select class="form-select" id="metodoPago">
+                    <?php foreach ($metodosDePagos as $metodopago) {
+                        $id = $metodopago['idmetodoPago'];
+                        $nombre = $metodopago['nombre'];
+                        echo "<option value='$id'>$nombre</option>";
+                    } ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-success" id="btnConfirmarCompra">Confirmar Compra</button>
+            <button class="btn btn-danger" id="btnCancelarCompra">Cancelar Compra</button>
+        </div>
+        <button onclick="prevStep()" class="btn btn-secondary">Anterior</button>
+    </div>
 </div>
 
+
+</div>
 <script src="Assets/js/Validaciones/compras.js"></script>
 <script src="Assets/js/Buscadores/buscar_proveedorcompra.js"></script>
 <script src="Assets/js/Buscadores/buscar_productoscompra.js"></script>

@@ -14,17 +14,23 @@ class Compra
     private $totalcompra;
     private $metodoPago_idmetodoPago;
     private $caja_idCajas;
+    private $empleadoId;
+    private $proveedorId;
+
+    // fechaCompra, horaCompra, totalCompra, metodoPago_idmetodoPago, caja_idCajas, empleado_idEmpleado, proveedor_idProveedor
 
     public function __construct(
         $idcompra = "",
         $totalcompra = "",
         $metodoPago_idmetodoPago = "",
-        $caja_idCajas = ""
+        $empleadoId = "",
+        $proveedorId = "" 
     ) {
         $this->idcompra = $idcompra;
         $this->totalcompra = $totalcompra;
         $this->metodoPago_idmetodoPago = $metodoPago_idmetodoPago;
-        $this->caja_idCajas = $caja_idCajas;
+        $this->empleadoId = $empleadoId;
+        $this->proveedorId = $proveedorId;
     }
 
     public function guardarCompra()
@@ -34,11 +40,13 @@ class Compra
                         horaCompra, 
                         totalCompra, 
                         metodoPago_idmetodoPago, 
-                        caja_idCajas)
+                        empleado_idEmpleado,
+                        proveedor_idProveedor)
                         VALUES (CURRENT_DATE(), CURRENT_TIME(), 
                         $this->totalcompra, 
                         $this->metodoPago_idmetodoPago, 
-                        $this->caja_idCajas)";
+                        $this->empleadoId,
+                        $this->proveedorId)";
         return $conexion->insertar($query);
     }
 
@@ -100,6 +108,30 @@ class Compra
         $total_paginas = ceil($total_registros / $registro_por_pagina);
         return $total_paginas;
         
+    }
+
+    public function getProveedorId()
+    {
+        return $this->proveedorId;
+    }
+
+    public function setProveedorId($proveedorId)
+    {
+        $this->proveedorId = $proveedorId;
+
+        return $this;
+    }
+
+    public function getEmpleadoId()
+    {
+        return $this->empleadoId;
+    }
+
+    public function setEmpleadoId($empleadoId)
+    {
+        $this->empleadoId = $empleadoId;
+
+        return $this;
     }
 
     public function getIdcompra()

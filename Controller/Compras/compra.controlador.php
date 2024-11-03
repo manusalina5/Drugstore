@@ -1,7 +1,8 @@
 <?php
-
-include_once '../../../Model/Compras/Compra/compras.php';
-include_once '../../../config/conexion/php';
+session_start();
+include_once '../../Model/Compras/compras.php';
+include_once '../../Model/Compras/detallecompra.php';
+include_once '../../Model/Productos/producto.php';
 
 class CompraControlador{
 
@@ -20,7 +21,41 @@ class CompraControlador{
         }
     }
     public function registrarCompra(){
-        
+        $json = file_get_contents('php://input');
+
+        // Decodificar el JSON recibido
+        $data = json_decode($json, true); 
+        $data['idempleado'] = $_SESSION['idEmpleado'];
+        $errores = $this->validar($data);
+
+        if (empty($errores)) {
+            $compra = $this->crearObjetoCompra($data);
+            $idCompra = $compra->guardarCompra();
+            foreach ($data as $clave => $valor) {
+                if ($clave === 'carrito') {
+                    foreach ($valor as $producto) {
+                        $detalleCompra = $this->crearObjetoDetalleCompra($producto, $idCompra);
+                        $detalleCompra->guardarDetalleCompra();
+                    }
+                }
+            }
+
+
+            echo json_encode(
+                [
+                    'success' => true,
+                    'message' => 'Compra registrada correctamente'
+                ]
+            );
+        } else {
+            echo json_encode(
+                [
+                    'success' => false,
+                    'message' => 'Hay algunos campos vacios',
+                    'data' => $data
+                ]
+            );
+        }
     }
 
     public function listadoCompras(){
@@ -41,4 +76,59 @@ class CompraControlador{
         exit();
     }
 
+    public function validar($data)
+    {
+        $errores = array();
+
+        if (empty($data['carrito'])) {
+            $errores[] = 'Error: Carrito vacio';
+        }
+
+        if (empty($data['total'])) {
+            $errores[] = 'Error: total vacio';
+        }
+
+        if (empty($data['idmetodopago'])) {
+            $errores[] = 'Error: idmetodopago vacio';
+        }
+
+        if (empty($data['idempleado'])) {
+            $errores[] = 'Error: idempleado vacio';
+        }
+
+        if (empty($data['idProveedor'])) {
+            $errores[] = 'Error: idProveedor vacio';
+        }
+
+        return $errores;
+    }
+
+    public function crearObjetoCompra($data){
+        $compra = new Compra();
+        $compra->setTotalcompra($data['total']);
+        $compra->setMetodoPago_idmetodoPago( $data['idmetodopago'] );
+        $compra->setEmpleadoId($data['idempleado']);
+        $compra->setProveedorId($data['idProveedor']);
+        return $compra;
+    }
+
+    public function crearObjetoDetalleCompra($data, $idCompra){
+        $detalleCompra = new DetalleCompra();
+        if($data['precio'] !== $data['precioNuevo']){
+            $actualizarPrecio = new Producto();
+            $actualizarPrecio->actualizarCostoRecalcularPrecio($data['precioNuevo'],$data['idProducto']);
+            $detalleCompra->setPrecioActual($data['precioNuevo']);
+        }else{
+            $detalleCompra->setPrecioActual($data['precio']);
+        }
+        
+        $detalleCompra->setIdProducto($data['idProducto']);
+        $detalleCompra->setCantidad($data['cantidad']);
+        $detalleCompra->setIdCompra($idCompra);
+        return $detalleCompra;
+    }
+
+
 }
+
+new CompraControlador();

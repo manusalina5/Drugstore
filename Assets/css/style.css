@@ -2,6 +2,16 @@
     margin-top: 10vh;
 }
 
+/* Barra de progreso */
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+/* Barra de progreso */
+
 .img-fluid {
     height: 35vw !important;
     padding-top: 5vh;

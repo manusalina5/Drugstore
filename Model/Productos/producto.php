@@ -86,17 +86,18 @@ class Producto
         return $conexion->actualizar($query);
     }
 
-    public function calcularUtilidad(){
-        if ($this->precioCosto > 0) { 
+    public function calcularUtilidad()
+    {
+        if ($this->precioCosto > 0) {
             $this->utilidad = (($this->precioVenta - $this->precioCosto) / $this->precioCosto) * 100;
         } else {
-            $this->utilidad = 0; 
+            $this->utilidad = 0;
         }
     }
-    
+
     public function eliminar()
     {
-        $conexion  = new Conexion;
+        $conexion = new Conexion;
         $query = "UPDATE producto SET estado = 0 WHERE idProductos = '$this->id'";
         return $conexion->actualizar($query);
     }
@@ -257,6 +258,69 @@ class Producto
         return $conexion->consultar($query);
         //return $query;
     }
+
+    public function actualizarPrecioPorId($priceOption, $tipoMonto, $montoActualizar, $idProducto)
+    {
+        $conexion = new Conexion;
+
+        $query = "UPDATE producto SET ";
+        switch ($priceOption) {
+            case 'costo-utilidad':
+                $query .= $this->actualizarCostoManteniendoUtilidad($tipoMonto, $montoActualizar);
+                break;
+            case 'costo-precio':
+                $query .= $this->actualizarCostoManteniendoPrecio($tipoMonto, $montoActualizar);
+                break;
+            case 'precioventa':
+                $query .= $this->actualizarPrecioVenta($tipoMonto, $montoActualizar);
+                break;
+            case 'utilidad':
+                $query .= $this->actualizarUtilidad($tipoMonto, $montoActualizar);
+                break;
+            default:
+                return false;
+        }
+
+        $query .= " WHERE idProductos = $idProducto";
+
+        return $conexion->consultar($query);
+    }
+
+    public function actualizarCostoRecalcularPrecio($nuevoPrecioCosto, $idProducto)
+    {
+        // Conexión a la base de datos
+        $conexion = new Conexion;
+    
+        // Consultar la utilidad actual del producto
+        $queryUtilidad = "SELECT utilidad FROM producto WHERE idProductos = $idProducto";
+        $resultado = $conexion->consultar($queryUtilidad);
+    
+        if ($resultado) {
+            // Obtener el valor de la utilidad
+            $utilidad = $resultado->fetch_array()[0];
+    
+            // Calcular el nuevo precio de venta en función del precio de costo y la utilidad
+            $nuevoPrecioVenta = $nuevoPrecioCosto * (1 + ($utilidad / 100));
+    
+            // Actualizar el precio de costo y el precio de venta en la base de datos
+            $queryUpdate = "UPDATE producto 
+                            SET precioCosto = $nuevoPrecioCosto, 
+                                precioVenta = $nuevoPrecioVenta 
+                            WHERE idProductos = $idProducto";
+    
+            // Ejecutar la consulta
+            if ($conexion->consultar($queryUpdate)) {
+                return true; // Actualización exitosa
+            } else {
+                return false; // Actualización fallida
+            }
+        } else {
+            // 
+        }
+    }
+    
+
+
 
     // Función para actualizar el costo manteniendo la utilidad
     private function actualizarCostoManteniendoUtilidad($tipoMonto, $montoActualizar)

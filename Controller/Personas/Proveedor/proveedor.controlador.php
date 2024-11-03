@@ -12,23 +12,31 @@ include_once '../../../config/conexion.php';
 // print_r($_POST);
 // exit();
 
-if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
-    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-    $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'buscar':
+            $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
+            $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
+        
+            $registro_por_pagina = 10;
+            $inicio = ($pagina - 1) * $registro_por_pagina;
+        
+            $proveedorObj = new Proveedor();
+            $proveedores = $proveedorObj->buscarProveedores($busqueda, $inicio, $registro_por_pagina);
+            # $total_paginas = Proveedor::totalPaginasBusqueda($busqueda, $registro_por_pagina);
+            $total_paginas = 1;
+            header('Content-Type: application/json');
+            echo json_encode([
+                'proveedores' => $proveedores,
+                'total_paginas' => $total_paginas
+            ]);
+            exit();
+        case 'buscarcompra':
+            $proveedor = new ProveedorControlador();
+            $proveedor->listadoProveedorCompra();
+            break;
+    }
 
-    $registro_por_pagina = 10;
-    $inicio = ($pagina - 1) * $registro_por_pagina;
-
-    $proveedorObj = new Proveedor();
-    $proveedores = $proveedorObj->buscarProveedores($busqueda, $inicio, $registro_por_pagina);
-    # $total_paginas = Proveedor::totalPaginasBusqueda($busqueda, $registro_por_pagina);
-    $total_paginas = 1;
-    header('Content-Type: application/json');
-    echo json_encode([
-        'proveedores' => $proveedores,
-        'total_paginas' => $total_paginas
-    ]);
-    exit();
 }
 
 if (isset($_POST["action"])) {
@@ -177,12 +185,14 @@ class ProveedorControlador
                 $contacto->guardar();
                 $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
                 $direccion->guardar();
+                $razonSocial = $proveedor->getRazonSocial();
 
                 echo json_encode([
                     'success' => true,
                     'message' => 'Se registró correctamente el proveedor',
-                    'clienteId' => $idProveedor,
-                    'nombreapellido' => $nombreapellido
+                    'proveedorId' => $idProveedor,
+                    'nombreapellido' => $nombreapellido,
+                    'razonSocial' => $razonSocial
                 ]);
                 exit(); // Detén la ejecución después de la respuesta
             } else {
@@ -193,6 +203,15 @@ class ProveedorControlador
                 exit(); // Detén la ejecución después de la respuesta
             }
         }
+    }
+
+    public function listadoProveedorCompra(){
+        if(isset($_GET['q'])){
+            $query = $_GET['q'];
+            $proveedores = Proveedor::obtenerProveedores($query);
+            echo json_encode($proveedores);
+        }
+        exit();
     }
 }
 

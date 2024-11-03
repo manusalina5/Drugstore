@@ -56,25 +56,35 @@ class Proveedor extends Persona
         return $conexion->actualizar($query);
     }
 
-    public function obtenerProveedores()
+    public static function obtenerProveedores($busqueda)
     {
-        $conexion = new Conexion;
-        $query = "SELECT pro.idProveedor as idProveedor,
-                pro.fechaAlta as fechaAlta,
-                    pro.razonSocial as razonSocial,
-                    p.idPersona as idPersona, 
-                    p.nombre as nombre, 
-                    p.apellido as apellido
-                    FROM persona p
-                    INNER JOIN proveedor pro ON p.idPersona = pro.Persona_idPersona WHERE pro.estado = 1";
+        $conexion = new Conexion();
+        $query = "SELECT pro.idProveedor, nombre, apellido, razonSocial, fechaAlta, idPersona,
+                        d.valor as documento, td.valor as tipodocumento, c.valor as contacto, tc.valor as tipocontacto
+                        FROM persona p
+                        INNER JOIN proveedor pro ON pro.Persona_idPersona = p.idPersona
+                        INNER JOIN documento d ON d.Persona_idPersona = p.idPersona
+                        INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                        INNER JOIN contacto c ON c.Persona_idPersona = p.idPersona
+                        INNER JOIN tipocontacto tc ON tc.idtipoContacto = c.tipoContacto_idtipoContacto 
+                        WHERE pro.estado = 1 
+                        AND (p.nombre LIKE '%$busqueda%' OR
+                        p.apellido LIKE '%$busqueda%' OR
+                        razonSocial LIKE '%$busqueda%' OR
+                        fechaAlta LIKE '%$busqueda%' OR
+                        d.valor LIKE '%$busqueda%' OR
+                        c.valor LIKE '%$busqueda%' OR
+                        td.valor LIKE '%$busqueda%' OR
+                        tc.valor LIKE '%$busqueda%')";
+    
         $resultado = $conexion->consultar($query);
-        $proveedor = array();
+        $proveedores = array();
         if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()) {
-                $proveedor[] = $row;
+                $proveedores[] = $row;
             }
         }
-        return $proveedor;
+        return $proveedores;
     }
 
     public static function totalPaginas($registro_por_pagina)

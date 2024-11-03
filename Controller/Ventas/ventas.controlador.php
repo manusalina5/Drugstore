@@ -6,6 +6,7 @@ include_once '../../config/conexion.php';
 
 
 
+
 // // Leer el cuerpo de la solicitud
 // $json = file_get_contents('php://input');
 
@@ -136,7 +137,7 @@ class VentasControlador
         $venta = new Venta();
         $venta->setTotalVenta($data['total']);
         $venta->setMetodoPago_idmetodoPago($data['idmetodopago']);
-        $venta->setEmpleado_idEmpleado($data['idempleado']);
+        $venta->setEmpleado_idEmpleado($_SESSION['idEmpleado']);
         $venta->setClientes_idClientes($data['idcliente']);
         $venta->setIdCaja($_SESSION['idCaja']);
         return $venta;
