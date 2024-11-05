@@ -7,9 +7,30 @@
 
 </div>
 
-<div class="form-group">
-    <input type="text" id="busqueda" class="form-control" placeholder="Buscar producto">
+<div class="d-flex align-items-center gap-2 mb-2">
+    <div class="form-group mb-0">
+        <input type="text" id="busqueda" class="form-control" placeholder="Buscar producto">
+    </div>
+
+    <label for="ordenarPor" class="me-2">Ordenar por:</label>
+    <div class="form-group mb-0 d-flex align-items-center">
+        <select id="ordenarPor" class="form-select me-2">
+            <option value="">Seleccionar...</option>
+            <option value="nombre">Nombre del Producto</option>
+            <option value="marca">Marca</option>
+            <option value="rubro">Rubro</option>
+            <option value="cantidad">Cantidad</option>
+            <option value="precioCosto">Precio Costo</option>
+            <option value="precioVenta">Precio Venta</option>
+        </select>
+
+        <select id="tipoOrden" class="form-select">
+            <option value="ASC">Ascendente</option>
+            <option value="DESC">Descendente</option>
+        </select>
+    </div>
 </div>
+
 
 <table class="table table-striped table-hover table-responsive">
     <thead>
@@ -32,7 +53,8 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -44,7 +66,8 @@
                 <form>
                     <div class="mb-3">
                         <label for="tipoaumento" class="form-label">Tipo de Aumento</label>
-                        <select class="form-select mb-3" name="tipoaumento" id="tipoaumento" aria-label="Seleccione un tipo de aumento">
+                        <select class="form-select mb-3" name="tipoaumento" id="tipoaumento"
+                            aria-label="Seleccione un tipo de aumento">
                             <option value="" disabled selected>Selecciona una opción...</option>
                             <option value="rubro">Por Rubro</option>
                             <option value="marca">Por Marca</option>
@@ -79,8 +102,10 @@
                     <div class="mb-3">
                         <label for="montoActualizar" class="form-label">Monto a Actualizar</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="montoActualizar" name="montoActualizar" required placeholder="Ingrese el monto a actualizar">
-                            <span class="input-group-text" id="simboloMonto">%</span> <!-- Cambia el símbolo según el tipo de monto -->
+                            <input type="text" class="form-control" id="montoActualizar" name="montoActualizar" required
+                                placeholder="Ingrese el monto a actualizar">
+                            <span class="input-group-text" id="simboloMonto">%</span>
+                            <!-- Cambia el símbolo según el tipo de monto -->
                         </div>
                         <small class="form-text text-muted" id="mensajeMontoActualizar"></small>
                     </div>
