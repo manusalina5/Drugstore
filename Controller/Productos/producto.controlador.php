@@ -164,20 +164,23 @@ class ProductoControlador
     {
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
         $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
-
+        $ordenarPor = isset($_GET['ordenarPor']) ? $_GET['ordenarPor'] : 'nombre';
+        $tipoOrden = isset($_GET['tipoOrden']) ? $_GET['tipoOrden'] : 'ASC';
+    
         $registro_por_pagina = 10;
         $inicio = ($pagina - 1) * $registro_por_pagina;
-
+    
         $productoObj = new Producto();
-        $productos = $productoObj->buscarProductos($busqueda, $inicio, $registro_por_pagina);
+        $productos = $productoObj->buscarProductos($busqueda, $inicio, $registro_por_pagina, $ordenarPor, $tipoOrden);
         $total_paginas = Producto::totalPaginasBusqueda($busqueda, $registro_por_pagina);
-
+    
         echo json_encode([
             'productos' => $productos,
             'total_paginas' => $total_paginas
         ]);
         exit();
     }
+    
 
     public function listadoProductosVenta()
     {

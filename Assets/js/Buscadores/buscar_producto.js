@@ -9,12 +9,21 @@ function cargarProductos(){
         cargarTabla();
     });
 
+    document.getElementById('ordenarPor').addEventListener('change', function(){
+        cargarTabla();
+    });
+
+    document.getElementById('tipoOrden').addEventListener('change', function(){
+        cargarTabla();
+    });
+
     function cargarTabla(pagina = 1) {
-        // Obtener el valor de búsqueda
         const busqueda = document.getElementById('busqueda').value;
+        const ordenarPor = document.getElementById('ordenarPor').value;
+        const tipoOrden = document.getElementById('tipoOrden').value;
 
         // Hacer la petición con fetch
-        fetch(`Controller/Productos/producto.controlador.php?action=buscar&pagina=${pagina}&busqueda=${busqueda}`)
+        fetch(`Controller/Productos/producto.controlador.php?action=buscar&pagina=${pagina}&busqueda=${busqueda}&ordenarPor=${ordenarPor}&tipoOrden=${tipoOrden}`)
             .then(response => {
                 // Verificar que la respuesta sea correcta
                 if (!response.ok) {
