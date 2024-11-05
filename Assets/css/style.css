@@ -27,7 +27,7 @@
     margin-bottom: 10px;
 }
 
-body{
+body {
     background-image: url(../img/pattern_triangles_white.png) !important;
     font-family: 'Barlow', sans-serif !important;
     color: #1D252D !important;
@@ -38,21 +38,22 @@ body{
     padding-top: 0px;
 }
 
-.text-left, .text-center {
+.text-left,
+.text-center {
     padding-top: 20px;
     padding-bottom: 20px;
     font-size: 20px;
     text-shadow: 1px 1px 2px #1D252D;
 }
 
-h2{
+h2 {
     padding-top: 10px;
     padding-bottom: 20px;
     font-size: 20px;
     text-shadow: 1px 1px 2px #1D252D;
 }
 
-.form-group{
+.form-group {
     margin-top: 5px;
     margin-bottom: 10px;
 }
