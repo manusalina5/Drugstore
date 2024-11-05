@@ -99,33 +99,35 @@ function generarMenu($modulos)
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <a class="navbar-brand" href="index.php">
-                    <img src="Assets/img/avatar2.png" alt="home" width="24" height="24">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <?php
-                if (isset($_SESSION['idPerfil'])) {
-                    $modulo = new Modulos();
-                    $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
-                    generarMenu($modulos); // Generar el menú con la función
-                }
-                ?>
+        <a class="navbar-brand" href="index.php">
+            <img src="Assets/img/avatar2.png" alt="home" width="24" height="24">
+        </a>
+        <ul class="navbar-nav mx-auto">
 
-                <li class="nav-item">
-                    <strong>
-                        <a href="?page=configuracion&modulo=usuarios" class="nav-link "><i class='fi fi-rr-user-pen'> </i>@<?php echo $_SESSION['nombre_usuario']; ?></a>
-                    </strong>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar Sesion</strong></a>
-                </li>
-                
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <?php
+            if (isset($_SESSION['idPerfil'])) {
+                $modulo = new Modulos();
+                $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
+                generarMenu($modulos); // Generar el menú con la función
+            }
+            ?>
 
-            </ul>
-        </div>
+            <li class="nav-item">
+                <strong>
+                    <a href="?page=configuracion&modulo=usuarios" class="nav-link "><i class='fi fi-rr-user-pen'>
+                        </i>@<?php echo $_SESSION['nombre_usuario']; ?></a>
+                </strong>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar Sesion</strong></a>
+            </li>
+
+
+        </ul>
+
     </div>
 </nav>
