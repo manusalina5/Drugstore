@@ -14,6 +14,7 @@ btnVentas.onclick = function () {
         carrito: carrito,
         total: parseFloat(total),
         idmetodopago: parseInt(document.getElementById('metodoPago').value),
+        idempleado: 1,
         idcliente: document.getElementById('clienteId').value
     }
 

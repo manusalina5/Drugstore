@@ -5,7 +5,6 @@ function generarMenu($modulos)
 {
     $menu = [
         'usuarios' => [
-            'icon' => 'bi bi-people-fill',
             'label' => 'Usuarios',
             'submenus' => [
                 'Registrar Usuarios' => '?page=registro&modulo=usuarios',
@@ -17,7 +16,6 @@ function generarMenu($modulos)
             ]
         ],
         'ventas' => [
-            'icon' => 'bi bi-cart-fill',
             'label' => 'Ventas',
             'submenus' => [
                 'Registrar Ventas' => '?page=alta_venta&modulo=ventas',
@@ -30,7 +28,6 @@ function generarMenu($modulos)
             ]
         ],
         'productos' => [
-            'icon' => 'bi bi-bag',
             'label' => 'Productos',
             'submenus' => [
                 'Agregar Productos' => '?page=alta_producto&modulo=productos',
@@ -42,7 +39,6 @@ function generarMenu($modulos)
             ]
         ],
         'compras' => [
-            'icon' => 'bi bi-truck',
             'label' => 'Compras',
             'submenus' => [
                 'Registrar Compras' => '?page=alta_compra&modulo=compras',
@@ -50,7 +46,6 @@ function generarMenu($modulos)
             ]
         ],
         'personas' => [
-            'icon' => 'bi bi-file-earmark-person',
             'label' => 'Personas',
             'submenus' => [
                 'Agregar Persona' => '?page=alta_persona&modulo=personas',
@@ -68,7 +63,6 @@ function generarMenu($modulos)
             ]
         ],
         'caja' => [
-            'icon' => 'bi bi-cash-coin',
             'label' => 'Caja',
             'submenus' => [
                 'Ver Cajas' => '?page=listado_caja&modulo=caja',
@@ -80,12 +74,9 @@ function generarMenu($modulos)
     // Generar el HTML para los módulos habilitados
     foreach ($modulos as $modulo) {
         if (array_key_exists($modulo['nombre'], $menu)) {
-            $icon = $menu[$modulo['nombre']]['icon'];
             echo '<li class="nav-item dropdown">';
-            echo '<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
-            echo '<i class="fas fs-3 ' . $icon . ' me-2"></i>'; // Agrega el ícono antes del nombre del módulo            
-            echo $menu[$modulo['nombre']]['label'] . '</a>';
-            echo '<ul class="dropdown-menu dropdown-menu-dark">';
+            echo '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">' . $menu[$modulo['nombre']]['label'] . '</a>';
+            echo '<ul class="dropdown-menu">';
 
             // Separar en grupos de submenús
             $contador = 0;
@@ -106,53 +97,35 @@ function generarMenu($modulos)
 
 ?>
 
-<nav class="navbar navbar-dark bg-dark fixed-top">
+<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a class="navbar-brand" href="index.php">
+                    <img src="Assets/img/avatar2.png" alt="home" width="24" height="24">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <?php
+                if (isset($_SESSION['idPerfil'])) {
+                    $modulo = new Modulos();
+                    $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
+                    generarMenu($modulos); // Generar el menú con la función
+                }
+                ?>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-            aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <li class="nav-item">
+                    <strong>
+                        <a href="?page=configuracion&modulo=usuarios" class="nav-link "><i class='fi fi-rr-user-pen'> </i>@<?php echo $_SESSION['nombre_usuario']; ?></a>
+                    </strong>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar Sesion</strong></a>
+                </li>
+                
 
-        <a class="navbar-brand mx-auto" href="index.php">
-            <img src="Assets/img/sgd-sinfondo-invertido.png" alt="sgd" width="32" height="32"
-                class="d-inline-block align-text-top">
-            Sistema de Gestión de Drugstore
-        </a>
-
-
-        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-            aria-labelledby="offcanvasDarkNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Sistema de Gestión de Drugstore</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li>
-                        <a href="index.php" class="nav-link"><i class="fas fs-3 bi bi-house me-2"></i><strong>Inicio</strong></a>
-                    </li>
-                    <?php
-                    if (isset($_SESSION['idPerfil'])) {
-                        $modulo = new Modulos();
-                        $modulos = $modulo->obtenerModulosPorPerfil($_SESSION['idPerfil']);
-                        generarMenu($modulos); // Generar el menú con la función
-                    }
-                    ?>
-                    <li class="nav-item">
-                        <strong>
-                            <a href="?page=configuracion&modulo=usuarios" class="nav-link ">
-                                <i class="fas fs-3 bi bi-person-fill-gear me-2"></i>Editar usuario
-                                (@<?php echo $_SESSION['nombre_usuario']; ?>)</a>
-                        </strong>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link link-danger" href="?page=salida&modulo=usuarios"><strong>Cerrar
-                                Sesión</strong></a>
-                    </li>
-                </ul>
-            </div>
+            </ul>
         </div>
+    </div>
 </nav>

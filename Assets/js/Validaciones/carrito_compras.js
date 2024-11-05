@@ -6,7 +6,6 @@ let carrito = [];
 document.getElementById('btnAgregarProducto').addEventListener('click', function () {
     let nombreProducto = document.getElementById('buscarProducto').value;
     let precioProducto = parseFloat(document.getElementById('precio').value);
-    let precioNuevo = parseFloat(document.getElementById('precioNuevo').value);
     let cantidadProducto = parseInt(document.getElementById('cantidad').value);
     let idProducto = parseInt(document.getElementById('idProducto').value);
 
@@ -38,27 +37,22 @@ document.getElementById('btnAgregarProducto').addEventListener('click', function
     }
 
     // Agregar el producto al carrito
-    agregarAlCarrito(idProducto, nombreProducto, precioProducto, precioNuevo, cantidadProducto);
+    agregarAlCarrito(idProducto, nombreProducto, precioProducto, cantidadProducto);
 });
 
-function agregarAlCarrito(idProducto, nombre, precio, precioNuevo, cantidad) {
+function agregarAlCarrito(idProducto, nombre, precio, cantidad) {
     let productoExistente = carrito.find(producto => producto.idProducto === idProducto);
-
-    // Usar el nuevo precio si se ha introducido, o el precio base si no
-    let precioUsado = precioNuevo || precio;
 
     if (productoExistente) {
         productoExistente.cantidad += cantidad;
-        productoExistente.precio = precioUsado; // Actualiza el precio al nuevo si se ha ingresado
         productoExistente.subtotal = productoExistente.cantidad * productoExistente.precio;
     } else {
         carrito.push({
             idProducto: idProducto,
             nombre: nombre,
             precio: precio,
-            precioNuevo: precioNuevo || precio, // Guarda el nuevo precio si existe
             cantidad: cantidad,
-            subtotal: cantidad * precioUsado
+            subtotal: cantidad * precio
         });
     }
 
@@ -76,9 +70,8 @@ function actualizarCarrito() {
                 <td>${producto.nombre}</td>
                 <td>${producto.cantidad}</td>
                 <td>$${producto.precio.toFixed(2)}</td>
-                <td>$${producto.precioNuevo.toFixed(2)}</td>
                 <td>$${producto.subtotal.toFixed(2)}</td>
-                <td><button title='Eliminar del carrito' class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${producto.idProducto})">Borrar</button></td>
+                <td><button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${producto.idProducto})">Eliminar</button></td>
             </tr>
         `;
         tbody.innerHTML += fila;
@@ -87,7 +80,6 @@ function actualizarCarrito() {
 
     document.getElementById('totalCarrito').innerText = `$${totalCarrito.toFixed(2)}`;
 }
-
 
 function eliminarDelCarrito(idProducto) {
     carrito = carrito.filter(producto => producto.idProducto !== idProducto);

@@ -11,11 +11,10 @@ btnCompras.onclick = function (){
         action : 'compras',
         carrito: carrito,
         total: parseFloat(total),
-        idProveedor : parseInt(document.getElementById('proveedorId').value),
-        idmetodopago: parseInt(document.getElementById('metodoPago').value),
+        idmetodopago: parseInt(document.getElementById('metodopago').value),
     }
 
-    fetch("Controller/Compras/compra.controlador.php?action=compras",{
+    fetch("Controller/Compras/compras.controllador.php?action=compras",{
         method: "POST",
         headers: {
             'Content-Type': 'application/json' 
@@ -44,7 +43,6 @@ btnCompras.onclick = function (){
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 }
-                console.log(datos.data);
             }else{
                 Command: toastr["success"]("Venta agregada correctamente!", "Exito")
 
@@ -70,45 +68,3 @@ btnCompras.onclick = function (){
             console.error("Error:", error);
         });
 }
-
-let currentStep = 1;
-const totalSteps = 3;
-
-function updateProgressBar() {
-    const progress = (currentStep / totalSteps) * 100;
-    const progressBar = document.getElementById("progress-bar");
-    progressBar.style.width = progress + "%";
-    progressBar.setAttribute("aria-valuenow", progress);
-    progressBar.textContent = Math.round(progress) + "%";
-}
-
-function showStep(step) {
-    // Ocultar todas las etapas
-    document.querySelectorAll('.step-content').forEach(content => content.classList.remove('active'));
-
-    // Mostrar la etapa actual
-    document.querySelector(`.etapa-${step}`).classList.add('active');
-    updateProgressBar();
-}
-
-function nextStep() {
-    if (currentStep < totalSteps) {
-        currentStep++;
-        showStep(currentStep);
-    }
-}
-
-function prevStep() {
-    if (currentStep > 1) {
-        currentStep--;
-        showStep(currentStep);
-    }
-}
-
-function finishProcess() {
-    alert("¡Proceso completado!");
-    // Puedes agregar más lógica aquí, como una redirección o limpiar el formulario.
-}
-
-// Inicializar barra de progreso
-updateProgressBar();

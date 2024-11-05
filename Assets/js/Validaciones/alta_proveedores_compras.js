@@ -42,18 +42,8 @@ function submitFormProveedor() {
                 alert(datos.message);
             } else {
                 alert(datos.message);
-                
-                // Actualziar campos de compra con datos del proveedor
-                const proveedor = document.getElementById('buscarProveedor');
-                const idProveedor = document.getElementById('proveedorId');
-                proveedor.value = datos.razonSocial;
-                idProveedor.value = datos.proveedorId;
-
-
                 document.getElementById("cerrarModalProveedor").click(); // Cambiado para cerrar correctamente el modal
             }
-
-            
         }
     });
 }
