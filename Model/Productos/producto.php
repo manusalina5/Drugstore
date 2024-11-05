@@ -178,34 +178,46 @@ class Producto
         return $resultado->fetch_assoc();
     }
 
-    function buscarProductos($busqueda, $inicio, $registro_por_pagina)
+    function buscarProductos($busqueda, $inicio, $registro_por_pagina, $ordenarPor = 'nombre', $tipoOrden = 'ASC')
     {
         $conexion = new Conexion();
-        $query = "SELECT idProductos,utilidad, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, m.nombre as marca, r.nombre as rubro,
+        
+        // Validar los parámetros de ordenación para evitar inyecciones de SQL
+        $camposOrdenables = ['nombre', 'marca', 'rubro', 'cantidad', 'precioCosto', 'precioVenta'];
+        $ordenarPor = in_array($ordenarPor, $camposOrdenables) ? $ordenarPor : 'nombre';
+        $tipoOrden = ($tipoOrden === 'DESC') ? 'DESC' : 'ASC';
+    
+        $query = "SELECT idProductos, utilidad, producto.nombre, codBarras, cantidad, cantidadMin, precioCosto, precioVenta, 
+                    m.nombre AS marca, r.nombre AS rubro,
                     CASE 
-                    WHEN cantidad < cantidadMin THEN 'Bajo'
-                    WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'
-                    ELSE 'Alto'
+                        WHEN cantidad < cantidadMin THEN 'Bajo'
+                        WHEN cantidad >= cantidadMin AND cantidad <= cantidadMin * 2 THEN 'Medio'
+                        ELSE 'Alto'
                     END AS nivel_stock
                 FROM producto
                 INNER JOIN marca m ON m.idMarca = producto.Marca_idMarca
                 INNER JOIN rubro r ON r.idRubros = producto.Rubro_idRubros
                 WHERE producto.estado = 1 AND
                 (producto.nombre LIKE '%$busqueda%' OR 
-                m.nombre LIKE '%$busqueda%' OR
-                r.nombre LIKE '%$busqueda%' OR
-                codBarras LIKE '%$busqueda%' OR
-                utilidad LIKE '%$busqueda%')
+                    m.nombre LIKE '%$busqueda%' OR
+                    r.nombre LIKE '%$busqueda%' OR
+                    codBarras LIKE '%$busqueda%' OR
+                    utilidad LIKE '%$busqueda%')
+                ORDER BY $ordenarPor $tipoOrden
                 LIMIT $inicio, $registro_por_pagina";
+    
         $resultado = $conexion->consultar($query);
         $productos = array();
+        
         if ($resultado->num_rows > 0) {
             while ($row = $resultado->fetch_assoc()) {
                 $productos[] = $row;
             }
-            return $productos;
         }
+        
+        return $productos;
     }
+    
 
     public static function totalPaginasBusqueda($busqueda, $registro_por_pagina)
     {
