@@ -384,7 +384,15 @@ class Producto
         }
     }
 
-
+    public static function actualizarCantidad($transaccion,$cantidad,$id){
+        $conexion = new Conexion();
+        if( $transaccion == "compra") {
+            $query = "UPDATE producto SET cantidad = cantidad + $cantidad WHERE idProductos = $id";
+        }else if( $transaccion == "venta") {
+            $query = "UPDATE producto SET cantidad = cantidad - $cantidad WHERE idProductos = $id";
+        }
+        return $conexion->actualizar($query);
+    }
 
 
     public function getId()

@@ -64,6 +64,8 @@ btnCompras.onclick = function (){
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 }
+                carrito = [];
+                total = 0;
             }
         })
         .catch(error => {

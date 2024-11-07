@@ -114,13 +114,14 @@ class CompraControlador{
 
     public function crearObjetoDetalleCompra($data, $idCompra){
         $detalleCompra = new DetalleCompra();
+        $actualizarProducto = new Producto();
         if($data['precio'] !== $data['precioNuevo']){
-            $actualizarPrecio = new Producto();
-            $actualizarPrecio->actualizarCostoRecalcularPrecio($data['precioNuevo'],$data['idProducto']);
+            $actualizarProducto->actualizarCostoRecalcularPrecio($data['precioNuevo'],$data['idProducto']);
             $detalleCompra->setPrecioActual($data['precioNuevo']);
         }else{
             $detalleCompra->setPrecioActual($data['precio']);
         }
+        $actualizarProducto->actualizarCantidad('compra', $data['cantidad'],$data['idProducto']);
         
         $detalleCompra->setIdProducto($data['idProducto']);
         $detalleCompra->setCantidad($data['cantidad']);
