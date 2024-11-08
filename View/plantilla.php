@@ -38,7 +38,7 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
 <html lang="es">
 
 <head>
-    <?php include_once('includes/head.php'); ?>
+    <?php include_once 'includes/head.php'; ?>
 </head>
 
 <body>
@@ -47,7 +47,7 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
     $pagina_actual = isset($_GET['page']) ? $_GET['page'] : '';
     if ($pagina_actual !== 'actualizar_pass') {
         if (!empty($_SESSION)) {
-            include('includes/navbar.php');
+            include 'includes/navbar.php';
         }
     }
     ?>
