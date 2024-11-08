@@ -12,7 +12,16 @@
 #EEAA29 Naranja 
 */
 
+/* Barra de Progreso */
 
+.step-content {
+    display: none;
+}
+.step-content.active {
+    display: block;
+}
+
+/* Barra de Progreso */
 
 #div-row {
     margin-top: 10vh;
