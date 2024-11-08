@@ -84,7 +84,7 @@ if (isset($_GET['mensaje'])) {
 }
 ?>
 
-    <div class="container">
+    <div class="container mt-5">
         <?php
         if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
             // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión

@@ -1,5 +1,5 @@
 <?php
-require_once("Model/Ventas/combo.php");
+require_once("../../Model/Ventas/combo.php");
 
 class ComboControlador {
     
@@ -9,7 +9,7 @@ class ComboControlador {
         if (isset($action)) {
             switch ($action) {
                 case 'registro':
-                    //
+                    echo 'Combo registrado';
                     break;
                 case 'editar':
                     //
@@ -25,3 +25,5 @@ class ComboControlador {
     }
 
 }
+
+new ComboControlador();
