@@ -23,14 +23,13 @@
 
 /* Barra de Progreso */
 
-#div-row {
+/* #div-row {
     margin-top: 10vh;
-}
+} */
 
-.img-fluid {
-    height: 35vw !important;
-    padding-top: 5vh;
-
+.img-dashboard {
+    height: 30vw;
+    padding: 5px;
 }
 
 .boton-agregar {
@@ -55,16 +54,16 @@ body{
     padding-top: 56px;
 }
 
-.text-left, .text-center {
-    padding-top: 20px;
-    padding-bottom: 20px;
+/* .text-left, .text-center {
+    padding-top: 0px;
+    padding-bottom: 0px;
     font-size: 20px;
     text-shadow: 1px 1px 2px #1D252D;
-}
+} */
 
 h2{
     padding-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
     font-size: 20px;
     text-shadow: 1px 1px 2px #1D252D;
 }
@@ -84,7 +83,7 @@ table {
 .container {
     background-color: #D9D9D9; /* Color de fondo deseado */
     padding: 20px; /* Espacio alrededor del contenido */
-    margin: 20px auto; /* Márgenes para centrar el contenedor */
+    margin: 10px auto; /* Márgenes para centrar el contenedor */
     border-radius: 8px; /* Bordes redondeados, opcional */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar el contenedor */
 }
@@ -102,4 +101,10 @@ table {
 .btn-success {
     background-color: #1D9428;
 
+}
+
+hr {
+    width: 80%;
+    margin: 0 auto;
+    padding: 5px;
 }

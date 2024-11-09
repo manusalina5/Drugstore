@@ -38,7 +38,11 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
 <html lang="es">
 
 <head>
-    <?php include_once 'includes/head.php'; ?>
+    <?php 
+    
+    include_once 'includes/head.php';
+
+    ?>
 </head>
 
 <body>
@@ -132,6 +136,8 @@ if (isset($_GET['mensaje'])) {
         ?>
     </div>
 </body>
+
+<?php include_once 'includes/footer.php'; ?>
 
 </html>
 

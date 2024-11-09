@@ -1,5 +1,3 @@
-<!-- <h1 class="text-center fs-1 ">Sistema de gestión de Drugstore</h1> -->
-
 <?php
 if(!empty($_SESSION['nombre_usuario'])){
     $username = $_SESSION['nombre_usuario'];
@@ -8,8 +6,6 @@ if(!empty($_SESSION['nombre_usuario'])){
 
 ?>
 
-
-
 <div class="text-center">
-    <img src="Assets/img/sgd-sinfondo.png" class="img-fluid" alt="logo">
+    <img src="Assets/img/sgd-sinfondo.png" class="img-dashboard" alt="SGD-logo">
 </div>
