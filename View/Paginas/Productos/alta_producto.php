@@ -4,6 +4,9 @@
     <div class="col"></div>
     <div class="col">
         <h1>Registrar Producto</h1>
+        <div class="d-grid gap-1">
+                <a href="?page=listado_producto&modulo=productos" class="btn btn-primary">Listado</a>
+            </div>
         <div class="alert alert-danger alert-dismissible fade show p-3 mb-4 no-alerta" role="alert" id="alert">
         </div>
         <form id="form" class="" action="Controller/Productos/producto.controlador.php" method="POST">

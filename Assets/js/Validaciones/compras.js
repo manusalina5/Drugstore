@@ -1,6 +1,17 @@
 const btnCompras = document.getElementById("btnConfirmarCompra");
+const modal = new bootstrap.Modal(
+    document.getElementById("modalConfirmarCompra")
+);
+const btnModal = document.getElementById("confirmarCompraBtn");
+document.getElementById("codBarras").onchange = limpiarCamposProductos;
+document.getElementById("buscarProducto").onchange = limpiarCamposProductos;
 
 btnCompras.onclick = function () {
+    modal.show();
+};
+
+btnModal.onclick = function () {
+    btnModal.disabled = true;
     let total = 0;
     carrito.forEach((element) => {
         total += element["subtotal"];
@@ -66,10 +77,12 @@ btnCompras.onclick = function () {
                     showMethod: "fadeIn",
                     hideMethod: "fadeOut",
                 };
+
+                modal.hide();
                 // Recargar la página si la operación fue exitosa
                 setTimeout(() => {
                     location.reload();
-                }, 1000);
+                }, 3000);
             }
         })
         .catch((error) => {
@@ -120,3 +133,15 @@ function finishProcess() {
 
 // Inicializar barra de progreso
 updateProgressBar();
+
+function limpiarCamposProductos() {
+    let precio = document.getElementById("precio");
+    let precioNuevo = document.getElementById("precioNuevo");
+    let stock = document.getElementById("stock");
+    let nivel_stock = document.getElementById("nivel_stock");
+
+    precio.value = "";
+    precioNuevo.value = "";
+    stock.value = "";
+    nivel_stock.value = "";
+}
