@@ -8,6 +8,7 @@
 #D9D9D9 Gris
 #1D9428 Verde
 #1D252D Azul oscuro
+##00A6FB Azul claro
 #EB4046 Rojo
 #EEAA29 Naranja 
 */
@@ -89,8 +90,8 @@ table {
 }
 
 .btn-primary {
-    background-color: #EEAA29;
-    border-color: #EEAA29;
+    background-color: #00A6FB;
+    border-color: #00A6FB;
 }
 
 .btn-primary:hover {
