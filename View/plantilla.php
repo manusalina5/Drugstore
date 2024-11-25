@@ -15,6 +15,9 @@ if (!isset($_SESSION['idEmpleado'])) {
 // Incluye el archivo del modelo de Caja
 include_once("Model/Caja/caja.php");
 
+// Incluye el archivo con la función de breadcrumb
+include_once("includes/breadcrumb.php");
+
 // Obtiene el ID del empleado de la sesión, asegurando que sea un entero
 $idEmpleado = intval($_SESSION['idEmpleado']);
 
@@ -38,8 +41,8 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
 <html lang="es">
 
 <head>
-    <?php 
-    
+    <?php
+
     include_once 'includes/head.php';
 
     ?>
@@ -74,21 +77,29 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
     }
     ?>
 
-<?php
-if (isset($_GET['mensaje'])) {
-    $mensaje = $_GET['mensaje'];
-    $status = isset($_GET['status']) ? $_GET['status'] : 'info'; // Establecer 'info' como estado por defecto
-
-    // Añadir un script para mostrar el mensaje con Toastr
-    echo "<script>
+    <?php
+    if (isset($_GET['mensaje'])) {
+        $mensaje = $_GET['mensaje'];
+        $status = isset($_GET['status']) ? $_GET['status'] : 'info'; // Establecer 'info' como estado por defecto
+    
+        // Añadir un script para mostrar el mensaje con Toastr
+        echo "<script>
         $(document).ready(function() {
             toastr.$status('$mensaje');
         });
     </script>";
-}
-?>
+    }
+    ?>
 
     <div class="container mt-5">
+        <?php
+        // Generar el breadcrumb basado en el módulo, submódulo y página actuales
+        echo generarBreadcrumb(
+            isset($_GET['modulo']) ? ucfirst($_GET['modulo']) : '',
+            isset($_GET['submodulo']) ? ucfirst($_GET['submodulo']) : '',
+            isset($_GET['page']) ? $_GET['page'] : ''
+        );
+        ?>
         <?php
         if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
             // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión
@@ -96,8 +107,9 @@ if (isset($_GET['mensaje'])) {
             exit(); // Terminar el script para evitar que el resto del código se ejecute
         }
 
-        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja','tipo_descuento');
-        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja','combo');
+        $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja', 'tipo_descuento', 'vista_usuarios', 'vista_ventas');
+        $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja', 'combo');
+
         foreach ($pages as $page) {
             $pagesValidas[] = 'listado_' . $page;
             $pagesValidas[] = 'alta_' . $page;
@@ -106,14 +118,21 @@ if (isset($_GET['mensaje'])) {
         }
 
         $modulosValidos = ['Usuarios', 'Productos', 'Personas', 'Caja', 'Compras', 'Ventas', 'Clientes'];
-        $submodulosValidos = ['Documento', 'Contacto', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago','Combo'];
+        $submodulosValidos = ['Documento', 'Contacto', 'Empleado', 'Proveedor', 'Perfiles', 'Compra', 'Modulos', 'Moduloperfil', 'Venta', 'Cliente', 'Metodopago', 'Combo'];
 
-        if (!empty($_GET['modulo']) && $_GET['page']) {
-            $page = $_GET['page'];
-            $modulo = ucfirst($_GET['modulo']);
-            // ucfirst convierte la primer letra del string en Mayuscula
-            if (!empty(($_GET['submodulo']))) {
-                $submodulo = ucfirst(($_GET['submodulo']));
+        // Define una vista predeterminada para cada módulo
+        $vistasGenerales = [
+            'Usuarios' => 'vista_usuarios',
+            'Ventas' => 'vista_ventas',
+            // Agrega otras vistas generales según sea necesario
+        ];
+
+        $modulo = ucfirst($_GET['modulo'] ?? '');
+        $page = $_GET['page'] ?? ($vistasGenerales[$modulo] ?? '');
+
+        if (!empty($modulo)) {
+            if (!empty($_GET['submodulo'])) {
+                $submodulo = ucfirst($_GET['submodulo']);
                 if (in_array($page, $pagesValidas) && in_array($modulo, $modulosValidos) && in_array($submodulo, $submodulosValidos)) {
                     include('View/Paginas/' . $modulo . '/' . $submodulo . '/' . $page . '.php');
                 } else {
@@ -133,6 +152,7 @@ if (isset($_GET['mensaje'])) {
                 include_once('View/Paginas/Usuarios/login.php');
             }
         }
+
         ?>
     </div>
 </body>
