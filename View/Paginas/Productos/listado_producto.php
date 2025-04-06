@@ -37,8 +37,8 @@
         <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Codigo de Barras</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Cantidad Min</th>
+            <th scope="col" title="Cantidad">Cdad</th>
+            <th scope="col" title="Cantidad minima">Cdad. Min</th>
             <th scope="col">Utilidad</th>
             <th scope="col">Precio Costo</th>
             <th scope="col">Precio Venta</th>

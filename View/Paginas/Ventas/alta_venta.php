@@ -8,7 +8,7 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
 ?>
 <link rel="stylesheet" href="Assets/css/validaciones.css">
 
-<div class="container">
+<div class="">
     <h1 class="text-left h2">VENTAS</h1>
     <div class="d-flex flex-column gap-3 mb-2"> <!-- Contenedor principal -->
 

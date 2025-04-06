@@ -5,6 +5,7 @@
             <th scope="col">Fecha</th>
             <th scope="col">Hora</th>
             <th scope="col">Total</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>

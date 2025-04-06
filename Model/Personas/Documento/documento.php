@@ -74,6 +74,18 @@ class Documento
         $num_rows = $resultado->num_rows;
         return $num_rows > 0;
     }
+
+    public function validarDocumento(){
+        $conexion = new Conexion();
+        $query = "SELECT * 
+                  FROM documento d
+                  INNER JOIN tipodocumentos td ON td.idtipoDocumentos = d.tipoDocumentos_idtipoDocumentos
+                  WHERE d.valor = '$this->valor' 
+                  AND d.tipoDocumentos_idtipoDocumentos = '$this->tipoDocumentosId'
+                  AND d.estado = 1";
+        $resultado = $conexion->consultar($query);
+        return $resultado->num_rows > 0;
+    }
     
     public function getIdDocumento()
     {

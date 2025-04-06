@@ -37,7 +37,7 @@ class Contacto
         $conexion = new Conexion;
         $query = "UPDATE contacto SET valor = '$this->valor', 
         tipoContacto_idtipoContacto = '$this->tipoContacto_idtipoContacto' 
-        WHERE Persona_idPersona = '$this->Persona_idPersona'";
+        WHERE Persona_idPersona = $this->Persona_idPersona AND tipoContacto_idtipoContacto = $this->tipoContacto_idtipoContacto";
         return $conexion->actualizar($query);
     }
 
@@ -78,7 +78,7 @@ class Contacto
 
     public function existeContacto(){
         $conexion = new Conexion();
-        $query = "SELECT * FROM contacto WHERE Persona_idPersona = $this->Persona_idPersona";
+        $query = "SELECT * FROM contacto WHERE Persona_idPersona = $this->Persona_idPersona AND tipoContacto_idtipoContacto = $this->tipoContacto_idtipoContacto";
         $resultado = $conexion->consultar($query);
         $num_rows = $resultado->num_rows;
         return $num_rows > 0;

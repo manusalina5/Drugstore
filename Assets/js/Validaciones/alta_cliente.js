@@ -1,308 +1,288 @@
-IMask(
-    document.getElementById('contacto'),
-    {
-        mask: [
-            {
-                mask: '+{549}(370)0000000'
-            },
-            {
-                mask: /^\S*@?\S*$/
+document.addEventListener('DOMContentLoaded', function () {
+    const steps = document.querySelectorAll('.step');
+    const progressBar = document.getElementById('progress-bar');
+    let currentStep = 0;
+
+    function updateSteps() {
+        steps.forEach((step, index) => {
+            step.style.display = index === currentStep ? 'block' : 'none';
+        });
+
+        const progress = ((currentStep + 1) / steps.length) * 100;
+        progressBar.style.width = progress + '%';
+        progressBar.innerText = `Paso ${currentStep + 1} de ${steps.length}`;
+    }
+
+    document.querySelectorAll('.next-step').forEach(button => {
+        button.addEventListener('click', async function () {
+            const esValido = await validarPasos(currentStep); // Espera el resultado de la validación
+            if (esValido) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    updateSteps();
+                }
             }
-        ]
-    }
-)
+        });
+    });
+    
 
+    document.querySelectorAll('.prev-step').forEach(button => {
+        button.addEventListener('click', function () {
+            if (currentStep > 0) {
+                currentStep--;
+                updateSteps();
+            }
+        });
+    });
 
-function validate(event) {
-    event.preventDefault(); // Prevenir el envío por defecto
+    updateSteps();
+});
 
-    const nombre = document.getElementById('nombre');
-    const apellido = document.getElementById('apellido');
-    const observaciones = document.getElementById('observaciones');
-    const documento = document.getElementById('documento');
-    const contacto = document.getElementById('contacto');
-    const direccion = document.getElementById('direccion');
-    const alert = document.getElementById('alert');
-    const form = document.getElementById('form');
-    const tipocontacto = document.getElementById('tipocontacto');
-    const tipodocumento = document.getElementById('tipodocumento');
-
-    let esValido = true;
-
-    alert.innerHTML = '';
-
-
-    // Ocultar la alerta por defecto
-    alert.classList.add("no-alerta");
-    alert.classList.remove("alerta");
-
-    // 1. Validar que el campo no esté vacío
-    // nombre
-    if (nombre.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Nombre" no puede estar vacío.<br>';
-        esValido = false;
+async function validarPasos(currentStep) {
+    switch (currentStep) {
+        case 0:
+            return validarPaso1();
+        case 1:
+            return await validarPaso2(); // Llamada asíncrona
+        case 2:
+            return validarPaso3();
+        case 3:
+            return validarPaso4();
+        case 4:
+            return validarPaso5();
+        default:
+            return true;
     }
-    //apellido
-    if (apellido.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" no puede estar vacío.<br>';
-        esValido = false;
-    }
-
-    //tipo documento
-    if (tipodocumento.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'Seleccione un tipo de documento<br>';
-        esValido = false;
-    }
-
-    //documento
-    if (documento.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" no puede estar vacío.<br>';
-        esValido = false;
-    }
-
-    //tipo contacto
-    if (tipocontacto.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'Seleccione un tipo de contacto<br>';
-        esValido = false;
-    }
-    //contacto
-    if (contacto.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" no puede estar vacío.<br>';
-        esValido = false;
-    }
-    //direccion
-    if (direccion.value.trim() === "") {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" no puede estar vacío.<br>';
-        esValido = false;
-    }
-
-    // 2. Validar longitud mínima (3 caracteres)
-    //nombre
-    if (nombre.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Nombre" debe tener al menos 3 caracteres.<br>';
-        esValido = false;
-    }
-    //apellido
-    if (apellido.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" debe tener al menos 3 caracteres.<br>';
-        esValido = false;
-    }
-
-    //documento
-    if (documento.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" debe tener al menos 3 caracteres.<br>';
-        esValido = false;
-    }
-    //contacto
-    if (contacto.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" debe tener al menos 3 caracteres.<br>';
-        esValido = false;
-    }
-    //direccion
-    if (direccion.value.length < 3) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" debe tener al menos 3 caracteres.<br>';
-        esValido = false;
-    }
-
-    // 3. Validar longitud máxima 
-    //nombre
-    if (nombre.value.length > 50) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Nombre" no debe exceder los 50 caracteres.<br>';
-        esValido = false;
-    }
-    //apellido
-    if (apellido.value.length > 50) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" no debe exceder los 50 caracteres.<br>';
-        esValido = false;
-    }
-    //Observaciones
-    if (observaciones.value.length > 245) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Observaciones" no debe exceder los 245 caracteres.<br>';
-        esValido = false;
-    }
-    //documento
-    if (documento.value.length > 30) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" no debe exceder los 30 caracteres.<br>';
-        esValido = false;
-    }
-    //contacto
-    if (contacto.value.length > 100) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" no debe exceder los 100 caracteres.<br>';
-        esValido = false;
-    }
-    //direccion
-    if (direccion.value.length > 255) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" no debe exceder los 255 caracteres.<br>';
-        esValido = false;
-    }
-
-    // 4. Validar caracteres permitidos (solo letras y espacios)
-    //nombre
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Nombre" solo debe contener letras y espacios.<br>';
-        esValido = false;
-    }
-    //apellido
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(apellido.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" solo debe contener letras y espacios.<br>';
-        esValido = false;
-    }
-    //observaciones
-    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(observaciones.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Observaciones" solo debe contener letras, números y espacios.<br>';
-        esValido = false;
-    }
-    //documento
-    if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(documento.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" solo debe contener números.<br>';
-        esValido = false;
-    }
-    // //contacto
-    // if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ@\s]+$/.test(contacto.value)) {
-    //     alert.classList.remove("no-alerta");
-    //     alert.classList.add("alerta");
-    //     alert.innerHTML += 'El campo "Contacto" solo debe contener letras y espacios.<br>';
-    //     esValido = false;
-    // }
-
-    //direccion
-    if (!/^[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s]+$/.test(direccion.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" solo debe contener letras, números y espacios.<br>';
-        esValido = false;
-    }
-
-    // 5. Validar que no haya espacios al inicio o al final
-    //nombre
-    if (nombre.value.trim() !== nombre.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Nombre" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
-    //apellido
-    if (apellido.value.trim() !== apellido.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
-
-    //documento
-    if (documento.value.trim() !== documento.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
-    //contacto
-    if (contacto.value.trim() !== contacto.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
-    //direccion
-    if (direccion.value.trim() !== direccion.value) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" no debe comenzar ni terminar con espacios.<br>';
-        esValido = false;
-    }
-
-    // 6. Validación de seguridad (evitar inyección de código)
-    //nombre
-    if (/["'<>]/.test(nombre.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "nombre" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-    //apellido
-    if (/["'<>]/.test(apellido.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Apellido" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-    //Observaciones
-    if (/["'<>]/.test(observaciones.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Observaciones" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-    //documento
-    if (/["'<>]/.test(documento.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Documento" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-    //contacto
-    if (/["'<>]/.test(contacto.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Contacto" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-    //direccion
-    if (/["'<>]/.test(direccion.value)) {
-        alert.classList.remove("no-alerta");
-        alert.classList.add("alerta");
-        alert.innerHTML += 'El campo "Dirección" contiene caracteres no permitidos.<br>';
-        esValido = false;
-    }
-
-    // Si es válido, enviar el formulario
-    if (esValido) {
-        form.submit(); // Enviar el formulario si todo es válido
-    }
-
-    return false; // Prevenir el envío del formulario si hay errores
 }
+
+
+
+function validarPaso1() {
+    let esValido = true;
+    let nombre = document.getElementById('nombre').value;
+    let apellido = document.getElementById('apellido').value;
+
+    // Validar longitud
+    if (!validarLogitud(nombre, 'nombre', 50, 3)) {
+        esValido = false;
+    }
+    if (!validarLogitud(apellido, 'apellido', 50, 3)) {
+        esValido = false;
+    }
+
+    // Validar campo vacio
+    if (!validarCampoVacio(nombre, 'nombre')) {
+        esValido = false;
+    }
+    if (!validarCampoVacio(apellido, 'apellido')) {
+        esValido = false;
+    }
+
+    // Validar solo letras
+    if (!validarSoloLetras(nombre, 'nombre')) {
+        esValido = false;
+    }
+    if (!validarSoloLetras(apellido, 'apellido')) {
+        esValido = false;
+    }
+    return esValido;
+}
+
+async function validarPaso2() {
+    let esValido = true;
+    let documento = document.getElementById('documento').value;
+    let tipodocumento = document.getElementById('tipodocumento').value;
+
+    // Validar tipo de documento seleccionado primero
+    if (tipodocumento === '') {
+        document.getElementById('tipoDocumentoMensaje').innerHTML = 'Debe seleccionar un tipo de documento.';
+        esValido = false;
+    } else {
+        document.getElementById('tipoDocumentoMensaje').innerHTML = '';
+    }
+
+    // Validar longitud
+    if (!validarLogitud(documento, 'documento', 20, 8)) {
+        esValido = false;
+    }
+
+    // Validar campo vacío
+    if (!validarCampoVacio(documento, 'documento')) {
+        esValido = false;
+    }
+
+    // Solo validar existencia si los demás campos son válidos
+    if (esValido) {
+        const documentoValido = await validarExistenDocumento();
+        if (!documentoValido) {
+            document.getElementById('documentoMensaje').innerHTML = 'El documento ya existe en el sistema.';
+            esValido = false;
+        }
+    }
+
+    return esValido;
+}
+
+
+function validarPaso3() {
+    let valido = true;
+
+    // Obtener todos los contactos dinámicos
+    const contactos = document.querySelectorAll('.contacto-item');
+    let indice = 0;
+    // Iterar sobre cada uno de los contactos
+    contactos.forEach((contacto) => {
+        const selectContacto = contacto.querySelector('.selectTipocontacto');  // Asegúrate de que tenga la clase correcta
+        const inputContacto = contacto.querySelector('input');
+        const mensajeTipoContacto = contacto.querySelector('.tipocontactoMensaje');
+        const mensajeContacto = contacto.querySelector('.contactoMensaje');
+        // Validar si el select está vacío
+        if (selectContacto && selectContacto.value === '') {
+            mensajeTipoContacto.innerHTML = 'Debe seleccionar un tipo de contacto.';
+            valido = false;
+        } else {
+            mensajeTipoContacto.innerHTML = ''; // Limpiar el mensaje de error
+        }
+
+        // Validar si el input está vacío
+        if (inputContacto && inputContacto.value.trim() === '') {
+            mensajeContacto.innerHTML = 'Debe ingresar un valor de contacto.';
+            valido = false;
+        } else {
+            mensajeContacto.innerHTML = ''; // Limpiar el mensaje de error
+        }
+        indice++;
+    });
+
+    return valido;
+}
+
+
+
+function validarPaso4() {
+    let esValido = true;
+    let direccion = document.getElementById('direccion').value;
+
+    // Validar longitud
+    if (!validarLogitud(direccion, 'direccion', 255, 10)) {
+        esValido = false;
+    }
+
+    // Validar campo vacío
+    if (!validarCampoVacio(direccion, 'direccion')) {
+        esValido = false;
+    }
+
+    return esValido;
+}
+
+function validarPaso5() {
+    let esValido = true;
+    let observaciones = document.getElementById('observaciones').value;
+
+    // Validar longitud
+    if (!validarLogitud(observaciones, 'observaciones', 255, 0)) {
+        esValido = false;
+    }
+
+    // Validar campo vacío
+    if (!validarCampoVacio(observaciones, 'observaciones')) {
+        esValido = false;
+    }
+
+    return esValido;
+}
+
+
+function validarLogitud(valor, campo, max, min) {
+    if (valor.length < min || valor.length > max) {
+        document.getElementById(campo + 'Mensaje').innerHTML = `El campo debe tener entre ${min} y ${max} caracteres.`;
+        return false;
+    }
+    document.getElementById(campo + 'Mensaje').innerHTML = '';
+    return true;
+}
+
+
+function validarCampoVacio(valor, campo) {
+    let idCampoMensaje = campo + 'Mensaje';
+    if (valor.trim() === "") {
+        document.getElementById(`${idCampoMensaje}`).innerHTML = `El campo "${campo}" no puede estar vacio`;
+        return false;
+    } else {
+        document.getElementById(`${idCampoMensaje}`).innerHTML = '';
+    }
+    return true;
+}
+
+function validarSoloLetras(valor, campo) {
+    let idCampoMensaje = campo + 'Mensaje';
+    if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(valor)) {
+        document.getElementById(`${idCampoMensaje}`).innerHTML = `El campo "${campo}" solo debe contener letras y espacios.`;
+        return false;
+    }
+    return true;
+}
+
+async function validarExistenDocumento() {
+    let tipodocumento = document.getElementById('tipodocumento').value;
+    let documento = document.getElementById('documento').value;
+    const mensajeElement = document.getElementById('documentoMensaje');
+    
+    if (!tipodocumento || !documento) {
+        return false;
+    }
+
+    try {
+        const response = await fetch('Controller/Personas/Cliente/cliente.controlador.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'action': 'validarDocumento',
+                'tipodocumento': tipodocumento,
+                'valor': documento
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Siempre actualizar el mensaje, independientemente del resultado
+        if (mensajeElement) {
+            mensajeElement.innerHTML = data.message || '';
+        }
+
+        return data.success;
+    } catch (error) {
+        console.error('Error al validar documento:', error);
+        if (mensajeElement) {
+            mensajeElement.innerHTML = 'Error al validar el documento';
+        }
+        return false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const documentoInput = document.getElementById('documento');
+    const tipoDocumentoSelect = document.getElementById('tipodocumento');
+    
+    async function validarDocumentoEnTiempoReal() {
+        if (documentoInput.value.length >= 8 && tipoDocumentoSelect.value !== '') {
+            await validarExistenDocumento();
+        }
+    }
+    
+    documentoInput.addEventListener('blur', validarDocumentoEnTiempoReal);
+    documentoInput.addEventListener('input', function() {
+        // Limpiar mensaje cuando el usuario está escribiendo
+        const mensajeElement = document.getElementById('documentoMensaje');
+        if (mensajeElement) {
+            mensajeElement.innerHTML = '';
+        }
+    });
+});

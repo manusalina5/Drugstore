@@ -173,7 +173,7 @@ class Cliente extends Persona
                     p.nombre as nombre, 
                     p.apellido as apellido
                     FROM persona p
-                    INNER JOIN clientes cli ON p.idPersona = cli.Persona_idPersona 
+                    INNER JOIN clientes cli ON p.idPersona = cli.Persona_idPersona
                     WHERE cli.estado = 1
                     AND cli.idClientes = '$this->idCliente'";
         $resultado = $conexion->consultar($query);
