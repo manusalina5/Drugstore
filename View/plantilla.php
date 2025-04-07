@@ -48,6 +48,14 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
     ?>
 </head>
 
+<header>
+    <?php
+
+    include_once 'includes/header.php';
+
+    ?>
+</header>
+
 <body>
     <?php
     // Verificar si la página actual es actualizar_pass
@@ -92,14 +100,6 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
     ?>
 
     <div class="container mt-5">
-        <?php
-        // Generar el breadcrumb basado en el módulo, submódulo y página actuales
-        echo generarBreadcrumb(
-            isset($_GET['modulo']) ? ucfirst($_GET['modulo']) : '',
-            isset($_GET['submodulo']) ? ucfirst($_GET['submodulo']) : '',
-            isset($_GET['page']) ? $_GET['page'] : ''
-        );
-        ?>
         <?php
         if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
             // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión

@@ -1,4 +1,3 @@
-<h1 class="text-center">Lista de usuarios</h1>
 <div class=" boton-agregar">
     <a href="index.php?page=registro&modulo=usuarios" class="btn btn-success">Agregar nuevo usuario</a>
 

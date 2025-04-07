@@ -8,12 +8,12 @@ function generarMenu($modulos)
             'icon' => 'bi bi-people-fill',
             'label' => 'Usuarios',
             'submenus' => [
-                'Registrar Usuarios' => '?page=registro&modulo=usuarios',
-                'Listar Usuarios' => '?page=listado_usuarios&modulo=usuarios',
-                'Agregar Perfiles' => '?page=alta_perfiles&modulo=usuarios&submodulo=perfiles',
-                'Listar Perfiles' => '?page=listado_perfiles&modulo=usuarios&submodulo=perfiles',
-                'Agregar Modulos' => '?page=alta_modulos&modulo=usuarios&submodulo=modulos',
-                'Listar Modulos' => '?page=listado_modulos&modulo=usuarios&submodulo=modulos',
+                'Registrar Usuario' => '?page=registro&modulo=usuarios',
+                'Lista de Usuarios' => '?page=listado_usuarios&modulo=usuarios',
+                'Registrar Perfil' => '?page=alta_perfiles&modulo=usuarios&submodulo=perfiles',
+                'Lista de Perfiles' => '?page=listado_perfiles&modulo=usuarios&submodulo=perfiles',
+                'Registrar Modulos' => '?page=alta_modulos&modulo=usuarios&submodulo=modulos',
+                'Lista de Modulos' => '?page=listado_modulos&modulo=usuarios&submodulo=modulos',
             ]
         ],
         'ventas' => [
