@@ -54,18 +54,7 @@ header {
     color: #ffff;
 }
 
-/* Asegurar que todo el texto dentro del breadcrumb sea blanco */
-.breadcrumb-item,
-.breadcrumb-item a,
-.breadcrumb-item.active {
-    color: #ffffff !important; /* Fuerza el color blanco */
-}
 
-.breadcrumb-item + .breadcrumb-item::before {
-    content: " > "; /* Asegura que el separador sea el correcto */
-    color: #ffffff !important; /* Fuerza el color blanco */
-    font-weight: bold; /* Opcional: darle más presencia */
-}
 
 
 body {
