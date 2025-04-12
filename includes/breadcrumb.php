@@ -12,7 +12,9 @@ function generarBreadcrumb($modulo, $submodulo, $page)
         // Agrega más submódulos personalizados aquí
     ];
 
-    $breadcrumb = "<nav style=\"--bs-breadcrumb-divider: '>' ;\" aria-label=\"breadcrumb\"><ol class=\"breadcrumb\">";
+    // » ⟩ ⟫ →
+
+    $breadcrumb = "<nav style=\"--bs-breadcrumb-divider: '»' ;\" aria-label=\"breadcrumb\"><ol class=\"breadcrumb\">";
 
      // Página de inicio (texto puro)
         $breadcrumb .= '<li class="breadcrumb-item">Inicio</li>';

@@ -84,7 +84,9 @@ function generarMenu($modulos)
             echo '<li class="nav-item dropdown">';
             echo '<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
             echo $menu[$modulo['nombre']]['label'] . '</a>';
-            echo '<ul class="dropdown-menu dropdown-menu-dark">';
+            echo '<ul class="dropdown-menu dropdown-menu">'; 
+            // Para un menú Dark/oscuro poner:
+            // class="dropdown-menu dropdown-menu-dark"
 
             // Separar en grupos de submenús
             $contador = 0;
@@ -105,12 +107,12 @@ function generarMenu($modulos)
 
 ?>
 
-<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+<nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
 
 
         <a class="navbar-brand" href="index.php">
-            <img src="Assets/img/sgd-sinfondo-invertido.png" alt="logo sgd" width="32" height="32">
+            <img src="Assets/img/sgd-sinfondo.png" alt="logo sgd" width="32" height="24">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,7 +138,7 @@ function generarMenu($modulos)
                 <li class="nav-item">
 
                     <a href="?page=configuracion&modulo=usuarios" class="nav-link ">
-                        (@<?php echo $_SESSION['nombre_usuario']; ?>)</a>
+                        @<?php echo $_SESSION['nombre_usuario']; ?></a>
 
                 </li>
             </ul>
