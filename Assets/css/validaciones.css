@@ -5,3 +5,8 @@
 .alerta {
     display: block;
 }
+
+.oculto {
+    display: none;
+}
+
