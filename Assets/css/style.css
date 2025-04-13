@@ -8,7 +8,7 @@
 #D9D9D9 Gris
 #1D9428 Verde
 #1D252D Azul oscuro
-##00A6FB Azul claro
+#00A6FB Azul claro
 #EB4046 Rojo
 #EEAA29 Naranja 
 */
@@ -32,11 +32,7 @@
 .img-dashboard {
     margin: 20px;
     width: 700px;
-    /* Ajusta el ancho */
     height: auto;
-    /* Mantiene la proporción */
-    /* O usa height si prefieres ajustar por altura */
-    /* height: 150px; */
 }
 
 .boton-agregar {
@@ -47,6 +43,13 @@
 #label-select {
     margin-bottom: 10px;
 }
+
+header {
+    padding-left: 20px;
+    background-color: #f2f2f2  ;
+}
+
+
 
 body {
     font-family: "Poppins", sans-serif;
@@ -61,12 +64,6 @@ body {
     padding-top: 56px;
 }
 
-/* .text-left, .text-center {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    font-size: 20px;
-    text-shadow: 1px 1px 2px #1D252D;
-} */
 
 h2 {
     padding-top: 10px;
