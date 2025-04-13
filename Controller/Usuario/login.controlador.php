@@ -46,7 +46,7 @@ class LoginControlador
                     $_SESSION['user_id'] = $row['idUsuario'];
                     $idEmpleado = $usuario->obtenerIdEmpleado($row['idUsuario']);
                     $_SESSION['idEmpleado'] = $idEmpleado;
-                    header('Location: ../../index.php?page=listado_usuarios');
+                    header('Location: ../../index.php');
                     exit;
                 }
             } else {

@@ -1,0 +1,1 @@
+<h3 class="text-center">Seleccione el metodo de pago</h3>

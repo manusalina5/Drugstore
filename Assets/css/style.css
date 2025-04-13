@@ -106,8 +106,8 @@ table {
 }
 
 .btn-primary:hover {
-    background-color: #db991e;
-    border-color: #db991e;
+    background-color: #026596;
+    border-color: #0287c9;
 }
 
 .btn-success {
@@ -120,3 +120,4 @@ hr {
     margin: 0 auto;
     padding: 5px;
 }
+
