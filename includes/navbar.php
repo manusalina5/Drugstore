@@ -75,12 +75,30 @@ function generarMenu($modulos)
                 'Ver Movimientos Caja' => '?page=movimientos_caja&modulo=caja',
             ]
         ],
+        'auditoria' => [
+            'label' => 'Auditoria',
+            'submenus' => []
+        ],
+        'configuracion' => [
+            'label' => 'Configuracion',
+            'submenus' => []
+        ],
+        'estadistica' => [
+            'label' => 'Estadistica',
+            'submenus' => []
+        ],
+        'combos' => [
+            'label' => 'Combos',
+            'submenus' => []
+        ]
     ];
 
     // Generar el HTML para los módulos habilitados
     foreach ($modulos as $modulo) {
         if (array_key_exists($modulo['nombre'], $menu)) {
-            $icon = $menu[$modulo['nombre']]['icon'];
+            $icon = $menu[$modulo['nombre']];
+            // Si necesito agregar íconos a los módulos colocar esto arriba: 
+            // $icon = $menu[$modulo['nombre']]['icon'];
             echo '<li class="nav-item dropdown">';
             echo '<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">';
             echo $menu[$modulo['nombre']]['label'] . '</a>';

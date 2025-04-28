@@ -1,7 +1,7 @@
 <?php
 if (!empty($_SESSION['nombre_usuario'])) {
     $username = $_SESSION['nombre_usuario'];
-    echo "<h2 class='text-center fs-3'>Bienvenido<strong class='textusername'> " . "@" . $username . "!</strong></h2>";
+    echo "<h2 class='text-center fs-3 m-3'>Bienvenido<strong class='textusername'> " . "@" . $username . "!</strong></h2>";
 }
 
 include_once 'Controller/Dashboard/dashboard.controlador.php';
@@ -12,7 +12,7 @@ include_once 'Model/Dahsboard/venta_dashboard.php';
 $dashboardData = (new DashboardController())->getDashboardData();
 ?>
 
-<div class="row">
+<div class="row m-4">
     <div class="col-md-4">
         <div class="card text-bg-primary mb-3">
             <div class="card-body">

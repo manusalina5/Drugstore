@@ -42,3 +42,5 @@ function validate() {
 
     return false; // Se mantiene el return false para evitar el envío por defecto del navegador
 }
+
+
