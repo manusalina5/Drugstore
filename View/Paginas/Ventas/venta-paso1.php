@@ -17,6 +17,11 @@
                 <input type="text" class="form-control" id="clienteId" readonly>
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+
+            <button class="btn btn-warning" title="Venta sin cliente registrado">Venta Rapida</button>
+            <button class="btn btn-secondary ms-3" title="¿No está registrado el cliente? ¡Registralo!">Registrar cliente</button>
+        </div>
     </div>
 <div class="col-3"></div>
 

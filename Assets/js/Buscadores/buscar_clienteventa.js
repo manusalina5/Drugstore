@@ -5,7 +5,19 @@ document.getElementById('buscarCliente').addEventListener('input', function () {
         fetch(`Controller/Personas/Cliente/cliente.controlador.php?action=buscarventa&q=${query}`) // Agregar direccion del controlador
             .then(response => response.json())
             .then(data => {
-                mostrarSuregenciasCliente(data);
+                if (data != 'false' & data != false) {
+                    mostrarSuregenciasCliente(data);
+                } else {
+                    const header = document.querySelector('header');
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-warning alert-dismissible fade show'; // clases de Bootstrap
+                    alertDiv.role = 'alert';
+                    alertDiv.innerHTML = `
+    No se encuentra ningun cliente con esos parametros.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+
+                    header.appendChild(alertDiv);
+                }
             })
             .catch(error => console.error('Error:', error));
     } else {
@@ -22,8 +34,8 @@ function mostrarSuregenciasCliente(clientes) {
         let item = document.createElement('a');
         item.classList.add('list-group-item', 'list-group-item-action');
         item.textContent = `${cliente.nombre} ${cliente.apellido} - ${cliente.documento}`;
-        item.setAttribute(`data-id`,cliente.idClientes);
-        item.setAttribute(`data-id`,cliente.idClientes);
+        item.setAttribute(`data-id`, cliente.idClientes);
+        item.setAttribute(`data-id`, cliente.idClientes);
         item.dataset.nombre = cliente.nombre + ' ' + cliente.apellido;
 
         // Al hacer clic en un cliente, se llena el formulario con sus datos
