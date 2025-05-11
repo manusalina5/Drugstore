@@ -6,7 +6,7 @@
         <div class="col-md-5 p-5 shadow-lg bg-body-tertiary rounded">
 
             <div class="text-center">
-                <img src="assets/img/sgd-sinfondo.png" class="w-75 h-75 m-5" alt="sgd-logo">
+                <img src="assets/img/sgd-sinfondo.png" class="w-75 m-5" alt="sgd-logo">
             </div>
             <h1 class="fs-3 text-center">INICIAR SESIÓN</h1>
             <form id="form_login" action="Controller/Usuario/login.controlador.php" method="POST">
