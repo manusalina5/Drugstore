@@ -100,6 +100,9 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
     ?>
 
     <div class="container mt-5">
+        <!-- Contenedor para alertas generales -->
+        <div id="alertasGenerales" class="mt-3"></div>
+
         <?php
         if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
             // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión
@@ -152,7 +155,6 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
                 include_once('View/Paginas/Usuarios/login.php');
             }
         }
-
         ?>
     </div>
 </body>
