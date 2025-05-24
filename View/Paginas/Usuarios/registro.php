@@ -7,9 +7,11 @@
             <input type="hidden" name="action" value="registro">
             <div class="mb-3">
                 <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                <input onfocusout="validate_username(event)" type="text" class="form-control" id="nombre_usuario" name="nombre_usuario">
+                <input onfocusout="validate_username(event)" type="text" class="form-control" id="nombre_usuario"
+                    name="nombre_usuario">
                 <p id="username_parrafo" class="text-danger" style="display:none;">El usuario ya existe</p>
-                <p id="username_parrafoVacio" class="text-danger" style="display:none;">El usuario no puede estar vacío</p>
+                <p id="username_parrafoVacio" class="text-danger" style="display:none;">El usuario no puede estar vacío
+                </p>
                 <p id="username_valido" class="text-success" style="display:none;">El usuario está disponible</p>
             </div>
             <div class="mb-3">
@@ -19,20 +21,26 @@
             </div>
             <div class="mb-3">
                 <label for="selectEmpleados">Empleados</label>
-                <select class='form-select' aria-label='select empleados' required name='idEmpleado' id="selectEmpleados">
-                    <option value="">Selecciona al empleado</option>
-                    <?php
-                    include_once('Model/Personas/Empleado/empleado.php');
-                    $empleadoObj = new Empleado();
-                    $empleados = $empleadoObj->obtenerEmpleadosSinUsuario();
-                    if(!empty($empleados)){
-                        foreach($empleados as $empleado){
-                            $nombreApellido = $empleado['nombre'] . ' ' . $empleado['apellido'];
-                            echo "<option value='{$empleado['idEmpleado']}'>{$nombreApellido}</option>";
+                <div class="d-flex align-items-center gap-2">
+                    <select class='form-select' aria-label='select empleados' required name='idEmpleado'
+                        id="selectEmpleados">
+                        <option value="">Selecciona al empleado</option>
+                        <?php
+                        include_once('Model/Personas/Empleado/empleado.php');
+                        $empleadoObj = new Empleado();
+                        $empleados = $empleadoObj->obtenerEmpleadosSinUsuario();
+                        if (!empty($empleados)) {
+                            foreach ($empleados as $empleado) {
+                                $nombreApellido = $empleado['nombre'] . ' ' . $empleado['apellido'];
+                                echo "<option value='{$empleado['idEmpleado']}'>{$nombreApellido}</option>";
+                            }
                         }
-                    }
-                    ?>
-                </select>
+                        ?>
+                    </select>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEmpleado">
+                        Añadir
+                    </button>
+                </div>
                 <p id="empleado_parrafo" class="text-danger" style="display:none;">Elija un empleado</p>
             </div>
             <div class="mb-3">
@@ -43,8 +51,8 @@
                     include_once('Model/Usuario/perfiles.php');
                     $perfilObj = new Perfil();
                     $perfiles = $perfilObj->obtenerPerfiles();
-                    if(!empty($perfiles)){
-                        foreach($perfiles as $perfil){
+                    if (!empty($perfiles)) {
+                        foreach ($perfiles as $perfil) {
                             $nombrePerfil = $perfil['nombre'];
                             $idPerfil = $perfil['idPerfiles'];
                             echo "<option value='{$idPerfil}'>{$nombrePerfil}</option>";
@@ -63,6 +71,23 @@
             </div>
         </form>
     </div>
-    <div class="col"></div>
+    <div class="col">
+    </div>
+</div>
+
+<!-- Modal de nuevo empleado -->
+<div class="modal fade" id="ModalEmpleado" tabindex="-1" aria-labelledby="ModalEmpleado" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalEmpleadoLabel">Añadir empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Cambiá esta ruta por la de tu página PHP -->
+                <iframe src="index.php?page=alta_empleado&modulo=personas&submodulo=empleado" width="100%" height="500" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="Assets/js/Validaciones/usuarios.js"></script>
