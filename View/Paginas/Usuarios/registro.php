@@ -37,7 +37,8 @@
                         }
                         ?>
                     </select>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEmpleado">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#ModalEmpleado">
                         Añadir
                     </button>
                 </div>
@@ -79,13 +80,13 @@
 <div class="modal fade" id="ModalEmpleado" tabindex="-1" aria-labelledby="ModalEmpleado" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ModalEmpleadoLabel">Añadir empleado</h5>
+            <div class="modal-header text-center">
+                <h3 class="modal-title text-center" id="ModalEmpleadoLabel">Registrar empleado</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
                 <!-- Cambiá esta ruta por la de tu página PHP -->
-                <iframe src="index.php?page=alta_empleado&modulo=personas&submodulo=empleado" width="100%" height="500" frameborder="0"></iframe>
+                <?php include_once('C:\laragon\www\Drugstore\View\Paginas\Personas\Empleado\alta_empleado_modal.php'); ?>
             </div>
         </div>
     </div>

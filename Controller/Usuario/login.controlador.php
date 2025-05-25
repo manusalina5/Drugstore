@@ -31,46 +31,69 @@ class LoginControlador
 {
     public function ingresar()
     {
-        $usuario = new Usuario();
-        $perfil = new Perfil();
-        $usuario->setUserName($_POST['nombre_usuario']);
-        $resultado = $usuario->validarUsuario();
-
-        if ($resultado->num_rows > 0) {
-            while ($row = $resultado->fetch_assoc()) {
-                if (password_verify($_POST['pass'], $row['password'])) {
-                    if (password_verify('drugstore123', $row['password'])) {
-                        // Redirigir a la página de actualización de contraseña con un formulario POST
-                        echo '<form id="redirectForm" method="POST" action="../../index.php?page=actualizar_pass&modulo=usuarios">';
-                        echo '<input type="hidden" name="user_id" value="' . $row['idUsuario'] . '">';
-                        echo '<input type="hidden" name="username" value="' . $row['username'] . '">';
-                        echo '<input type="hidden" name="mensaje" value="Debe actualizar la contraseña">';
-                        echo '<input type="hidden" name="status" value="warning">';
-                        echo '</form>';
-                        echo '<script type="text/javascript">document.getElementById("redirectForm").submit();</script>';
-                        exit;
-                    } else {
-                        // Inicializar variables de sesión si la contraseña no es la predeterminada
-                        $_SESSION['nombre_usuario'] = $row['username'];
-                        $perfilData = $perfil->obtenerPerfilesPorId($row['perfiles_idperfiles']);
-                        $_SESSION['idPerfil'] = $perfilData['idPerfiles'];
-                        $_SESSION['nombre_perfil'] = $perfilData['nombre'];
-                        $_SESSION['user_id'] = $row['idUsuario'];
-                        $idEmpleado = $usuario->obtenerIdEmpleado($row['idUsuario']);
-                        $_SESSION['idEmpleado'] = $idEmpleado;
-                        header('Location: ../../index.php');
-                        exit;
-                    }
-                } else {
-                    header('Location: ../../index.php?mensaje=Usuario o password no correcto&status=danger');
-                    exit;
-                }
-            }
-        } else {
-            header('Location: ../../index.php?mensaje=Usuario o password no correcto&status=danger');
+        if (empty($_POST['nombre_usuario']) || empty($_POST['pass'])) {
+            header('Location: ../../index.php?mensaje=Complete todos los campos&status=warning');
             exit;
         }
+
+        $username = trim($_POST['nombre_usuario']);
+        $password = $_POST['pass'];
+
+        $usuario = new Usuario();
+        $perfil = new Perfil();
+
+        $usuario->setUserName($username);
+        $resultado = $usuario->validarUsuario();
+
+        if ($resultado->num_rows === 0) {
+            $this->redirigirConError('Usuario o password no correcto');
+        }
+
+        $datosUsuario = $resultado->fetch_assoc();
+
+        if (!password_verify($password, $datosUsuario['password'])) {
+            $this->redirigirConError('Usuario o password no correcto');
+        }
+
+        if (password_verify('drugstore123', $datosUsuario['password'])) {
+            $this->redirigirAActualizacion($datosUsuario);
+        }
+
+        // Login exitoso: inicializar sesión
+        $_SESSION['nombre_usuario'] = $datosUsuario['username'];
+        $_SESSION['user_id'] = $datosUsuario['idUsuario'];
+
+        $perfilData = $perfil->obtenerPerfilesPorId($datosUsuario['perfiles_idperfiles']);
+        $_SESSION['idPerfil'] = $perfilData['idPerfiles'];
+        $_SESSION['nombre_perfil'] = $perfilData['nombre'];
+
+        $idEmpleado = $usuario->obtenerIdEmpleado($datosUsuario['idUsuario']);
+        $_SESSION['idEmpleado'] = $idEmpleado;
+
+        header('Location: ../../index.php');
+        exit;
     }
+
+    // Función auxiliar para redirigir con error
+    private function redirigirConError($mensaje)
+    {
+        header('Location: ../../index.php?mensaje=' . urlencode($mensaje) . '&status=danger');
+        exit;
+    }
+
+    // Función auxiliar para redirigir al cambio de contraseña
+    private function redirigirAActualizacion($usuario)
+    {
+        echo '<form id="redirectForm" method="POST" action="../../index.php?page=actualizar_pass&modulo=usuarios">';
+        echo '<input type="hidden" name="user_id" value="' . htmlspecialchars($usuario['idUsuario']) . '">';
+        echo '<input type="hidden" name="username" value="' . htmlspecialchars($usuario['username']) . '">';
+        echo '<input type="hidden" name="mensaje" value="Debe actualizar la contraseña">';
+        echo '<input type="hidden" name="status" value="warning">';
+        echo '</form>';
+        echo '<script>document.getElementById("redirectForm").submit();</script>';
+        exit;
+    }
+
 
     public function verificarUsuario()
     {

@@ -29,17 +29,25 @@ if (isset($_GET['action']) && $_GET['action'] == 'buscar') {
 
 if (isset($_POST['action'])) {
     $empleado = new EmpleadoControlador();
-    if ($_POST['action'] == 'registro') {
-        $empleado->registrarEmpleado();
-    } else if ($_POST['action'] == 'modificar') {
-        $empleado->modificarEmpleado();
-    } elseif ($_POST['action'] == 'eliminar') {
-        $empleado->eliminarEmpleado();
-    }else if ($_POST['action'] == 'modificarUser'){
-        $empleado->modificarEmpleado();
-    } 
-    else {
-        echo "ERROR: Contactarse con el administrador";
+    switch ($_POST['action']) {
+        case 'registro':
+            $empleado->registrarEmpleado();
+            break;
+        case 'registroModal':
+            $empleado->registrarEmpleadoModal();
+            break;
+        case 'modificar':
+            $empleado->modificarEmpleado();
+            break;
+        case 'eliminar':
+            $empleado->eliminarEmpleado();
+            break;
+        case 'modificarUser':
+            $empleado->modificarEmpleado();
+            break;
+        default:
+            echo "ERROR: Contactarse con el administrador";
+            break;
     }
 }
 
@@ -71,6 +79,38 @@ class EmpleadoControlador
                 $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
                 $direccion->guardar();
                 header('Location: ../../../?page=listado_empleado&modulo=personas&submodulo=empleado&status=success');
+            } else {
+                header('Location: ../../../index.php?error=insert_failed');
+            }
+        }
+    }
+
+        public function registrarEmpleadoModal()
+    {
+        if (
+            empty($_POST['nombre']) ||
+            empty($_POST['apellido']) ||
+            empty($_POST['idtipoDocumentos']) ||
+            empty($_POST['documento']) ||
+            empty($_POST['idtipoContacto']) ||
+            empty($_POST['contacto']) ||
+            empty($_POST['direccion']) ||
+            empty($_POST['legajo'])
+        ) {
+            header('Location: ../../../index.php?error=missing_fields');
+            exit();
+        } else {
+            $empleado = new Empleado(null, $_POST['legajo'],null, $_POST['nombre'], $_POST['apellido']);
+            $empleado->guardar();
+            $idPersona = $empleado->getIdPersona();
+            if ($idPersona) {
+                $documento = new Documento(null, $_POST['documento'], $_POST['idtipoDocumentos'], $idPersona);
+                $documento->guardar();
+                $contacto = new Contacto(null, $_POST['contacto'], $_POST['idtipoContacto'], $idPersona);
+                $contacto->guardar();
+                $direccion = new Direccion(null, $_POST['direccion'], $idPersona);
+                $direccion->guardar();
+                header('Location: ../../../?page=registro&modulo=usuarios&status=success');
             } else {
                 header('Location: ../../../index.php?error=insert_failed');
             }
