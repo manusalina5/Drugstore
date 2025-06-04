@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnFinalizar = document.getElementById('btnFinalizar'); // Referencia al botón "Finalizar"
     const pasos = document.querySelectorAll('.paso');
     const barraDeProgreso = document.getElementById('barra-de-progreso');
+    const clienteIdInput = document.getElementById('clienteId'); // Referencia al input del cliente seleccionado
+    const alertasGenerales = document.getElementById('alertasGenerales'); // Referencia al contenedor de alertas generales
 
     // Función para mostrar el paso actual
     const mostrarPaso = (paso) => {
@@ -32,6 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Manejar clic en "Siguiente"
     btnSiguiente.addEventListener('click', () => {
+        // Validar si hay un cliente seleccionado antes de avanzar
+        if (pasoActual === 1 && (!clienteIdInput.value || clienteIdInput.value.trim() === '')) {
+            // Insertar la alerta en el contenedor de alertas generales
+            alertasGenerales.innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                    Debe seleccionar un cliente o seleccionar venta rápida para continuar.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+
+            return; // Detener el avance al siguiente paso
+        }
+
+        if(clienteIdInput.value && clienteIdInput.value.trim() !== '') {
+            // Limpiar alertas previas en el contenedor de alertas generales
+            alertasGenerales.innerHTML = '';
+        }
+
         if (pasoActual < totalPasos) {
             pasoActual++;
             mostrarPaso(pasoActual);

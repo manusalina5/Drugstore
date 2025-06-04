@@ -54,7 +54,8 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
     </div>
 </div>
 
-
+<!-- Modal Agregar Cliente -->
+<?php require('View/Paginas/Personas/Cliente/form.alta_cliente.php'); ?>
 
 
 
