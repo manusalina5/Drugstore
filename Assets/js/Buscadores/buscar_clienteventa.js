@@ -100,10 +100,18 @@ function seleccionarCliente(cliente) {
     cardClienteDiv.style.display = 'block';
 
     // Llenar los campos del card
-    listCardNombreLi.innerHTML = `<b>Nombre:</b> ${cliente.nombre || 'N/A'}`; // Usar || 'N/A' para datos faltantes
+    listCardNombreLi.innerHTML = `<b>Nombre:</b> ${cliente.nombre || 'N/A'}`;
+    listCardNombreLi.dataset.valor = cliente.nombre || 'N/A';
+
     listCardApellidoLi.innerHTML = `<b>Apellido:</b> ${cliente.apellido || 'N/A'}`;
+    listCardApellidoLi.dataset.valor = cliente.apellido || 'N/A';
+
     listCardDocumentoLi.innerHTML = `<b>Nro. documento:</b> ${cliente.documento || 'N/A'}`;
-    listCardTipoDocumentoLi.innerHTML = `<b>Tipo Documento:</b> ${cliente.tipodocumento || 'N/A'}`; // Ajusta si el nombre de la propiedad es diferente
+    listCardDocumentoLi.dataset.valor = cliente.documento || 'N/A';
+
+    listCardTipoDocumentoLi.innerHTML = `<b>Tipo Documento:</b> ${cliente.tipodocumento || 'N/A'}`;
+    listCardTipoDocumentoLi.dataset.valor = cliente.tipodocumento || 'N/A';
+    // Ajusta si el nombre de la propiedad es diferente
 
     // Guardar el ID del cliente seleccionado en el input oculto
     clienteIdInput.value = cliente.idClientes;

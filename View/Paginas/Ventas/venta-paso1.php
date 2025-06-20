@@ -18,7 +18,7 @@
                 <input type="text" class="form-control" id="clienteId" readonly>
             </div>
         </div>
-        <div class="card mb-3 ms-3" style="width: 18rem; display: none;" id="cardCliente">
+        <div class="card mb-3 mx-auto" style="width: 18rem; display: none;" id="cardCliente">
             <div class="card-header fw-bold fs-5" id="cardClienteHeader">
                 Cliente Seleccionado
             </div>
@@ -32,13 +32,16 @@
                 <button class="btn btn-outline-danger btn-sm w-100" id="limpiarSeleccionBtn">Limpiar Selección</button>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            <button class="btn btn-warning" title="Venta sin cliente registrado" id="btnVentaRapida">Venta Rapida</button>
-            <button class="btn btn-secondary ms-3" title="¿No está registrado el cliente? ¡Registralo!"
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <button class="btn btn-warning" title="Venta sin cliente registrado" id="btnVentaRapida">
+                Venta Rápida
+            </button>
+            <button class="btn btn-secondary" title="¿No está registrado el cliente? ¡Registralo!"
                 data-bs-toggle="modal" data-bs-target="#modalAgregarCliente">
                 Registrar cliente
             </button>
         </div>
+
     </div>
     <div class="col-3"></div>
 </div>

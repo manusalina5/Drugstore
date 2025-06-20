@@ -121,8 +121,12 @@ class VentasControlador
             $errores[] = 'Error: idmetodopago vacio';
         }
 
-        if (empty($data['idempleado'])) {
+        if (empty($_SESSION['idEmpleado'])) {
             $errores[] = 'Error: idempleado vacio';
+        }
+
+        if (empty($_SESSION['idCaja'])) {
+            $errores[] = 'Error: idCaja vacio';
         }
 
         if (empty($data['idcliente'])) {

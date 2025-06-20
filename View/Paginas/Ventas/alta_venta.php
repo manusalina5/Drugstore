@@ -66,3 +66,4 @@ $metodosDePagos = MetodoPago::obtenerMetodoPago();
 <script src="Assets/js/Validaciones/carrito_ventas.js"></script>
 <script src="Assets/js/Funciones/caja.ventas.js"></script>
 <script src="Assets/js\Ventas/ventas-pasos.js"></script>
+<script src="Assets/js\Ventas/ventas-paso3.js"></script>
