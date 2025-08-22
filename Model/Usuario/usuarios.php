@@ -116,7 +116,8 @@ class Usuario
 		u.fechaAlta as fechaAlta,
         p.nombre as perfil,
         pers.nombre as nombre,
-        pers.apellido as apellido
+        pers.apellido as apellido,
+        u.idUsuario as idUsuario
 			FROM usuario u
 			LEFT JOIN perfiles p ON p.idperfiles = u.perfiles_idperfiles
 			INNER JOIN empleado e ON e.idEmpleado = u.Empleado_idEmpleado

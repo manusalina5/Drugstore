@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     // Cargar la tabla al iniciar la página
     cargarTabla();
 
     // Cargar la tabla cuando se hace una búsqueda
-    document.getElementById('busqueda').addEventListener('input', function(){
+    document.getElementById('busqueda').addEventListener('input', function () {
         cargarTabla();
     });
 
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <!-- Reestablecer contraseña -->
                                 <form action='Controller/Usuario/usuario.controlador.php' method='POST' style='display:inline-block; margin-right: 10px;'>
                                     <input type='hidden' name='action' value='reestrablecerPass'>
-                                    <input type='hidden' name='idUsuario' value='${usuario.idusuario}'>
+                                    <input type='hidden' name='idUsuario' value='${usuario.idUsuario}'>
                                     <button type='submit' class='btn btn-warning btn-sm' onclick='return confirm("¿Estás seguro de que deseas reestablecer la contraseña?");'>
                                         <i class='fi fi-rr-refresh'> Reestablecer Contraseña</i>
                                     </button>
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <!-- Eliminar usuario -->
                                 <form action='Controller/Usuario/usuario.controlador.php' method='POST' style='display:inline-block;'>
                                     <input type='hidden' name='action' value='eliminar'>
-                                    <input type='hidden' name='idUsuario' value='${usuario.idusuario}'>
+                                    <input type='hidden' name='idUsuario' value='${usuario.idUsuario}'>
                                     <input type='hidden' name='username' value='${usuario.username}'>
                                     <button type='submit' class='btn btn-danger btn-sm' onclick='return confirm("¿Estás seguro de que deseas eliminar el usuario?");'>
                                         <i class='fi fi-rr-trash'></i>
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 // Añadir eventos a los enlaces de paginación
                 document.querySelectorAll('#paginacion .page-link').forEach(link => {
-                    link.addEventListener('click', function(e) {
+                    link.addEventListener('click', function (e) {
                         e.preventDefault();
                         cargarTabla(this.getAttribute('data-pagina'));
                     });

@@ -5,8 +5,11 @@ ob_start();
 // Inicia la sesión para acceder a las variables de sesión
 session_start();
 
+$pagina_actual = isset($_GET['page']) ? $_GET['page'] : '';
+$paginas_publicas = ['login', 'actualizar_pass', 'registro'];
+
 // Verifica que el empleado esté logueado y tenga un ID válido
-if (!isset($_SESSION['idEmpleado'])) {
+if (!in_array($pagina_actual, $paginas_publicas) && !isset($_SESSION['idEmpleado'])) {
     // Redirige al usuario a la página de login si no hay un empleado en sesión
     include_once('View/Paginas/Usuarios/login.php');
     exit;
@@ -19,20 +22,22 @@ include_once("Model/Caja/caja.php");
 include_once("includes/breadcrumb.php");
 
 // Obtiene el ID del empleado de la sesión, asegurando que sea un entero
-$idEmpleado = intval($_SESSION['idEmpleado']);
+if (isset($_SESSION['idEmpleado'])) {
+    $idEmpleado = intval($_SESSION['idEmpleado']);
 
-// Crea una instancia de la clase Caja y asigna el ID del empleado
-$cajaInicio = new Caja();
-$cajaInicio->setEmpleadoId($idEmpleado);
+    // Crea una instancia de la clase Caja y asigna el ID del empleado
+    $cajaInicio = new Caja();
+    $cajaInicio->setEmpleadoId($idEmpleado);
 
-// Obtiene la información de la caja para el empleado
-$resultadosCaja = $cajaInicio->obtenerInfoCaja();
+    // Obtiene la información de la caja para el empleado
+    $resultadosCaja = $cajaInicio->obtenerInfoCaja();
 
-// Verifica si se obtuvo un resultado válido de la caja
-if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
-    // Si hay una caja abierta, guarda su ID en la sesión
-    $idCaja = $resultadosCaja[0]['idCajas'];
-    $_SESSION['idCaja'] = $idCaja;
+    // Verifica si se obtuvo un resultado válido de la caja
+    if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
+        // Si hay una caja abierta, guarda su ID en la sesión
+        $idCaja = $resultadosCaja[0]['idCajas'];
+        $_SESSION['idCaja'] = $idCaja;
+    }
 }
 ?>
 
@@ -104,12 +109,6 @@ if (!empty($resultadosCaja) && isset($resultadosCaja[0]['idCajas'])) {
         <div id="alertasGenerales" class="mt-3"></div>
 
         <?php
-        if (!isset($_SESSION['nombre_usuario']) && $pagina_actual !== 'actualizar_pass') {
-            // Si el usuario no ha iniciado sesión y no está en la página de actualizar contraseña, redirigir a la página de inicio de sesión
-            include_once('View/Paginas/Usuarios/login.php');
-            exit(); // Terminar el script para evitar que el resto del código se ejecute
-        }
-
         $pagesValidas = array('login', 'listado_usuarios', 'registro', 'salida', 'actualizar_pass', 'configuracion', 'accesos_perfiles', 'apertura_caja', 'cierre_caja', 'movimientos_caja', 'tipo_descuento', 'vista_usuarios', 'vista_ventas');
         $pages = array('marca', 'rubro', 'tipodocumento', 'persona', 'tipocontacto', 'producto', 'direccion', 'empleado', 'proveedor', 'metodopago', 'perfiles', 'pass', 'compra', 'modulos', 'moduloperfil', 'venta', 'cliente', 'caja', 'combo');
 
